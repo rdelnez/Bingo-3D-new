@@ -100,6 +100,8 @@ public class MenuManagerScript : MonoBehaviour {
 
 			BingoCardBigScript.patternIsAnimatingAcross=false;
 			BingoCardBigScript.patternIsAnimatingDown=false;
+			GM_Script.patternIsAnimatingAcross=false;
+			GM_Script.patternIsAnimatingDown=false;
 
 		} else {
 			//Debug.Log ("This is Pattern1 or Pattern2");

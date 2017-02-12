@@ -36,13 +36,18 @@ public class BingoCardMini : MonoBehaviour {
 				tempMovingPattern = GM_Script.pattern2LinesAcrossList;
 				patternIsAnimatingAcross=true;
 				patternIsAnimatingDown=false;
-				StartAnimDisplayAcross();
+				//StartAnimDisplayAcross();
 
 			}else if(GM_Script.patternIsAnimatingDown){
 				tempMovingPattern = GM_Script.pattern2LinesDownList;
 				patternIsAnimatingAcross=false;
 				patternIsAnimatingDown=true;
-				StartAnimDisplayDown();
+				//StartAnimDisplayDown();
+			}
+			else{
+				patternIsAnimatingAcross=false;
+				patternIsAnimatingDown=false;
+
 			}
 
 
@@ -52,7 +57,7 @@ public class BingoCardMini : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//UpdateBingoCardDisplay ();
-		Debug.Log (tempZ);
+		//Debug.Log (tempZ);
 	}
 	
 	//Start this is for getting the children and store it in a list
@@ -91,7 +96,7 @@ public class BingoCardMini : MonoBehaviour {
 	
 	IEnumerator UpdateAnimAcrossMini(){
 		
-		while(patternIsAnimatingAcross){
+		while(patternIsAnimatingAcross && !patternIsAnimatingDown){
 			if(tempZ>=tempMovingPattern.Count){
 				tempZ=0;
 			}
@@ -106,14 +111,16 @@ public class BingoCardMini : MonoBehaviour {
 			}
 			
 			UpdateBingoCardSingleDisplay ();
-			tempZ++;
+			//tempZ++;
+			tempZ=tempZ+1;
+			Debug.Log (tempZ);
 			yield return new WaitForSeconds (1.0f);
 		}
 	}
 	
 	IEnumerator UpdateAnimDownMini(){
 		
-		while(patternIsAnimatingDown){
+		while(patternIsAnimatingDown && !patternIsAnimatingAcross){
 			if(tempZ>=tempMovingPattern.Count){
 				tempZ=0;
 			}
@@ -128,7 +135,8 @@ public class BingoCardMini : MonoBehaviour {
 			}
 			
 			UpdateBingoCardSingleDisplay ();
-			tempZ++;
+			//tempZ++;
+			tempZ=tempZ+1;
 			yield return new WaitForSeconds (1.0f);
 		}
 	}
