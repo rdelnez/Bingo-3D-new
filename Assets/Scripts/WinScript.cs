@@ -12,8 +12,15 @@ public class WinScript : MonoBehaviour {
 	public string ButtonSpriteString;
 	public string ButtonSpriteString1;
 	public SpriteRenderer ButtonSpriteRenderer;
+
+	public Object winBingoParticle;
+	public bool winParticleAnimating;
+	public GameObject winParticleGameObject;
 	// Use this for initialization
 	void Start () {
+		winParticleAnimating = false;
+		winParticleGameObject = GameObject.FindGameObjectWithTag ("WinParticle");
+		winParticleGameObject.SetActive (false);
 	
 	}
 	
@@ -49,8 +56,16 @@ public class WinScript : MonoBehaviour {
 			ButtonSpriteRenderer.sprite = sprite;
 			
 			
-			//GM_script.SpinTumbler();
-			Debug.Log ("Win");
+			if(winParticleAnimating == false){
+
+				winParticleAnimating =true;
+			//	winParticleGameObject = Instantiate(winBingoParticle, new Vector3(6.42f, -9.5f, -4.9f), Quaternion.identity)as GameObject;
+				winParticleGameObject.SetActive (true);
+			}else{
+				winParticleAnimating =false;
+				winParticleGameObject.SetActive (false);
+			}
+
 			
 		}
 		
@@ -64,4 +79,5 @@ public class WinScript : MonoBehaviour {
 		
 		
 	}
+
 }

@@ -12,6 +12,7 @@ public class SpinScript : MonoBehaviour {
 
 	public Sprite sprite;
 	public Sprite sprite1;
+	public bool isSpinning;
 
 	public string ButtonSpriteString;
 	public string ButtonSpriteString1;
@@ -19,6 +20,8 @@ public class SpinScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//LoadSprite ();
+
+		isSpinning = false;
 	
 	}
 	
@@ -55,12 +58,17 @@ public class SpinScript : MonoBehaviour {
 		}
 		
 		if (Input.GetButtonUp("Fire1")){
+
+
 			ButtonSpriteRenderer.sprite = sprite;
 
+			if (!GM_script.BingoTumbler.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).IsName("Tumbling") && !isSpinning) {
+				isSpinning = true;
+				GM_script.SpinTumbler();
 
-			GM_script.SpinTumbler();
-			BM_script.InstantiateBallFromTumbler();
-			Debug.Log ("Spin");
+				StartCoroutine(InstantiateBall());
+				Debug.Log ("Spin");
+			}
 			
 		}
 		
@@ -74,4 +82,21 @@ public class SpinScript : MonoBehaviour {
 		
 		
 	}
+
+	IEnumerator InstantiateBall(){
+		yield return new WaitForSeconds(0.1f);
+		while(isSpinning){
+
+			yield return new WaitForSeconds(0.3f);
+
+			if (!GM_script.BingoTumbler.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).IsName("Tumbling")) {
+				isSpinning = false;
+			}
+
+		}
+		
+		BM_script.InstantiateBallFromTumbler();
+
+	}
+
 }
