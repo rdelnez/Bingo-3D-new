@@ -121,5 +121,44 @@ public class RecallNumbersScript : MonoBehaviour {
 		}
 	}
 
+	void OnMouseOver() {
+		/*if (Input.GetButtonDown("Fire1")){
+			ButtonSpriteRenderer.sprite = sprite1;
+			
+		}*/
+
+		if (Input.GetButtonDown ("Fire1")) {
+			//menuButtonSpriteRenderer.sprite = sprite1;
+			//menuButtonBGSpriteRenderer.sprite = spriteBG1;
+			//MM_Script.tempButtonName = buttonName;
+			//MM_Script.CallFunction ();
+			
+		}
+		
+		if (Input.GetButtonUp("Fire1")){
+			SM_Script.Play_SFX(value);
+			//menuButtonSpriteRenderer.sprite = sprite;
+			//menuButtonBGSpriteRenderer.sprite = spriteBG;
+		}
+
+	
+	
+		
+		
+	}
+
+	void OnMouseExit(){
+		//menuButtonSpriteRenderer.sprite = sprite;
+		//menuButtonBGSpriteRenderer.sprite = spriteBG;
+	}
+	
+	public void DePressButton(){
+		//menuButtonSpriteRenderer.sprite = sprite;
+		//menuButtonBGSpriteRenderer.sprite = spriteBG;
+		
+	}
+		
+
+
 
 }

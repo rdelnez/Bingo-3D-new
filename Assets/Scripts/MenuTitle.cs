@@ -17,8 +17,6 @@ public class MenuTitle : MonoBehaviour {
 
 	void Awake(){
 
-
-
 	}
 
 	public void LoadAssets(){
