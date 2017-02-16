@@ -12,6 +12,7 @@ public class ResetButtonScript : MonoBehaviour {
 	void Start () {
 
 		GM_Script = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GM>();
+
 		sprite = this.GetComponent<SpriteRenderer> ();
 		sprite1 = Resources.Load<Sprite> ("MenuButtons/BingoResetUnpressed");
 		sprite2 = Resources.Load<Sprite> ("MenuButtons/BingoReset");
@@ -36,6 +37,7 @@ public class ResetButtonScript : MonoBehaviour {
 		if (Input.GetButtonUp("Fire1")){
 			sprite.sprite = sprite1;
 			GM_Script.ResetGame();
+
 		}
 		
 		

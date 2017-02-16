@@ -1,16 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BingoBlueButton.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BingoCardBig.cs">
     <Files>
-      <File FileName="Assets\Scripts\BingoCardBig.cs" Line="65" Column="41" />
-      <File FileName="Assets\Scripts\BingoCardMini.cs" Line="125" Column="13" />
-      <File FileName="Assets\Scripts\Ball3D.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BallManager.cs" Line="18" Column="34" />
-      <File FileName="Assets\Scripts\MenuButton.cs" Line="114" Column="11" />
-      <File FileName="Assets\Scripts\SpinScript.cs" Line="23" Column="3" />
-      <File FileName="Assets\Scripts\WinScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuTitle.cs" Line="19" Column="3" />
-      <File FileName="Assets\Scripts\BingoBlueButton.cs" Line="18" Column="2" />
+      <File FileName="Assets\Scripts\BingoCardBig.cs" Line="178" Column="20" />
+      <File FileName="Assets\Scripts\GM.cs" Line="650" Column="49" />
+      <File FileName="Assets\Scripts\BingoBlueButton.cs" Line="46" Column="53" />
+      <File FileName="Assets\Scripts\HexBig.cs" Line="13" Column="1" />
+      <File FileName="Assets\Scripts\MenuButton.cs" Line="117" Column="34" />
+      <File FileName="Assets\Scripts\MenuManagerScript.cs" Line="94" Column="41" />
+      <File FileName="Assets\Scripts\BingoCardMini.cs" Line="85" Column="51" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

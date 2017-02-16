@@ -19,6 +19,8 @@ public class BingoCardMini : MonoBehaviour {
 		GetChildren ();
 		
 		tempBlueButtonActiveList = new List<bool>();
+		InitializeBlueButtons ();
+
 		tempMovingPattern = new List<string>();
 		patternIsAnimatingAcross = false;
 		patternIsAnimatingDown = false;
@@ -28,6 +30,13 @@ public class BingoCardMini : MonoBehaviour {
 		
 	}
 
+	void InitializeBlueButtons(){
+		for(int x=0; x<25;x++){
+			tempBlueButtonActiveList.Add (false);
+		}
+		GM_Script.blueIsActiveList = tempBlueButtonActiveList;
+		UpdateBingoCardSingleDisplay();
+	}
 
 	void OnEnable(){
 		GM_Script = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GM> ();

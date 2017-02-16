@@ -7,6 +7,9 @@ public class BingoBlueButton : MonoBehaviour {
 	public Sprite sprite;
 	//public GameObject button;
 	public SpriteRenderer ButtonSpriteRenderer;
+	public BingoCardBig bingoCardBigScript;
+	public int buttonIndex;
+	public GM GM_Script;
 
 
 	// Use this for initialization
@@ -14,6 +17,8 @@ public class BingoBlueButton : MonoBehaviour {
 		isPressed = false;
 		//button = this;
 		ButtonSpriteRenderer = this.GetComponent<SpriteRenderer> ();
+		bingoCardBigScript = GameObject.FindGameObjectWithTag("BingoCardBig").GetComponent<BingoCardBig>();
+		GM_Script = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GM>();
 	}
 	
 	// Update is called once per frame
@@ -25,24 +30,20 @@ public class BingoBlueButton : MonoBehaviour {
 	void OnMouseOver() {
 		//	if(!isPressed)
 		//	{
-		if (Input.GetButtonDown ("Fire1")) {
-
-			//				menuButtonSpriteRenderer.sprite = sprite1;
-			//				menuButtonBGSpriteRenderer.sprite = spriteBG1;
-			//				MM_Script.tempButtonName = buttonName;
-			//				MM_Script.CallFunction ();
 			
-		}
-		
-		if (Input.GetButtonUp ("Fire1")) {
+		if (Input.GetButtonUp ("Fire1") && bingoCardBigScript.isCustomPattern) {
 			if (!isPressed) {
-				ButtonSpriteRenderer.enabled = false;
+				ButtonSpriteRenderer.enabled = true;
 				isPressed = true;
+				GM_Script.blueIsActiveList[buttonIndex] = true;
+
 				//				menuButtonSpriteRenderer.sprite = sprite;
 				//				menuButtonBGSpriteRenderer.sprite = spriteBG;	
 			} else {
-				ButtonSpriteRenderer.enabled = true;
+				ButtonSpriteRenderer.enabled = false;
 				isPressed = false;
+
+				GM_Script.blueIsActiveList[buttonIndex] = false;
 			}	
 			//	}
 		

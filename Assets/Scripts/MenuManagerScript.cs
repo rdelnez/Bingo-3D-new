@@ -83,7 +83,22 @@ public class MenuManagerScript : MonoBehaviour {
 
 		int tempNum = (int)char.GetNumericValue (tempButtonName [tempButtonName.Length - 1]); //This is the last number on the pattern string i.e. Pattern1: where 1 is tempNum.
 
-		if (tempButtonName != "Pattern1" && tempButtonName != "Pattern2") {	//This if is to check whether the pattern will animate or not. Pattern1 and Pattern2 needs to be animated
+		if(tempButtonName == "Pattern9"){
+			BingoCardBigScript.isCustomPattern=true;
+
+			BingoCardBigScript.patternIsAnimatingAcross=false;
+			BingoCardBigScript.patternIsAnimatingDown=false;
+			GM_Script.patternIsAnimatingAcross=false;
+			GM_Script.patternIsAnimatingDown=false;
+
+			BingoCardBigScript.ResetBingoCards();
+
+
+
+		}else if (tempButtonName != "Pattern1" && tempButtonName != "Pattern2") {	//This if is to check whether the pattern will animate or not. Pattern1 and Pattern2 needs to be animated
+
+			BingoCardBigScript.isCustomPattern =false;
+
 			//Debug.Log (tempButtonName [tempButtonName.Length - 1]-1);
 
 			//Debug.Log (tempNum);
@@ -103,7 +118,9 @@ public class MenuManagerScript : MonoBehaviour {
 			GM_Script.patternIsAnimatingAcross=false;
 			GM_Script.patternIsAnimatingDown=false;
 
-		} else {
+		}else {
+			BingoCardBigScript.isCustomPattern =false;
+
 			//Debug.Log ("This is Pattern1 or Pattern2");
 			if(tempNum == 1){
 				BingoCardBigScript.tempMovingPattern = GM_Script.pattern2LinesAcrossList;

@@ -26,6 +26,7 @@ public class GM : MonoBehaviour {
 	//Start This if for BingoCardMini
 
 	public BingoCardMini BingoCardMiniScript;
+	public BingoCardBig BingoCardBigScript;
 
 	//END This if for BingoCardMini
 
@@ -330,14 +331,15 @@ public class GM : MonoBehaviour {
 		MenuButtonSpriteName.Add ("VolumeBigHex");	
 
 
-		MenuButtonListPatternPos.Add (new Vector3(-6.08f,2.5f,0));	//Pattern
-		MenuButtonListPatternPos.Add (new Vector3(-3.15f,2.5f,0));
-		MenuButtonListPatternPos.Add (new Vector3(-4.6f,0.01f,0));		
-		MenuButtonListPatternPos.Add (new Vector3(-6.08f,-2.5f,0));
-		MenuButtonListPatternPos.Add (new Vector3(-3.15f,-2.5f,0));
-		MenuButtonListPatternPos.Add (new Vector3(-4.6f,-5.02f,0));
-		MenuButtonListPatternPos.Add (new Vector3(-6.08f,-7.57f,0));
-		MenuButtonListPatternPos.Add (new Vector3(-3.15f,-7.57f,0));
+		MenuButtonListPatternPos.Add (new Vector3(-6.08f,4f,0));	//Pattern
+		MenuButtonListPatternPos.Add (new Vector3(-3.15f,4f,0));
+		MenuButtonListPatternPos.Add (new Vector3(-4.6f,1.51f,0));		
+		MenuButtonListPatternPos.Add (new Vector3(-6.08f,-1.0f,0));
+		MenuButtonListPatternPos.Add (new Vector3(-3.15f,-1.0f,0));
+		MenuButtonListPatternPos.Add (new Vector3(-4.6f,-3.52f,0));
+		MenuButtonListPatternPos.Add (new Vector3(-6.08f,-6.07f,0));
+		MenuButtonListPatternPos.Add (new Vector3(-3.15f,-6.07f,0));
+		MenuButtonListPatternPos.Add (new Vector3(-4.6f,-8.62f,0));
 
 		MenuButtonPatternSpriteName.Add ("2linesacrosspattern1"); //Pattern Sprites Name
 		MenuButtonPatternSpriteName.Add ("2linesdownpattern1");
@@ -347,6 +349,7 @@ public class GM : MonoBehaviour {
 		MenuButtonPatternSpriteName.Add ("xpattern1");
 		MenuButtonPatternSpriteName.Add ("zpattern1");
 		MenuButtonPatternSpriteName.Add ("fullpattern1");
+		MenuButtonPatternSpriteName.Add ("custompattern1");// temp pattern for custom pattern
 
 		MenuButtonPattern1SpriteName.Add ("2linesacrosspattern"); //Pattern Sprites Name
 		MenuButtonPattern1SpriteName.Add ("2linesdownpattern");
@@ -356,13 +359,14 @@ public class GM : MonoBehaviour {
 		MenuButtonPattern1SpriteName.Add ("xpattern");
 		MenuButtonPattern1SpriteName.Add ("zpattern");
 		MenuButtonPattern1SpriteName.Add ("fullpattern");
+		MenuButtonPattern1SpriteName.Add ("custompattern");// temp pattern for custom pattern
 
 		////////////////////////////////////////////////////////
 
 
-		MenuButtonListVoicesPos.Add (new Vector3(0.79f,2.5f,0));	//Voices
-		MenuButtonListVoicesPos.Add (new Vector3(3.72f,2.5f,0));
-		MenuButtonListVoicesPos.Add (new Vector3(2.27f,0.01f,0));
+		MenuButtonListVoicesPos.Add (new Vector3(0.79f,4f,0));	//Voices
+		MenuButtonListVoicesPos.Add (new Vector3(3.72f,4f,0));
+		MenuButtonListVoicesPos.Add (new Vector3(2.27f,1.51f,0));
 
 		MenuButtonVoicesSpriteName.Add ("female1");
 		MenuButtonVoicesSpriteName.Add ("female2");
@@ -374,11 +378,11 @@ public class GM : MonoBehaviour {
 
 		//////////////////////////////////////////////////
 
-		MenuButtonListAutoTumblerPos.Add (new Vector3(7.67f,2.5f,0));	//Auto Tumbler
-		MenuButtonListAutoTumblerPos.Add (new Vector3(10.6f,2.5f,0));
-		MenuButtonListAutoTumblerPos.Add (new Vector3(9.15f,0.01f,0));
-		MenuButtonListAutoTumblerPos.Add (new Vector3(7.67f,-2.5f,0));
-		MenuButtonListAutoTumblerPos.Add (new Vector3(10.6f,-2.5f,0));
+		MenuButtonListAutoTumblerPos.Add (new Vector3(7.67f,4f,0));	//Auto Tumbler
+		MenuButtonListAutoTumblerPos.Add (new Vector3(10.6f,4f,0));
+		MenuButtonListAutoTumblerPos.Add (new Vector3(9.15f,1.51f,0));
+		MenuButtonListAutoTumblerPos.Add (new Vector3(7.67f,-1.0f,0));
+		MenuButtonListAutoTumblerPos.Add (new Vector3(10.6f,-1.0f,0));
 
 		MenuButtonAutoTumblerSpriteName.Add ("on");
 		MenuButtonAutoTumblerSpriteName.Add ("off");
@@ -397,8 +401,8 @@ public class GM : MonoBehaviour {
 
 
 
-		MenuButtonListTumblerPos.Add (new Vector3(14.47f,2.5f,0));	//Tumbler
-		MenuButtonListTumblerPos.Add (new Vector3(17.4f,2.5f,0));
+		MenuButtonListTumblerPos.Add (new Vector3(14.47f,4f,0));	//Tumbler
+		MenuButtonListTumblerPos.Add (new Vector3(17.4f,4f,0));
 
 		MenuButtonTumblerSpriteName.Add ("on");
 		MenuButtonTumblerSpriteName.Add ("off");
@@ -408,8 +412,8 @@ public class GM : MonoBehaviour {
 
 		//////////////////////////////////////////////////
 
-		MenuButtonListVolumePos.Add (new Vector3(21.34f,2.5f,0));	//Sound
-		MenuButtonListVolumePos.Add (new Vector3(24.27f,2.5f,0));
+		MenuButtonListVolumePos.Add (new Vector3(21.34f,4f,0));	//Sound
+		MenuButtonListVolumePos.Add (new Vector3(24.27f,4f,0));
 
 		MenuButtonVolumeSpriteName.Add ("plussign");
 		MenuButtonVolumeSpriteName.Add ("minussign");
@@ -517,7 +521,7 @@ public class GM : MonoBehaviour {
 			//hexPrefabsBig = Instantiate(hexPrefabsLoadedBig, startingPosBig+ new Vector3(0,x*-1.2f,0), Quaternion.identity) as GameObject;
 			hexPrefabsBig.transform.eulerAngles = new Vector3(90,0,90);
 			hexPrefabsBig.GetComponent<HexBig>().bigRotateToGame = hexPrefabsBig.transform.eulerAngles;
-			hexPrefabsBig.GetComponent<HexBig>().menuPosBig = new Vector3(startingPosBig.x+1.2f+(x*6.85f), startingPosBig.y, 0); //working on it for now
+			hexPrefabsBig.GetComponent<HexBig>().menuPosBig = new Vector3(startingPosBig.x+1.2f+(x*6.85f), startingPosBig.y+1.5f, 0); //working on it for now
 			hexPrefabsBig.GetComponent<HexBig>().menuPosBigGame = hexPrefabsBig.transform.localPosition; //is the location when game is running
 			hexPrefabsBig.GetComponent<HexBig>().menuButtonName = MenuButtonName[x];
 			hexPrefabsBig.GetComponent<HexBig>().bigHexSpriteString = MenuButtonSpriteName[x];
@@ -869,6 +873,7 @@ public class GM : MonoBehaviour {
 
 		//Start This is for BingoCardMiniDisplay
 		BingoCardMiniScript = GameObject.FindGameObjectWithTag ("BingoCardMini").GetComponent<BingoCardMini> ();
+//		BingoCardBigScript = GameObject.FindGameObjectWithTag ("BingoCardBig").GetComponent<BingoCardBig> ();
 		BingoCardMiniScript.UpdateBingoCardSingleDisplay ();
 		BingoCardMiniScript.StartAnimDisplayAcross ();
 		BingoCardMiniScript.StartAnimDisplayDown ();
@@ -1201,6 +1206,7 @@ public class GM : MonoBehaviour {
 		Debug.Log("Reset");
 
 		BallManager tempBM = GameObject.FindGameObjectWithTag ("BallManager").GetComponent<BallManager>();
+		BingoCardBigScript = GameObject.FindGameObjectWithTag ("BingoCardBig").GetComponent<BingoCardBig> ();
 		//GameObject[] Balls = GameObject.FindGameObjectsWithTag();
 		//Debug.Log (Balls.Length);
 		/*
@@ -1220,6 +1226,9 @@ public class GM : MonoBehaviour {
 			RecallNumberObjectList[x].GetComponent<RecallNumbersScript>().isOccupied=false;
 			RecallNumberObjectList [x].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = null;
 		}
+
+		BingoCardBigScript.ResetBingoCards ();
+
 	}
 
 
