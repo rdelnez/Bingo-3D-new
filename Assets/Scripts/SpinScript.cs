@@ -6,6 +6,7 @@ public class SpinScript : MonoBehaviour {
 
 	public GameObject GM;
 	public GM GM_script;
+	public SoundManagerScript SM_Script;
 
 	public GameObject BM;
 	public BallManager BM_script;
@@ -35,6 +36,7 @@ public class SpinScript : MonoBehaviour {
 	public void LoadSprite(){
 		GM = GameObject.FindGameObjectWithTag ("GameManager");
 		GM_script = GM.GetComponent<GM> ();
+		SM_Script = GameObject.FindGameObjectWithTag ("SoundManager").GetComponent<SoundManagerScript>();
 
 		BM = GameObject.FindGameObjectWithTag ("BallManager");
 		BM_script = BM.GetComponent<BallManager> ();
@@ -65,7 +67,7 @@ public class SpinScript : MonoBehaviour {
 			if (!GM_script.BingoTumbler.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).IsName("Tumbling") && !isSpinning) {
 				isSpinning = true;
 				GM_script.SpinTumbler();
-
+				SM_Script.PlayOther_SFX("tumbler");
 				StartCoroutine(InstantiateBall());
 				Debug.Log ("Spin");
 			}

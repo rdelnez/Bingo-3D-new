@@ -6,6 +6,7 @@ public class MenuTitle : MonoBehaviour {
 
 	public GameObject GM;
 	public GM GM_script;
+	public SoundManagerScript SM_Script;
 	public SpriteRenderer sprite;
 	public Sprite sprite1;
 	public Sprite sprite2;
@@ -25,6 +26,7 @@ public class MenuTitle : MonoBehaviour {
 		sprite = this.GetComponent<SpriteRenderer> ();
 		sprite1 = Resources.Load<Sprite> ("MenuButtons/menulittlev2");
 		sprite2 = Resources.Load<Sprite> ("MenuButtons/menulittle");
+		SM_Script = GameObject.FindGameObjectWithTag ("SoundManager").GetComponent<SoundManagerScript>();
 	}
 	
 	// Update is called once per frame
@@ -37,6 +39,7 @@ public class MenuTitle : MonoBehaviour {
 	void OnMouseOver() {
 		if (Input.GetButtonDown("Fire1")){
 			sprite.sprite = sprite2;
+			SM_Script.PlayOther_SFX("menuopenclose");
 		}
 		
 		if (Input.GetButtonUp("Fire1")){

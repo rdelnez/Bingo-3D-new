@@ -20,6 +20,7 @@ public class MenuButton : MonoBehaviour {
 	public GameObject GM;
 	public GM GM_script;
 	public MenuManagerScript MM_Script;
+	public SoundManagerScript SM_Script;
 	public Sprite sprite1;
 	public Sprite sprite;
 	public string menuButtonSprite;
@@ -39,6 +40,7 @@ public class MenuButton : MonoBehaviour {
 		speedMoving = 50.0f;
 		//GM_Script = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GM>();
 		MM_Script = GameObject.FindGameObjectWithTag ("MenuManager").GetComponent<MenuManagerScript>();
+		SM_Script = GameObject.FindGameObjectWithTag ("SoundManager").GetComponent<SoundManagerScript>();
 
 		//sprite = Resources.Load("Patterns/"+menuButtonSprite) as Sprite;
 		//menuButtonSpriteRenderer.sprite = sprite;
@@ -115,6 +117,7 @@ public class MenuButton : MonoBehaviour {
 				menuButtonSpriteRenderer.sprite = sprite1;
 				menuButtonBGSpriteRenderer.sprite = spriteBG1;
 				MM_Script.tempButtonName = buttonName;
+				SM_Script.PlayOther_SFX("menubuttonsounds");
 				MM_Script.CallFunction ();
 
 			}

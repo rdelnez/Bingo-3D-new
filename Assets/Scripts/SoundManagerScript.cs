@@ -27,6 +27,14 @@ public class SoundManagerScript : MonoBehaviour {
 		FX_Player.PlayOneShot (Resources.Load<AudioClip> ("Voices/Set" + setNum + "/" + fileName + ballNum));
 	}
 
+	public void PlayOther_SFX (string tempStringName)
+	{
+		//FX_Player.clip = Resources.Load<AudioClip> ("Voices/Set"+ setNum + "/" + fileName + ballNum);
+		//FX_Player.Play ();
+		FX_Player.PlayOneShot (Resources.Load<AudioClip> ("SFX/" + tempStringName));
+	}
+
+
 	public void ChangeBGMusic(string tempBGMusic){
 		FX_Player.clip = Resources.Load<AudioClip> ("Voices/BGM/"+tempBGMusic);
 		FX_Player.loop = true;
