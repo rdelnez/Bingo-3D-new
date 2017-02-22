@@ -116,7 +116,7 @@ public class RecallNumbersScript : MonoBehaviour {
 			GM_Script.DisplayRecallNumbers(other.gameObject.GetComponent<Ball3D>().value);
 			BM_Script.DisplayGameNumbers(other.gameObject);
 
-			Debug.Log ("Hex got Hit ontrigger");
+			GM_Script.menuLock =false;
 			
 		}
 	}

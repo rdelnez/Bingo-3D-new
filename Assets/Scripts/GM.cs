@@ -22,6 +22,7 @@ public class GM : MonoBehaviour {
 	public bool coroutineHasStarted = false;
 	//END This is for connecting Bingo Card and GM
 
+	public bool menuLock;
 
 	//Start This if for BingoCardMini
 
@@ -149,13 +150,17 @@ public class GM : MonoBehaviour {
 
 	// Use this for initialization
 
-	void Start () {
-
+	void Awake(){
 		Time.timeScale = 1.5f;
-
-
+		
+		
 		InitialisedVariables();
 		InitialisedObjects ();
+	}
+
+	void Start () {
+
+	
 
 
 
@@ -230,24 +235,49 @@ public class GM : MonoBehaviour {
 
 	void InitialisedVariables(){
 
+		menuLock = false;
 
-		//Start this is for Bingo Card Blue Button Active List
+		//Start this is for Bingo Card Blue Button Active List //START This is the default pattern to be displayed
 		blueIsActiveList = new List<bool> ();
-		for(int x=0; x<25; x++){
-			blueIsActiveList.Add (false);
-		}
-		//END this is for Bingo Card Blue Button Active List
+		//for(int x=0; x<25; x++){
+		blueIsActiveList.Add (true);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (true);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (true);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (true);
+		//}
+		//END this is for Bingo Card Blue Button Active List //END This is the default pattern to be displayed
 
 		//Start Pattern List String
 		patternStringList = new List<string>();
 		patternStringList.Add ("2linesacross");
 		patternStringList.Add ("2linesdown");
-		patternStringList.Add ("1111110001100011000111111");
-		patternStringList.Add ("0010000100111110010000100");
-		patternStringList.Add ("1000100000000000000010001");
-		patternStringList.Add ("1000101010001000101010001");
-		patternStringList.Add ("1000110011101011100110001");
-		patternStringList.Add ("1111111111111111111111111");
+		patternStringList.Add ("1111110001100011000111111"); // Square
+		patternStringList.Add ("0010000100111110010000100"); // + 
+		patternStringList.Add ("1000100000000000000010001"); // 4 Corners
+		patternStringList.Add ("1000101010001000101010001"); // X Cross
+		patternStringList.Add ("1000110011101011100110001"); // Z
+		patternStringList.Add ("1111111111111111111111111"); // All Filled
 
 		pattern2LinesDownList = new List<string>();
 		pattern2LinesDownList.Add ("1111111111000000000000000");

@@ -65,6 +65,7 @@ public class SpinScript : MonoBehaviour {
 			ButtonSpriteRenderer.sprite = sprite;
 
 			if (!GM_script.BingoTumbler.GetComponent<Animator> ().GetCurrentAnimatorStateInfo(0).IsName("Tumbling") && !isSpinning) {
+				GM_script.menuLock=true;
 				isSpinning = true;
 				GM_script.SpinTumbler();
 				SM_Script.PlayOther_SFX("tumbler");
@@ -86,7 +87,7 @@ public class SpinScript : MonoBehaviour {
 	}
 
 	IEnumerator InstantiateBall(){
-		yield return new WaitForSeconds(0.1f);
+		//yield return new WaitForSeconds(0.01f);
 		while(isSpinning){
 
 			yield return new WaitForSeconds(0.3f);

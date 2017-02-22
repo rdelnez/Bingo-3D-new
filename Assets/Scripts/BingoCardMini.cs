@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class BingoCardMini : MonoBehaviour {
 
 	public GM GM_Script;
+	public MenuManagerScript MM_Script;
 	public GameObject[] children;
 	public List<bool> tempBlueButtonActiveList;
 	public List<string> tempMovingPattern;
@@ -16,17 +17,20 @@ public class BingoCardMini : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GM_Script = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GM> ();
+		MM_Script = GameObject.FindGameObjectWithTag ("MenuManager").GetComponent<MenuManagerScript> ();
+
 		GetChildren ();
 		
 		tempBlueButtonActiveList = new List<bool>();
-		InitializeBlueButtons ();
+
 
 		tempMovingPattern = new List<string>();
 		patternIsAnimatingAcross = false;
 		patternIsAnimatingDown = false;
 		patternTest = "01";
 		tempZ = 0;
-		
+
+		InitializeBlueButtons ();
 		
 	}
 
@@ -34,7 +38,8 @@ public class BingoCardMini : MonoBehaviour {
 		for(int x=0; x<25;x++){
 			tempBlueButtonActiveList.Add (false);
 		}
-		GM_Script.blueIsActiveList = tempBlueButtonActiveList;
+		//GM_Script.blueIsActiveList = tempBlueButtonActiveList;
+		//MM_Script.ConvertStringListToBool (GM_Script.patternStringList [4]);
 		UpdateBingoCardSingleDisplay();
 	}
 
@@ -62,6 +67,7 @@ public class BingoCardMini : MonoBehaviour {
 
 
 		}
+
 	}
 	// Update is called once per frame
 	void Update () {
@@ -154,7 +160,7 @@ public class BingoCardMini : MonoBehaviour {
 		
 		
 		for(int x=0; x<children.Length; x++){
-			if(tempList[x]==true){
+			if(tempList[x]==true && x!=12){
 				children[x].SetActive(true);
 			}else{
 				children[x].SetActive(false);

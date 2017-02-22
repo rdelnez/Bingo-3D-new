@@ -11,11 +11,13 @@ public class BingoBlueButton : MonoBehaviour {
 	public BingoCardBig bingoCardBigScript;
 	public int buttonIndex;
 	public GM GM_Script;
+	public bool interactable;
 
 
 	// Use this for initialization
 	void Start () {
 		isPressed = false;
+		//interactable = true;
 		//button = this;
 		ButtonSpriteRenderer = this.GetComponent<SpriteRenderer> ();
 		bingoCardBigScript = GameObject.FindGameObjectWithTag("BingoCardBig").GetComponent<BingoCardBig>();
@@ -32,7 +34,11 @@ public class BingoBlueButton : MonoBehaviour {
 	void OnMouseOver() {
 		//	if(!isPressed)
 		//	{
-			
+
+		if(!interactable){
+			return;
+		}
+
 		if (Input.GetButtonUp ("Fire1") && bingoCardBigScript.isCustomPattern) {
 			if (!isPressed) {
 				ButtonSpriteRenderer.enabled = true;

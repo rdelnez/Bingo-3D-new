@@ -17,6 +17,11 @@ public class MenuManagerScript : MonoBehaviour {
 	public List<GameObject> tempTumbler;
 	public List<GameObject> tempVolume;
 	// Use this for initialization
+
+	void Awake(){
+
+	}
+
 	void Start () {
 		patternTest = "01";
 
@@ -33,6 +38,19 @@ public class MenuManagerScript : MonoBehaviour {
 		tempAutoTumbler = GM_Script.MenuButtonListAutoTumbler;
 		tempTumbler = GM_Script.MenuButtonListTumbler;
 		tempVolume = GM_Script.MenuButtonListVolume;
+
+		//STart for initial pattern when starting the game
+		ValidateMenuButtons (tempPattern, 4);
+		tempButtonName = "pattern5";
+		ConvertStringListToBool (GM_Script.patternStringList [4]);
+		//END for initial pattern when starting the game
+
+		//STart for initial voice when starting the game
+		ValidateMenuButtons (tempVoices, 0);
+		tempButtonName = "voice1";
+
+		//END for initial voic when starting the game
+
 	}
 	
 	// Update is called once per frame
@@ -42,15 +60,18 @@ public class MenuManagerScript : MonoBehaviour {
 
 	private void ValidateMenuButtons(List<GameObject> tempList, int tempIndex){
 		for(int x=0; x<tempList.Count; x++){
+			tempList[x].GetComponent<MenuButton>().isPressed=false;
+			tempList[x].GetComponent<MenuButton>().DePressButton();
 			if(x == tempIndex)
 			{
 				tempList[x].GetComponent<MenuButton>().isPressed=true;
+				tempList[x].GetComponent<MenuButton>().PressButton();
 			}
 			else
 			{
 				if(tempList[x].GetComponent<MenuButton>().isPressed){
-					tempList[x].GetComponent<MenuButton>().isPressed=false;
-					tempList[x].GetComponent<MenuButton>().DePressButton();
+			//		tempList[x].GetComponent<MenuButton>().isPressed=false;
+			//		tempList[x].GetComponent<MenuButton>().DePressButton();
 				}
 			}
 		}
@@ -74,6 +95,17 @@ public class MenuManagerScript : MonoBehaviour {
 		ValidateMenuButtons(tempVoices, tempNum-1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
 	}
 	//END Change Active Voices
+
+	public void ConvertStringListToBool(string tempPatternString){
+
+		for (int x=0; x<tempPatternString.Length; x++) {
+			if (tempPatternString [x] == patternTest [1]) {
+				GM_Script.blueIsActiveList [x] = true;
+			} else if (tempPatternString [x] == patternTest [0]) {
+				GM_Script.blueIsActiveList [x] = false;
+			}
+		}
+	}
 
 	//START Change Pattern
 	public void Pattern(){
@@ -102,14 +134,8 @@ public class MenuManagerScript : MonoBehaviour {
 			//Debug.Log (tempButtonName [tempButtonName.Length - 1]-1);
 
 			//Debug.Log (tempNum);
-			string tempPatternString = GM_Script.patternStringList [tempNum - 1];
-			for (int x=0; x<tempPatternString.Length; x++) {
-				if (tempPatternString [x] == patternTest [1]) {
-					GM_Script.blueIsActiveList [x] = true;
-				} else if (tempPatternString [x] == patternTest [0]) {
-					GM_Script.blueIsActiveList [x] = false;
-				}
-			}
+			//string tempPatternString = GM_Script.patternStringList [tempNum - 1];
+			ConvertStringListToBool(GM_Script.patternStringList [tempNum - 1]);
 
 			BingoCardBigScript.UpdateBingoCardSingleDisplay ();
 

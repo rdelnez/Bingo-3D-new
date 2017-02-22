@@ -156,7 +156,7 @@ public class BingoCardBig : MonoBehaviour {
 
 
 		for(int x=0; x<children.Length; x++){
-			if(tempList[x]==true){
+			if(tempList[x]==true && x!=12){
 				//children[x].SetActive(true);
 				children[x].GetComponent<SpriteRenderer>().enabled=true;
 				children[x].GetComponent<BingoBlueButton>().isPressed = true;

@@ -31,10 +31,13 @@ public class MenuButton : MonoBehaviour {
 
 	/// </End button Initilization>
 
+	void Awake(){
+		isPressed = false;
+	}
 	// Use this for initialization
 	void Start () {
 
-		isPressed = false;
+		//
 		moving = false;
 		movingToGame = false;
 		speedMoving = 50.0f;
@@ -114,8 +117,7 @@ public class MenuButton : MonoBehaviour {
 		if(!isPressed)
 		{
 			if (Input.GetButtonDown ("Fire1")) {
-				menuButtonSpriteRenderer.sprite = sprite1;
-				menuButtonBGSpriteRenderer.sprite = spriteBG1;
+				PressButton();
 				MM_Script.tempButtonName = buttonName;
 				SM_Script.PlayOther_SFX("menubuttonsounds");
 				MM_Script.CallFunction ();
@@ -145,6 +147,12 @@ public class MenuButton : MonoBehaviour {
 		menuButtonSpriteRenderer.sprite = sprite;
 		menuButtonBGSpriteRenderer.sprite = spriteBG;
 
+	}
+
+	public void PressButton(){
+		isPressed = true;
+		menuButtonSpriteRenderer.sprite = sprite1;
+		menuButtonBGSpriteRenderer.sprite = spriteBG1;
 	}
 
 	///End Buttons 

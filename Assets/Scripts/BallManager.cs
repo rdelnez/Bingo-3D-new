@@ -62,8 +62,9 @@ public class BallManager : MonoBehaviour {
 		tempRandNum = GetRandomNum ();
 		testTexture = Resources.Load ("Textures/Ball3DTextures/Ball"+poolNumberList[tempRandNum])as Texture;
 
-		Ball3DPrefabs = Instantiate(ball3DprefabsLoaded, new Vector3(-10.6f, 9.19f, -2), Quaternion.identity) as GameObject; 	//START Instatiate from tumbler
-		Ball3DPrefabs.transform.eulerAngles = new Vector3 (-90, 0, 0);															//END Instatiate from tumbler
+		Ball3DPrefabs = Instantiate(ball3DprefabsLoaded, new Vector3(-10.6f, 9.19f, -2), Quaternion.identity) as GameObject;	//START Instatiate from tumbler
+		Ball3DPrefabs.transform.localEulerAngles = new Vector3 (-90, 0, 0);
+		//Ball3DPrefabs.transform.eulerAngles = new Vector3 (-90, 0, 0);														//END Instatiate from tumbler
 		Ball3DPrefabs.GetComponent<Ball3D>().value = poolNumberList[tempRandNum];
 		Ball3DPrefabs.GetComponent<Renderer> ().material.SetTexture("_MainTex",testTexture);
 
@@ -82,7 +83,9 @@ public class BallManager : MonoBehaviour {
 		tempBall.GetComponent<Rigidbody> ().isKinematic = true;
 		//tempBall.transform.localPosition = hexTempObject.transform.localPosition;
 		tempBall.transform.SetParent (hexTempObject.transform);
-		tempBall.transform.localPosition = new Vector3 (0,0,-0.5f);
+		tempBall.transform.localPosition = new Vector3 (0,0,-1.5f);
+		tempBall.transform.localEulerAngles = new Vector3 (-90,0,0);
+		tempBall.transform.localScale = Vector3.one * 0.83f;
 
 	}
 

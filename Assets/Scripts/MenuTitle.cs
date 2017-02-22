@@ -42,7 +42,7 @@ public class MenuTitle : MonoBehaviour {
 			SM_Script.PlayOther_SFX("menuopenclose");
 		}
 		
-		if (Input.GetButtonUp("Fire1")){
+		if (Input.GetButtonUp("Fire1") && !GM_script.menuLock){
 			sprite.sprite = sprite1;
 			GM_script.GoToMenu ();
 		}
