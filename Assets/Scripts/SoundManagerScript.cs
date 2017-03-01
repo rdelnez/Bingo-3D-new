@@ -45,4 +45,16 @@ public class SoundManagerScript : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void IncreaseVolume() {
+		//if (FX_Player.volume < 100) {
+		//FX_Player.volume = System.Math.Round((double)(FX_Player.volume + 0.05f), 2);
+		FX_Player.volume += 0.05f;
+		//}
+	}
+
+	public void DecreaseVolume() {
+		//FX_Player.volume = System.Math.Round((double)(FX_Player.volume - 0.05f), 2);
+		FX_Player.volume -= 0.05f;
+	}
 }

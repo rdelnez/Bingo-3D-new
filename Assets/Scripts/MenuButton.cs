@@ -11,11 +11,10 @@ public class MenuButton : MonoBehaviour {
 	public bool isPressed;
 	public bool moving;
 	public bool movingToGame;
+	public bool IsVolumeButton;
 	public Sprite spriteBG1;
 	public Sprite spriteBG;
-
-
-
+	
 	/// <Start Button Initilization Variables>
 	public GameObject GM;
 	public GM GM_script;
@@ -40,6 +39,7 @@ public class MenuButton : MonoBehaviour {
 		//
 		moving = false;
 		movingToGame = false;
+		IsVolumeButton = false;
 		speedMoving = 50.0f;
 		//GM_Script = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GM>();
 		MM_Script = GameObject.FindGameObjectWithTag ("MenuManager").GetComponent<MenuManagerScript>();
@@ -117,6 +117,7 @@ public class MenuButton : MonoBehaviour {
 		if(!isPressed)
 		{
 			if (Input.GetButtonDown ("Fire1")) {
+				VolumeButton ();
 				PressButton();
 				MM_Script.tempButtonName = buttonName;
 				SM_Script.PlayOther_SFX("menubuttonsounds");
@@ -128,19 +129,37 @@ public class MenuButton : MonoBehaviour {
 				menuButtonSpriteRenderer.sprite = sprite;
 				menuButtonBGSpriteRenderer.sprite = spriteBG;
 
+			//	if(IsVolumeButton){
+			//		DePressButton ();
+			//		isPressed=false;
+			//	}
+				
+
 			}
 		}
 		
 	}
 	
 	void OnMouseExit(){
-		if (!isPressed) {
-			DePressButton();
+		//if (!isPressed || buttonName == "volume1") {
+		//if (buttonName == "volume1") {
+		//if (!isPressed && buttonName != "Volume") {
+	//	if(IsVolumeButton){
+	//		DePressButton ();
+	//		isPressed=false;
+	//	}
+
+		if (!isPressed ) {
+			DePressButton ();
 			//menuButtonSpriteRenderer.sprite = sprite;
 			//menuButtonBGSpriteRenderer.sprite = spriteBG;
+			//}
+
+			//if (buttonName == "volume1") {
+
+		} else {
+			//PressButton();
 		}
-		
-		
 	}
 
 	public void DePressButton(){
@@ -150,9 +169,21 @@ public class MenuButton : MonoBehaviour {
 	}
 
 	public void PressButton(){
-		isPressed = true;
+		if (!IsVolumeButton) {
+			isPressed = true;
+		}
 		menuButtonSpriteRenderer.sprite = sprite1;
 		menuButtonBGSpriteRenderer.sprite = spriteBG1;
+	}
+
+	private void VolumeButton() {
+		//bool result = false;
+		if (buttonName == "Volume1" || buttonName == "Volume2") {
+			IsVolumeButton = true;
+		}
+
+		//IsVolumeButton = result ;
+		//Debug.Log (IsVolumeButton);
 	}
 
 	///End Buttons 

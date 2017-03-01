@@ -81,9 +81,6 @@ public class SpinScript : MonoBehaviour {
 	void OnMouseExit(){
 		ButtonSpriteRenderer.sprite = sprite;
 
-		
-		
-		
 	}
 
 	IEnumerator InstantiateBall(){
@@ -101,5 +98,5 @@ public class SpinScript : MonoBehaviour {
 		BM_script.InstantiateBallFromTumbler();
 
 	}
-
+	
 }

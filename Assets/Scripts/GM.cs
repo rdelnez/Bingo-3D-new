@@ -20,6 +20,7 @@ public class GM : MonoBehaviour {
 	public bool patternIsAnimatingDown;
 	public string activePatternName;
 	public bool coroutineHasStarted = false;
+
 	//END This is for connecting Bingo Card and GM
 
 	public bool menuLock;
@@ -75,6 +76,9 @@ public class GM : MonoBehaviour {
 	public GameObject recallNumberPrefabs3;	//for game buttons
 	public SpinScript temprecallNumberScript3;
 	//END Recall Numbers
+
+	// Tumbler
+	public bool TumblerIsEnabled;
 
 
 	//Start MENU LEtters
@@ -147,6 +151,7 @@ public class GM : MonoBehaviour {
 
 	public float yPosChange;
 
+	//public Vector3 VolumeBigHexPos; // Position for Volume Hex on Menu
 
 	// Use this for initialization
 
@@ -236,6 +241,9 @@ public class GM : MonoBehaviour {
 	void InitialisedVariables(){
 
 		menuLock = false;
+
+		// Tumbler is On
+		TumblerIsEnabled = true;
 
 		//Start this is for Bingo Card Blue Button Active List //START This is the default pattern to be displayed
 		blueIsActiveList = new List<bool> ();
@@ -463,8 +471,6 @@ public class GM : MonoBehaviour {
 		hexPrefabsLoadedBig = Resources.Load ("Prefabs/hexBig");
 		MenuButton = Resources.Load ("Prefabs/menuButton");
 
-
-
 	}
 
 	void CheckPos(){
@@ -558,7 +564,7 @@ public class GM : MonoBehaviour {
 			hexPrefabsBig.GetComponent<HexBig>().LoadSprite();
 			hexListBig.Add (hexPrefabsBig);
 
-		
+
 				//transform.eulerAngles = Vector3.RotateTowards(transform.rotation.eulerAngles, menuPos, Time.deltaTime*speedRotation, 3.0f);
 		}
 
@@ -889,7 +895,9 @@ public class GM : MonoBehaviour {
 		}
 
 		//yield return new WaitForSeconds (1.3f);
-		spinButtonPrefabs.SetActive (true);
+		if (TumblerIsEnabled) {
+			spinButtonPrefabs.SetActive (true);
+		}
 		winButtonPrefabs.SetActive (true);
 		bingoCardMiniPrefabs.SetActive (true);
 		bingoCardMiniPrefabs.SetActive (true);
@@ -1184,6 +1192,8 @@ public class GM : MonoBehaviour {
 		BingoReset.SetActive (false); // set BingoCard Active
 	
 	}
+
+
 
 	public void DisplayRecallNumbers(int tempValue){
 		for(int x=2; x>-1; x--){
