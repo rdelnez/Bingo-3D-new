@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\BingoCardMini.cs" />
      <Compile Include="Assets\Scripts\BingoClose.cs" />
      <Compile Include="Assets\Scripts\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\DisplayManagerScript.cs" />
      <Compile Include="Assets\Scripts\GM.cs" />
      <Compile Include="Assets\Scripts\Hex.cs" />
      <Compile Include="Assets\Scripts\HexBig.cs" />

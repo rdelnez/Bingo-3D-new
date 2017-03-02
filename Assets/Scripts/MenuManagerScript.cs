@@ -11,6 +11,7 @@ public class MenuManagerScript : MonoBehaviour {
 	public BingoCardBig BingoCardBigScript;
 	public BingoCardMini BingoCardMiniScript;
 	public GM GM_Script;
+	public DisplayManagerScript DM_Script;
 	public List<string> voicesString;
 	public List<GameObject> tempPattern;
 	public List<GameObject> tempVoices;
@@ -31,6 +32,8 @@ public class MenuManagerScript : MonoBehaviour {
 	}
 
 	void Start () {
+
+
 		//gameCanvas = new GameObject ("Canvas");
 		 
 		//Instantiate (volumeText);
@@ -40,8 +43,6 @@ public class MenuManagerScript : MonoBehaviour {
 		//Canvas gameCanvas = Canvas.AddComponent<Canvas>();
 		//gameCanvas.renderMode = RenderMode.WorldSpace;
 		//Instantiate (gameCanvas);
-		volumeText = Instantiate(Resources.Load ("Prefabs/volumeText")) as GameObject;
-		volumeText.transform.SetParent (gameCanvas.transform);
 		// volumeText.transform.localPosition 
 
 		//volumeText.transform.SetParent(
@@ -53,6 +54,7 @@ public class MenuManagerScript : MonoBehaviour {
 
 		SM_Script = GameObject.FindGameObjectWithTag ("SoundManager").GetComponent<SoundManagerScript>();
 		GM_Script = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GM>();
+		DM_Script = GameObject.FindGameObjectWithTag ("DisplayManager").GetComponent<DisplayManagerScript>();
 
 		voicesString = new List<string> ();
 		voicesString.Add ("jo");
@@ -98,7 +100,9 @@ public class MenuManagerScript : MonoBehaviour {
 	private void ValidateMenuButtons(List<GameObject> tempList, int tempIndex){
 		for(int x=0; x<tempList.Count; x++){
 			tempList[x].GetComponent<MenuButton>().isPressed=false;
-			tempList[x].GetComponent<MenuButton>().DePressButton();
+			if(!tempList[x].GetComponent<MenuButton>().IsDisplay){
+				tempList[x].GetComponent<MenuButton>().DePressButton();
+			}
 			if(x == tempIndex)
 			{
 				tempList[x].GetComponent<MenuButton>().isPressed=true;
@@ -114,11 +118,11 @@ public class MenuManagerScript : MonoBehaviour {
 		}
 	}
 
-	private void RefreshMenuButtons(List<GameObject> tempList, int tempIndex) {
+	/* private void RefreshMenuButtons(List<GameObject> tempList, int tempIndex) {
 		for(int x=0; x<tempList.Count; x++){
 			tempList[x].GetComponent<MenuButton>().DePressButton();
 		}
-	}
+	} */
 
 	public void CallFunction(){
 		// value = value.Substring(0, value.Length - 1);
@@ -251,7 +255,7 @@ public class MenuManagerScript : MonoBehaviour {
 		int tempNum = (int)char.GetNumericValue (tempButtonName [tempButtonName.Length - 1]); //This is the last number on the pattern string i.e. Pattern1: where 1 is tempNum.
 		Debug.Log (tempNum);
 
-		if (tempVolume [tempNum - 1].GetComponent<MenuButton> ().buttonName == "Volume1") {
+		if (tempNum == 1) {
 			SM_Script.IncreaseVolume ();
 		} else {
 			SM_Script.DecreaseVolume ();
@@ -259,19 +263,19 @@ public class MenuManagerScript : MonoBehaviour {
 
 		//VolumeBigHexPos = GM_Script.hexListBig[4].GetComponent<HexBig> ().menuPosBig;
 		//volumeText.transform.position = VolumeBigHexPos;
-		volumeText.transform.position = new Vector3 (0, 0, 0); 
+
 
 		//volumeText.transform.position = VolumeBigHexPos;
 		float volumeLevel = Mathf.Round(SM_Script.FX_Player.volume * 100);
 		//volumeText.transform.SetParent(
 		//volumeText.transform.SetParent (VolumeBigHexPos);
-		volumeText.GetComponent<Text> ().text = volumeLevel.ToString ();
+
 		//volumeText.GetComponent<GUIText>().text = volumeLevel.ToString();
 
+		DM_Script.DisplayImageNum (GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(0).gameObject, GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(1).gameObject, (int)volumeLevel);
 
 		//Debug.Log (VolumeBigHexPos);
-		Debug.Log (volumeLevel);
-		Debug.Log (volumeText.GetComponent<Text> ().text);
+
 		//RefreshMenuButtons (tempVolume, tempNum - 1);
 
 		//Debug.Log (tempVolume [tempNum].GetComponent<MenuButton>().buttonName);

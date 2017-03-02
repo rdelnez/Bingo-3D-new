@@ -12,6 +12,7 @@ public class MenuButton : MonoBehaviour {
 	public bool moving;
 	public bool movingToGame;
 	public bool IsVolumeButton;
+	public bool IsDisplay;
 	public Sprite spriteBG1;
 	public Sprite spriteBG;
 	
@@ -51,21 +52,35 @@ public class MenuButton : MonoBehaviour {
 	}
 
 	public void LoadSprite(){
-		sprite = Resources.Load<Sprite>("Patterns/"+menuButtonSprite);
-		sprite1 = Resources.Load<Sprite>("Patterns/"+menuButtonSprite1);
+		if (!IsDisplay) {
+			sprite = Resources.Load<Sprite> ("Patterns/" + menuButtonSprite);
+			sprite1 = Resources.Load<Sprite> ("Patterns/" + menuButtonSprite1);
 
-		spriteBG = Resources.Load<Sprite>("Patterns/menuButton");
-		spriteBG1 = Resources.Load<Sprite>("Patterns/menuButton1");
-		//sprite = Resources.Load("Patterns/crosspattern") as Sprite;
+			spriteBG = Resources.Load<Sprite> ("Patterns/menuButton");
+			//spriteBG1 = Resources.Load<Sprite> ("Patterns/menuButton1");
+			spriteBG1 = Resources.Load<Sprite> ("Patterns/yellowhex");
+			//spriteBG1 = Resources.Load<Sprite>("Patterns/yellowhex");
+			//sprite = Resources.Load("Patterns/crosspattern") as Sprite;
 
-		menuButtonSpriteRenderer = transform.GetChild (0).GetComponent<SpriteRenderer>();
-		menuButtonBGSpriteRenderer = this.GetComponent<SpriteRenderer>();
+			/////
+			menuButtonSpriteRenderer = transform.GetChild (0).GetComponent<SpriteRenderer> ();
+			menuButtonBGSpriteRenderer = this.GetComponent<SpriteRenderer> ();
+			
+			
+			transform.GetChild (0).transform.localScale = new Vector3 (0.58f, 0.58f, 0.58f);
+			//menuButtonSpriteRenderer = GetComponent<SpriteRenderer> ();
+			menuButtonSpriteRenderer.sprite = sprite;
+			//////
+			/// 
+		} else {
+			//sprite = Resources.Load<Sprite> ("Patterns/" + menuButtonSprite);
+			spriteBG = Resources.Load<Sprite> ("Patterns/whitehex");
 
+		}
 
-		transform.GetChild (0).transform.localScale = new Vector3(0.58f, 0.58f, 0.58f);
-		//menuButtonSpriteRenderer = GetComponent<SpriteRenderer> ();
-		menuButtonSpriteRenderer.sprite = sprite;
+	
 		//transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+
 	}
 	
 	// Update is called once per frame
@@ -114,7 +129,7 @@ public class MenuButton : MonoBehaviour {
 	///Start Buttons
 
 	void OnMouseOver() {
-		if(!isPressed)
+		if(!isPressed && !IsDisplay)
 		{
 			if (Input.GetButtonDown ("Fire1")) {
 				VolumeButton ();
@@ -149,7 +164,7 @@ public class MenuButton : MonoBehaviour {
 	//		isPressed=false;
 	//	}
 
-		if (!isPressed ) {
+		if (!isPressed && !IsDisplay) {
 			DePressButton ();
 			//menuButtonSpriteRenderer.sprite = sprite;
 			//menuButtonBGSpriteRenderer.sprite = spriteBG;
@@ -182,8 +197,12 @@ public class MenuButton : MonoBehaviour {
 			IsVolumeButton = true;
 		}
 
-		//IsVolumeButton = result ;
-		//Debug.Log (IsVolumeButton);
+	}
+
+	private void CheckIfDisplaySmallHex(){
+		if(buttonName == "AutoTumbler3" || buttonName == "Volume3"){
+			IsDisplay = true;
+		}
 	}
 
 	///End Buttons 

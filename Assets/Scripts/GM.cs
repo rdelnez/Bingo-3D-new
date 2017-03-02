@@ -9,6 +9,7 @@ public class GM : MonoBehaviour {
 	public GameObject hexPrefabsBig;
 	public Object hexPrefabsLoaded;
 	public Object hexPrefabsLoadedBig;
+	public Object displayMenuButton;
 
 	//Start This is for connecting Bingo Card and GM
 	public List<bool> blueIsActiveList;
@@ -452,12 +453,15 @@ public class GM : MonoBehaviour {
 
 		MenuButtonListVolumePos.Add (new Vector3(21.34f,4f,0));	//Sound
 		MenuButtonListVolumePos.Add (new Vector3(24.27f,4f,0));
+		MenuButtonListVolumePos.Add (new Vector3(22.8f,1.51f,0));
 
 		MenuButtonVolumeSpriteName.Add ("plussign");
 		MenuButtonVolumeSpriteName.Add ("minussign");
+		MenuButtonVolumeSpriteName.Add ("88");
 
 		MenuButtonVolume1SpriteName.Add ("plussign1");
 		MenuButtonVolume1SpriteName.Add ("minussign1");
+		MenuButtonVolume1SpriteName.Add ("88_1");
 
 
 		//END for Menu Button
@@ -470,6 +474,7 @@ public class GM : MonoBehaviour {
 		hexPrefabsLoaded = Resources.Load ("Prefabs/hex");
 		hexPrefabsLoadedBig = Resources.Load ("Prefabs/hexBig");
 		MenuButton = Resources.Load ("Prefabs/menuButton");
+		displayMenuButton = Resources.Load ("Prefabs/displayMenuButton");
 
 	}
 
@@ -640,16 +645,33 @@ public class GM : MonoBehaviour {
 
 		//START AutoTumbler Small Hex Menu Buttons
 		for(int x=0; x<MenuButtonListAutoTumblerPos.Count; x++){
-			menuButtonPrefabs = Instantiate(MenuButton, MenuButtonListMainPos[2], Quaternion.identity) as GameObject;
+
+			if(3==x+1){
+				menuButtonPrefabs = Instantiate(displayMenuButton, MenuButtonListMainPos[2], Quaternion.identity) as GameObject;
+				menuButtonPrefabs.gameObject.tag = "AutoTumblerDisplay";
+			}
+			else{
+				menuButtonPrefabs = Instantiate(MenuButton, MenuButtonListMainPos[2], Quaternion.identity) as GameObject;
+			}
 			menuButtonPrefabs.GetComponent<MenuButton>().origPos = menuButtonPrefabs.transform.localPosition;
 			menuButtonPrefabs.GetComponent<MenuButton>().menuPos = MenuButtonListAutoTumblerPos[x];
-
-			menuButtonPrefabs.GetComponent<MenuButton>().menuButtonSprite = MenuButtonAutoTumblerSpriteName[x];
-			menuButtonPrefabs.GetComponent<MenuButton>().menuButtonSprite1 = MenuButtonAutoTumbler1SpriteName[x];
-
-			menuButtonPrefabs.GetComponent<MenuButton>().LoadSprite();
+			
+	
 			menuButtonPrefabs.GetComponent<MenuButton>().buttonName = "AutoTumbler"+(x+1);	//this is for naming the buttons for Invoke
 
+			if(menuButtonPrefabs.GetComponent<MenuButton>().buttonName == "AutoTumbler3"){
+				menuButtonPrefabs.GetComponent<MenuButton>().IsDisplay = true;
+			}
+			else{
+				menuButtonPrefabs.GetComponent<MenuButton>().IsDisplay = false;
+
+
+				menuButtonPrefabs.GetComponent<MenuButton>().menuButtonSprite1 = MenuButtonAutoTumbler1SpriteName[x];
+
+
+			}
+			menuButtonPrefabs.GetComponent<MenuButton>().menuButtonSprite = MenuButtonAutoTumblerSpriteName[x];
+			menuButtonPrefabs.GetComponent<MenuButton>().LoadSprite();
 			MenuButtonListAutoTumbler.Add (menuButtonPrefabs);
 			
 			menuButtonPrefabs.SetActive(false);
@@ -676,18 +698,35 @@ public class GM : MonoBehaviour {
 
 		//START Volume Small Hex Menu Buttons
 		for(int x=0; x<MenuButtonListVolumePos.Count; x++){
-			menuButtonPrefabs = Instantiate(MenuButton, MenuButtonListMainPos[4], Quaternion.identity) as GameObject;
+
+			if(3==x+1){
+				menuButtonPrefabs = Instantiate(displayMenuButton, MenuButtonListMainPos[4], Quaternion.identity) as GameObject;
+				menuButtonPrefabs.gameObject.tag = "VolumeDisplay";
+			}
+			else{
+				menuButtonPrefabs = Instantiate(MenuButton, MenuButtonListMainPos[4], Quaternion.identity) as GameObject;
+			}
 			menuButtonPrefabs.GetComponent<MenuButton>().origPos = menuButtonPrefabs.transform.localPosition;
 			menuButtonPrefabs.GetComponent<MenuButton>().menuPos = MenuButtonListVolumePos[x];
 
-			menuButtonPrefabs.GetComponent<MenuButton>().menuButtonSprite = MenuButtonVolumeSpriteName[x];
-			menuButtonPrefabs.GetComponent<MenuButton>().menuButtonSprite1 = MenuButtonVolume1SpriteName[x];
-			
-			menuButtonPrefabs.GetComponent<MenuButton>().LoadSprite();
 			menuButtonPrefabs.GetComponent<MenuButton>().buttonName = "Volume"+(x+1);	//this is for naming the buttons for Invoke
 
-			MenuButtonListVolume.Add (menuButtonPrefabs);
+			if(menuButtonPrefabs.GetComponent<MenuButton>().buttonName == "Volume3"){
+				menuButtonPrefabs.GetComponent<MenuButton>().IsDisplay = true;
+			}
+			else{
+				menuButtonPrefabs.GetComponent<MenuButton>().IsDisplay = false;
+				
+				
+				menuButtonPrefabs.GetComponent<MenuButton>().menuButtonSprite1 = MenuButtonVolume1SpriteName[x];
+				
+				
+			}
+			menuButtonPrefabs.GetComponent<MenuButton>().menuButtonSprite = MenuButtonVolumeSpriteName[x];
+			menuButtonPrefabs.GetComponent<MenuButton>().LoadSprite();
+			MenuButtonListAutoTumbler.Add (menuButtonPrefabs);
 			
+
 			menuButtonPrefabs.SetActive(false);
 		}
 		//END Volume Small Hex Menu Buttons
@@ -696,7 +735,7 @@ public class GM : MonoBehaviour {
 	}
 
 	void InitializeOtherMenuItems(){
-		BingoCard = Instantiate(Resources.Load("Prefabs/BingoCard"), new Vector3(19.52f, -4.83f, 0), Quaternion.identity) as GameObject;
+		BingoCard = Instantiate(Resources.Load("Prefabs/BingoCard"), new Vector3(19.52f, -5.3f, 0), Quaternion.identity) as GameObject;
 		BingoCard.SetActive (false);
 
 		BingoReset = Instantiate(Resources.Load("Prefabs/BingoReset"), new Vector3(25.84f, -5.36f, 0), Quaternion.identity) as GameObject;
@@ -993,7 +1032,7 @@ public class GM : MonoBehaviour {
 		MoveMenuButtonToMenu(tempName);
 	}
 
-	void MoveMenuButtonToMenu(string tempName){ 
+	void MoveMenuButtonToMenu(string tempName){  //Start Optimize in the future. Use string to call functions
 
 		if(tempName=="Pattern"){
 			StartCoroutine(MovePatternToMenu());
@@ -1008,8 +1047,8 @@ public class GM : MonoBehaviour {
 			StartCoroutine(MoveTumblerToMenu());
 		}
 		else if(tempName=="Volume"){
-			StartCoroutine(MoveVolumeToMenu());
-		}
+			StartCoroutine(MoveVolumeToMenu());	
+		}										//End Optimize 
 
 
 		/*--
