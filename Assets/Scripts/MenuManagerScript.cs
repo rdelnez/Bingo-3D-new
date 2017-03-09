@@ -16,6 +16,7 @@ public class MenuManagerScript : MonoBehaviour {
 	public List<GameObject> tempPattern;
 	public List<GameObject> tempVoices;
 	public List<GameObject> tempAutoTumbler;
+	public List<GameObject> tempAutoTumblerSpeed;
 	public List<GameObject> tempTumbler;
 	public List<GameObject> tempVolume;
 	public Vector3 VolumeBigHexPos;	
@@ -64,6 +65,7 @@ public class MenuManagerScript : MonoBehaviour {
 		tempPattern = GM_Script.MenuButtonListPattern;
 		tempVoices = GM_Script.MenuButtonListVoices;
 		tempAutoTumbler = GM_Script.MenuButtonListAutoTumbler;
+		tempAutoTumblerSpeed = GM_Script.MenuButtonListAutoTumblerSpeed;
 		tempTumbler = GM_Script.MenuButtonListTumbler;
 		tempVolume = GM_Script.MenuButtonListVolume;
 
@@ -246,7 +248,10 @@ public class MenuManagerScript : MonoBehaviour {
 
 	public void AutoTumbler(){
 		int tempNum = (int)char.GetNumericValue (tempButtonName [tempButtonName.Length - 1]); //This is the last number on the pattern string i.e. Pattern1: where 1 is tempNum.
-		ValidateMenuButtons (tempAutoTumbler, tempNum - 1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
+		//ValidateMenuButtons (tempAutoTumbler, tempNum - 1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
+		if(tempButtonName == "AutoTumbler1" || tempButtonName == "AutoTumbler2"){
+			ValidateMenuButtons (tempAutoTumblerSpeed, tempNum - 1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
+		}
 	
 	}
 
@@ -266,13 +271,6 @@ public class MenuManagerScript : MonoBehaviour {
 
 
 		//volumeText.transform.position = VolumeBigHexPos;
-		float volumeLevel = Mathf.Round(SM_Script.FX_Player.volume * 100);
-		//volumeText.transform.SetParent(
-		//volumeText.transform.SetParent (VolumeBigHexPos);
-
-		//volumeText.GetComponent<GUIText>().text = volumeLevel.ToString();
-
-		DM_Script.DisplayImageNum (GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(0).gameObject, GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(1).gameObject, (int)volumeLevel);
 
 		//Debug.Log (VolumeBigHexPos);
 
@@ -285,8 +283,14 @@ public class MenuManagerScript : MonoBehaviour {
 		//ValidateMenuButtons (tempVolume, tempNum);
 		//tempVolume;
 
+		VolumeSubTask ();
 	}
 
+	public void VolumeSubTask(){
+		float volumeLevel = Mathf.Round(SM_Script.FX_Player.volume * 100);
+		DM_Script.DisplayImageNum (GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(0).gameObject, GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(1).gameObject, (int)volumeLevel);
+
+	}
 	/* IEnumerator TumblerIsActive() {
 		while(GM_Script.TumblerIsEnabled == false){
 			

@@ -193,7 +193,7 @@ public class MenuButton : MonoBehaviour {
 
 	private void VolumeButton() {
 		//bool result = false;
-		if (buttonName == "Volume1" || buttonName == "Volume2") {
+		if (buttonName == "Volume1" || buttonName == "Volume2" || buttonName == "AutoTumbler4" || buttonName == "AutoTumbler5") {
 			IsVolumeButton = true;
 		}
 

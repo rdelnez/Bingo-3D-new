@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class GM : MonoBehaviour {
 
+	public MenuManagerScript MM_Script;
+
 	public GameObject hexPrefabs;
 	public GameObject hexPrefabsBig;
 	public Object hexPrefabsLoaded;
@@ -110,6 +112,7 @@ public class GM : MonoBehaviour {
 	public List<string> MenuButtonVoices1SpriteName = new List<string>();
 
 	public List<GameObject> MenuButtonListAutoTumbler = new List<GameObject>();
+	public List<GameObject> MenuButtonListAutoTumblerSpeed = new List<GameObject>();
 	public List<string> MenuButtonAutoTumblerSpriteName = new List<string>();
 	public List<string> MenuButtonAutoTumbler1SpriteName = new List<string>();
 
@@ -205,6 +208,7 @@ public class GM : MonoBehaviour {
 		if(isMenuMoving==false){
 			MoveToMenu ();
 			StartCoroutine(CheckDisable (1.3f));
+
 		}
 	}
 
@@ -237,6 +241,7 @@ public class GM : MonoBehaviour {
 			
 		yield return new WaitForSeconds(tempTime);
 		isMenuMoving = false;
+
 	}
 
 	void InitialisedVariables(){
@@ -672,7 +677,12 @@ public class GM : MonoBehaviour {
 			}
 			menuButtonPrefabs.GetComponent<MenuButton>().menuButtonSprite = MenuButtonAutoTumblerSpriteName[x];
 			menuButtonPrefabs.GetComponent<MenuButton>().LoadSprite();
-			MenuButtonListAutoTumbler.Add (menuButtonPrefabs);
+			MenuButtonListAutoTumbler.Add (menuButtonPrefabs); //new
+		
+			if(menuButtonPrefabs.GetComponent<MenuButton>().buttonName == "AutoTumbler1" || menuButtonPrefabs.GetComponent<MenuButton>().buttonName == "AutoTumbler2"){
+				MenuButtonListAutoTumblerSpeed.Add (menuButtonPrefabs);	//new
+			}
+
 			
 			menuButtonPrefabs.SetActive(false);
 		}
@@ -696,6 +706,7 @@ public class GM : MonoBehaviour {
 		}
 		//END Tumbler Small Hex Menu Buttons
 
+
 		//START Volume Small Hex Menu Buttons
 		for(int x=0; x<MenuButtonListVolumePos.Count; x++){
 
@@ -713,6 +724,7 @@ public class GM : MonoBehaviour {
 
 			if(menuButtonPrefabs.GetComponent<MenuButton>().buttonName == "Volume3"){
 				menuButtonPrefabs.GetComponent<MenuButton>().IsDisplay = true;
+
 			}
 			else{
 				menuButtonPrefabs.GetComponent<MenuButton>().IsDisplay = false;
@@ -880,6 +892,7 @@ public class GM : MonoBehaviour {
 
 
 		StartCoroutine(DisableStaticGameItem ());
+
 
 	}
 
@@ -1074,6 +1087,7 @@ public class GM : MonoBehaviour {
 		BingoCard.SetActive (true); // set BingoCard Active
 		BingoClose.SetActive (true); // set BingoCard Active
 		BingoReset.SetActive (true); // set BingoCard Active
+		MM_Script.VolumeSubTask ();
 	
 	}
 
