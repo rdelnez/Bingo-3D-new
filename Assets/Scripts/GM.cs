@@ -772,6 +772,8 @@ public class GM : MonoBehaviour {
 
 		spinButtonPrefabs.GetComponent<SpinScript>().ButtonSpriteString = "spiniconv1";
 		spinButtonPrefabs.GetComponent<SpinScript>().ButtonSpriteString1 = "spiniconpressedv1";
+		spinButtonPrefabs.GetComponent<SpinScript>().ButtonSpriteString2 = "autotumblerstart";
+		spinButtonPrefabs.GetComponent<SpinScript>().ButtonSpriteString3 = "autotumblerstop";
 
 		spinButtonPrefabs.GetComponent<SpinScript> ().LoadSprite ();
 		//END Spin
@@ -1087,6 +1089,9 @@ public class GM : MonoBehaviour {
 		BingoCard.SetActive (true); // set BingoCard Active
 		BingoClose.SetActive (true); // set BingoCard Active
 		BingoReset.SetActive (true); // set BingoCard Active
+
+		//// Update display when opening menu
+		MM_Script.AutoTumblerSpeed();
 		MM_Script.VolumeSubTask ();
 	
 	}
