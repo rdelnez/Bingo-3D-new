@@ -32,7 +32,7 @@ public class SpinScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		
 		isTumbling = false;
 		AutoTumblerEnabled = false;
 		AutoTumblerRunning = false;
@@ -148,15 +148,14 @@ public class SpinScript : MonoBehaviour {
 				if (AutoTumblerRunning){
 					AutoTumblerRunning = false;
 					SwitchImage();
-
 				} else {
 					AutoTumblerRunning = true;
 					SwitchImage();
 					Debug.Log ("AutoTumbler Starting");
+
 					StartCoroutine(AutoTumbler());
 				}
 			} 
-
 			else if (!TumblerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Tumbling") && !isTumbling && !AutoTumblerEnabled) {
 				ButtonSpriteRenderer.sprite = sprite;
 				if (!BM_script.NoMoreNumbers ()) {
@@ -176,7 +175,6 @@ public class SpinScript : MonoBehaviour {
 			ButtonSpriteRenderer.sprite = sprite;
 		}
 	}
-
 	public void SwitchImage() { // Used only when AutoTumbler is running, sprite1 is not used
 		if (AutoTumblerEnabled) {
 			if (!AutoTumblerRunning) {
@@ -197,7 +195,6 @@ public class SpinScript : MonoBehaviour {
 		GM_script.menuLock = true;
 		//yield return new WaitForSeconds(0.01f);
 		while(isTumbling){
-
 			yield return new WaitForSeconds(0.1f);
 
 			if (!TumblerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Tumbling")) {

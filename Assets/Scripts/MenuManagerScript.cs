@@ -24,6 +24,9 @@ public class MenuManagerScript : MonoBehaviour {
 	public GameObject volumeText;
 	public GameObject gameCanvas;
 
+	//public GameObject Canvas;
+	//public GUIText VolumeText;
+
 	// Use this for initialization
 
 	void Awake(){
@@ -260,6 +263,7 @@ public class MenuManagerScript : MonoBehaviour {
 	}
 		//AutoTumblerSubTask ();
 		
+
 	public void AutoTumblerOnOff(){
 		SpinScript.SwitchImage ();
 
@@ -295,7 +299,7 @@ public class MenuManagerScript : MonoBehaviour {
 
 		VolumeSubTask ();
 	}
-		
+
 	public void VolumeSubTask(){
 		float volumeLevel = Mathf.Round(SM_Script.FX_Player.volume * 100);
 		DM_Script.DisplayImageNum (GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(0).gameObject, GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(1).gameObject, (int)volumeLevel);
