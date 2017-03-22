@@ -12,7 +12,6 @@ public class MenuTitle : MonoBehaviour {
 	public Sprite sprite2;
 	// Use this for initialization
 	void Start () {
-
 	
 	}
 
@@ -32,7 +31,6 @@ public class MenuTitle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
 			
 	}
 
@@ -42,18 +40,15 @@ public class MenuTitle : MonoBehaviour {
 			SM_Script.PlayOther_SFX("menuopenclose");
 		}
 		
-		if (Input.GetButtonUp("Fire1") && !GM_script.menuLock){
+		if (Input.GetButtonUp("Fire1") && !GM_script.menuLock) {
 			sprite.sprite = sprite1;
 			GM_script.GoToMenu ();
 		}
-
 
 	}
 
 	void OnMouseExit(){
 		sprite.sprite = sprite1;
-
-
 
 	}
 }

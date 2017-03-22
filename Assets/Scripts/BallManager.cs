@@ -11,13 +11,15 @@ public class BallManager : MonoBehaviour {
 	public GameObject hexTempObject;
 
 	public int tempRandNum;
+	public int ballsMoving;
 	public Texture testTexture;
 	public GameObject GM_Object;
 	public GM GM_Script;
-
+	
 	public List<int> poolNumberList;
 	public List<int> poolActiveNumberList;
 	public List<GameObject> activeBallList;
+	public List<int> dropBallList;
 
 	// Use this for initialization
 	void Start () {
@@ -32,11 +34,12 @@ public class BallManager : MonoBehaviour {
 
 		poolNumberList = new List<int>();
 		poolActiveNumberList = new List<int>();
+		dropBallList = new List<int>(); // Should not be more than 1 number at a time
 		activeBallList = new List<GameObject>();
 
 		RePopulateNumberList ();
 
-	
+		ballsMoving = 0;
 	}
 	
 	// Update is called once per frame
@@ -59,6 +62,7 @@ public class BallManager : MonoBehaviour {
 	}
 
 	public void InstantiateBallFromTumbler(){
+		//ballsMoving++;
 		tempRandNum = GetRandomNum ();
 		testTexture = Resources.Load ("Textures/Ball3DTextures/Ball"+poolNumberList[tempRandNum])as Texture;
 
@@ -73,6 +77,7 @@ public class BallManager : MonoBehaviour {
 		poolActiveNumberList.Add (poolNumberList[tempRandNum]);
 		poolNumberList.RemoveAt (tempRandNum);
 
+		Debug.Log ("Balls Moving when button is pressed: " + ballsMoving);
 	}
 
 	public void DisplayGameNumbers(GameObject tempBall){
@@ -93,12 +98,23 @@ public class BallManager : MonoBehaviour {
 
 	}
 
+	public bool NoBallsMoving() {
+		bool result = false;
+		if (ballsMoving == 0) {
+			result = true;
+		}
+		return result;
+	}
+
+	public void BallStoppedMoving() {
+		ballsMoving--;
+	}
+
 	public void ClearBalls(){
 
 		/*foreach (GameObject ball in activeBallList) {
 
 		}*/
-
 
 		for(int x=0; x<activeBallList.Count; x++){
 			activeBallList[x].transform.parent.GetComponent<Hex>().hasChild=false;
@@ -108,6 +124,15 @@ public class BallManager : MonoBehaviour {
 		}
 
 		activeBallList.Clear ();
+	}
+
+	public bool NoMoreNumbers() {
+		bool result = false;
+		if (poolNumberList.Count <= 0) {
+			result = true;
+		}
+		Debug.Log ("Balls Moving after collision: " + ballsMoving);
+		return result;
 	}
 
 

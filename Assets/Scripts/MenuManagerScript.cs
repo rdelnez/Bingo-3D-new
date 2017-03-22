@@ -10,6 +10,7 @@ public class MenuManagerScript : MonoBehaviour {
 	public SoundManagerScript SM_Script;
 	public BingoCardBig BingoCardBigScript;
 	public BingoCardMini BingoCardMiniScript;
+	public SpinScript SpinScript;
 	public GM GM_Script;
 	public DisplayManagerScript DM_Script;
 	public List<string> voicesString;
@@ -22,8 +23,6 @@ public class MenuManagerScript : MonoBehaviour {
 	public Vector3 VolumeBigHexPos;	
 	public GameObject volumeText;
 	public GameObject gameCanvas;
-	//public GameObject Canvas;
-	//public GUIText VolumeText;
 
 	// Use this for initialization
 
@@ -33,8 +32,6 @@ public class MenuManagerScript : MonoBehaviour {
 	}
 
 	void Start () {
-
-
 		//gameCanvas = new GameObject ("Canvas");
 		 
 		//Instantiate (volumeText);
@@ -50,12 +47,12 @@ public class MenuManagerScript : MonoBehaviour {
 		//volumeText.
 		//Canvas.AddComponent<Text> ();
 
-
 		patternTest = "01";
 
 		SM_Script = GameObject.FindGameObjectWithTag ("SoundManager").GetComponent<SoundManagerScript>();
 		GM_Script = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GM>();
 		DM_Script = GameObject.FindGameObjectWithTag ("DisplayManager").GetComponent<DisplayManagerScript>();
+		SpinScript = GameObject.FindGameObjectWithTag ("SpinButton").GetComponent<SpinScript> ();
 
 		voicesString = new List<string> ();
 		voicesString.Add ("jo");
@@ -88,10 +85,11 @@ public class MenuManagerScript : MonoBehaviour {
 		//START for whether auto tumbler is enabled when starting the game
 		ValidateMenuButtons (tempAutoTumbler, 1);
 		tempButtonName = "autotumbler2";
+		SpinScript.AutoTumblerEnabled = false;
+		//DM_Script.DisplayImageNum (GameObject.FindGameObjectWithTag("AutoTumblerDisplay").transform.GetChild(0).gameObject, GameObject.FindGameObjectWithTag("AutoTumblerDisplay").transform.GetChild(1).gameObject, (int)(SpinScript.AnimationLength / 0.025f));
 		//END for whether auto tumbler is enabled when starting the game
 
 		//tempButtonName = "volume1";
-
 	}
 	
 	// Update is called once per frame
@@ -120,6 +118,7 @@ public class MenuManagerScript : MonoBehaviour {
 		}
 	}
 
+	/// Spare potential code, not used
 	/* private void RefreshMenuButtons(List<GameObject> tempList, int tempIndex) {
 		for(int x=0; x<tempList.Count; x++){
 			tempList[x].GetComponent<MenuButton>().DePressButton();
@@ -129,7 +128,7 @@ public class MenuManagerScript : MonoBehaviour {
 	public void CallFunction(){
 		// value = value.Substring(0, value.Length - 1);
 
-		Debug.Log (tempButtonName.Substring (0, tempButtonName.Length - 1));
+		// Debug.Log (tempButtonName.Substring (0, tempButtonName.Length - 1));
 		Invoke (tempButtonName.Substring(0, tempButtonName.Length - 1),0.0f);
 	}
 
@@ -166,15 +165,12 @@ public class MenuManagerScript : MonoBehaviour {
 
 		if(tempButtonName == "Pattern9"){
 			BingoCardBigScript.isCustomPattern=true;
-
 			BingoCardBigScript.patternIsAnimatingAcross=false;
 			BingoCardBigScript.patternIsAnimatingDown=false;
 			GM_Script.patternIsAnimatingAcross=false;
 			GM_Script.patternIsAnimatingDown=false;
 
 			BingoCardBigScript.ResetBingoCards();
-
-
 
 		}else if (tempButtonName != "Pattern1" && tempButtonName != "Pattern2") {	//This if is to check whether the pattern will animate or not. Pattern1 and Pattern2 needs to be animated
 
@@ -218,8 +214,6 @@ public class MenuManagerScript : MonoBehaviour {
 				BingoCardBigScript.StartAnimDisplayDown();
 			}
 
-
-
 		}
 
 		ValidateMenuButtons (tempPattern, tempNum - 1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
@@ -234,31 +228,54 @@ public class MenuManagerScript : MonoBehaviour {
 
 		if (GM_Script.TumblerIsEnabled == true) {
 			GM_Script.TumblerIsEnabled = false;
-			// GameObject.F
-			//Debug.Log (tumblerReference);
-			//tumblerReference.SetActive(false);
-			//GM_Script.spinButtonPrefabs.SetActive(false);
+
 		} else {
 			GM_Script.TumblerIsEnabled = true;
-			//Debug.Log (tumblerReference);
-			//tumblerReference.SetActive(true);
-			//GM_Script.spinButtonPrefabs.SetActive(true);
+
 		}
 	}
 
 	public void AutoTumbler(){
 		int tempNum = (int)char.GetNumericValue (tempButtonName [tempButtonName.Length - 1]); //This is the last number on the pattern string i.e. Pattern1: where 1 is tempNum.
 		//ValidateMenuButtons (tempAutoTumbler, tempNum - 1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
-		if(tempButtonName == "AutoTumbler1" || tempButtonName == "AutoTumbler2"){
+		if (tempButtonName == "AutoTumbler1" || tempButtonName == "AutoTumbler2") {
 			ValidateMenuButtons (tempAutoTumblerSpeed, tempNum - 1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
+			if (tempButtonName == "AutoTumbler1") {
+				SpinScript.AutoTumblerEnabled = true;
+			}
+			else if (tempButtonName == "AutoTumbler2") {
+				SpinScript.AutoTumblerEnabled = false;
+			}
+			AutoTumblerOnOff();
 		}
-	
+
+		if (tempButtonName == "AutoTumbler4") {
+			SpinScript.IncreaseSpeed();
+
+		} else if (tempButtonName == "AutoTumbler5") {
+			SpinScript.DecreaseSpeed();
+		}
+
+		AutoTumblerSpeed();
+	}
+		//AutoTumblerSubTask ();
+		
+	public void AutoTumblerOnOff(){
+		SpinScript.SwitchImage ();
+
+	}
+
+	public void AutoTumblerSpeed(){
+		float tumblerSpeed = SpinScript.AnimationSpeed / 0.025f;//Mathf.Round(SpinScript.AnimationLength / 0.025f);
+		//Debug.Log ("Tumbler Speed Setting: " + tumblerSpeed);
+		DM_Script.DisplayImageNum (GameObject.FindGameObjectWithTag("AutoTumblerDisplay").transform.GetChild(0).gameObject, GameObject.FindGameObjectWithTag("AutoTumblerDisplay").transform.GetChild(1).gameObject, (int)tumblerSpeed);
+		
 	}
 
 	public void Volume(){
 		//(buttonName == "Volume1" || buttonName == "Volume2")
 		int tempNum = (int)char.GetNumericValue (tempButtonName [tempButtonName.Length - 1]); //This is the last number on the pattern string i.e. Pattern1: where 1 is tempNum.
-		Debug.Log (tempNum);
+		//Debug.Log (tempNum);
 
 		if (tempNum == 1) {
 			SM_Script.IncreaseVolume ();
@@ -269,13 +286,6 @@ public class MenuManagerScript : MonoBehaviour {
 		//VolumeBigHexPos = GM_Script.hexListBig[4].GetComponent<HexBig> ().menuPosBig;
 		//volumeText.transform.position = VolumeBigHexPos;
 
-
-		//volumeText.transform.position = VolumeBigHexPos;
-
-		//Debug.Log (VolumeBigHexPos);
-
-		//RefreshMenuButtons (tempVolume, tempNum - 1);
-
 		//Debug.Log (tempVolume [tempNum].GetComponent<MenuButton>().buttonName);
 		//ValidateMenuButtons (tempVolume, tempNum);
 		//tempVolume [tempNum].GetComponent<MenuButton> ().PressButton ();
@@ -285,7 +295,7 @@ public class MenuManagerScript : MonoBehaviour {
 
 		VolumeSubTask ();
 	}
-
+		
 	public void VolumeSubTask(){
 		float volumeLevel = Mathf.Round(SM_Script.FX_Player.volume * 100);
 		DM_Script.DisplayImageNum (GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(0).gameObject, GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(1).gameObject, (int)volumeLevel);

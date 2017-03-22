@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -27,6 +27,7 @@ public class GM : MonoBehaviour {
 	//END This is for connecting Bingo Card and GM
 
 	public bool menuLock;
+	public bool isSpinning;
 
 	//Start This if for BingoCardMini
 
@@ -50,7 +51,6 @@ public class GM : MonoBehaviour {
 	public GameObject BingoReset;		//for other menu buttons
 	public GameObject BingoTumbler;		//for other menu buttons
 	public GameObject LittleMenu;		//for other menu buttons
-
 		
 	public GameObject spinButtonPrefabs;	//for game buttons
 	public SpinScript tempSpinButtonScript;
@@ -82,8 +82,7 @@ public class GM : MonoBehaviour {
 
 	// Tumbler
 	public bool TumblerIsEnabled;
-
-
+	
 	//Start MENU LEtters
 	public List<GameObject> MenuLettertList = new List<GameObject>();	// For MENU Letters
 	public GameObject menuLetterPrefabs;
@@ -123,12 +122,8 @@ public class GM : MonoBehaviour {
 	public List<GameObject> MenuButtonListVolume = new List<GameObject>();
 	public List<string> MenuButtonVolumeSpriteName = new List<string>();
 	public List<string> MenuButtonVolume1SpriteName = new List<string>();
-
-
-
-
+	
 	//END for Menu Button
-
 	public Vector3 startingPos;
 	public Vector3 startingPosBig;
 	public Vector3 startingPosChanging;
@@ -161,23 +156,13 @@ public class GM : MonoBehaviour {
 
 	void Awake(){
 		Time.timeScale = 1.5f;
-		
-		
+
 		InitialisedVariables();
 		InitialisedObjects ();
 	}
 
 	void Start () {
 
-	
-
-
-
-
-
-
-
-	
 	}
 	
 	// Update is called once per frame
@@ -201,11 +186,11 @@ public class GM : MonoBehaviour {
 
 		}
 --*/
-
 	}
 
 	public void GoToMenu(){
 		if(isMenuMoving==false){
+			//SpinScript
 			MoveToMenu ();
 			StartCoroutine(CheckDisable (1.3f));
 
@@ -225,12 +210,10 @@ public class GM : MonoBehaviour {
 	public void SpinTumbler(){
 
 		BingoTumbler.GetComponent<Animator> ().Play ("Tumbling");
-		Debug.Log ("Tumbling");
+		//Debug.Log ("Tumbling");
 
 	}
-
-
-
+	
 	IEnumerator DisableLittleMenu(){
 		yield return new WaitForSeconds(1.3f);
 		LittleMenu.SetActive (true); // set BingoCard Active
@@ -238,7 +221,6 @@ public class GM : MonoBehaviour {
 
 	IEnumerator CheckDisable(float tempTime){
 
-			
 		yield return new WaitForSeconds(tempTime);
 		isMenuMoving = false;
 
@@ -247,6 +229,7 @@ public class GM : MonoBehaviour {
 	void InitialisedVariables(){
 
 		menuLock = false;
+		isSpinning = false;
 
 		// Tumbler is On
 		TumblerIsEnabled = true;
@@ -374,7 +357,6 @@ public class GM : MonoBehaviour {
 		MenuButtonSpriteName.Add ("TumblerBigHex");	
 		MenuButtonSpriteName.Add ("VolumeBigHex");	
 
-
 		MenuButtonListPatternPos.Add (new Vector3(-6.08f,4f,0));	//Pattern
 		MenuButtonListPatternPos.Add (new Vector3(-3.15f,4f,0));
 		MenuButtonListPatternPos.Add (new Vector3(-4.6f,1.51f,0));		
@@ -406,7 +388,6 @@ public class GM : MonoBehaviour {
 		MenuButtonPattern1SpriteName.Add ("custompattern");// temp pattern for custom pattern
 
 		////////////////////////////////////////////////////////
-
 
 		MenuButtonListVoicesPos.Add (new Vector3(0.79f,4f,0));	//Voices
 		MenuButtonListVoicesPos.Add (new Vector3(3.72f,4f,0));
@@ -440,10 +421,7 @@ public class GM : MonoBehaviour {
 		MenuButtonAutoTumbler1SpriteName.Add ("plussign1");
 		MenuButtonAutoTumbler1SpriteName.Add ("minussign1");
 
-
 		//////////////////////////////////////////////////
-
-
 
 		MenuButtonListTumblerPos.Add (new Vector3(14.47f,4f,0));	//Tumbler
 		MenuButtonListTumblerPos.Add (new Vector3(17.4f,4f,0));
@@ -468,12 +446,10 @@ public class GM : MonoBehaviour {
 		MenuButtonVolume1SpriteName.Add ("minussign1");
 		MenuButtonVolume1SpriteName.Add ("88_1");
 
-
 		//END for Menu Button
 
 		//Start for Menu Button
 
-		
 		//END for Menu Button
 
 		hexPrefabsLoaded = Resources.Load ("Prefabs/hex");
@@ -496,15 +472,11 @@ public class GM : MonoBehaviour {
 
 	void InitialisedObjects(){
 
-
 		InitializeSmallHex ();
 		InitializeBigHex ();
 		InitializeMenuButton ();
 		InitializeOtherMenuItems ();
 		InitializeOtherGameItems ();
-
-
-
 
 		//	hexList.Add (new List<GameObject>());
 
@@ -574,7 +546,6 @@ public class GM : MonoBehaviour {
 			hexPrefabsBig.GetComponent<HexBig>().LoadSprite();
 			hexListBig.Add (hexPrefabsBig);
 
-
 				//transform.eulerAngles = Vector3.RotateTowards(transform.rotation.eulerAngles, menuPos, Time.deltaTime*speedRotation, 3.0f);
 		}
 
@@ -600,7 +571,6 @@ public class GM : MonoBehaviour {
 			else{
 				tempIndexOfMenuButton = 4;
 			}
-
 
 			menuButtonPrefabs = Instantiate(MenuButton, MenuButtonListMain[tempIndexOfMenuButton], Quaternion.identity) as GameObject;
 			menuButtonPrefabs.GetComponent<MenuButton>().origPos = menuButtonPrefabs.transform.localPosition;
@@ -683,7 +653,6 @@ public class GM : MonoBehaviour {
 				MenuButtonListAutoTumblerSpeed.Add (menuButtonPrefabs);	//new
 			}
 
-			
 			menuButtonPrefabs.SetActive(false);
 		}
 		//END AutoTumbler Small Hex Menu Buttons
@@ -772,6 +741,8 @@ public class GM : MonoBehaviour {
 
 		spinButtonPrefabs.GetComponent<SpinScript>().ButtonSpriteString = "spiniconv1";
 		spinButtonPrefabs.GetComponent<SpinScript>().ButtonSpriteString1 = "spiniconpressedv1";
+		spinButtonPrefabs.GetComponent<SpinScript>().ButtonSpriteString2 = "autotumblerstart";
+		spinButtonPrefabs.GetComponent<SpinScript>().ButtonSpriteString3 = "autotumblerstop";
 
 		spinButtonPrefabs.GetComponent<SpinScript> ().LoadSprite ();
 		//END Spin
@@ -826,7 +797,6 @@ public class GM : MonoBehaviour {
 		
 		RecallNumberObjectList.Add (recallNumberPrefabs1);
 
-		
 		recallNumberPrefabs2 = Instantiate(Resources.Load("Prefabs/recallballplacement"), new Vector3(-1.96f, -7.7f, 0), Quaternion.identity) as GameObject;
 		recallNumberPrefabs2.transform.localScale = new Vector3 (0.4f, 0.4f,5);
 		recallNumberPrefabs2.transform.GetChild(0).transform.localScale = new Vector3 (2.0f, 2.0f,1);
@@ -1087,6 +1057,9 @@ public class GM : MonoBehaviour {
 		BingoCard.SetActive (true); // set BingoCard Active
 		BingoClose.SetActive (true); // set BingoCard Active
 		BingoReset.SetActive (true); // set BingoCard Active
+
+		//// Update display when opening menu
+		MM_Script.AutoTumblerSpeed();
 		MM_Script.VolumeSubTask ();
 	
 	}
@@ -1263,9 +1236,7 @@ public class GM : MonoBehaviour {
 		RecallNumberObjectList[0].GetComponent<RecallNumbersScript>().isOccupied=true;
 		RecallNumberObjectList [0].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load <Sprite>("Textures/BallSprites/Ball"+tempValue);
 	}
-
-
-
+	
 	/*--
 	IEnumerator MoveMenuButtonToMenu(){ 
 		yield return new WaitForSeconds (0.40f);	
@@ -1276,7 +1247,6 @@ public class GM : MonoBehaviour {
 			tempMenuButtonScript.moving = true;
 		}
 
-		
 	}
 
 	IEnumerator MoveMenuButtonToGame(){ 
@@ -1284,14 +1254,12 @@ public class GM : MonoBehaviour {
 		//for (int x=0; x<MenuButtonList.Count; x++) {
 		for (int x=MenuButtonList.Count-1; x>-1; x--) {
 
-
 			tempMenuButtonScript = MenuButtonList[x].GetComponent<MenuButton> ();
 			tempMenuButtonScript.movingToGame = true;
 			//MenuButtonList[x].SetActive(false);
 			yield return null;		
 		}
-		
-		
+
 	}
 	--*/
 
@@ -1323,14 +1291,6 @@ public class GM : MonoBehaviour {
 		BingoCardBigScript.ResetBingoCards ();
 
 	}
-
-
-
-
-
-
-
-
 
 }// END of Class
 

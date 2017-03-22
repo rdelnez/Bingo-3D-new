@@ -128,7 +128,7 @@ public class BingoCardMini : MonoBehaviour {
 			UpdateBingoCardSingleDisplay ();
 			//tempZ++;
 			tempZ=tempZ+1;
-			Debug.Log (tempZ);
+			//Debug.Log (tempZ);
 			yield return new WaitForSeconds (1.0f);
 		}
 	}

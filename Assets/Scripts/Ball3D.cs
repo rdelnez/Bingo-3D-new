@@ -20,7 +20,7 @@ public class Ball3D : MonoBehaviour {
 			//Vector3.Distance(transform.eulerAngles, new Vector3(90,270,0)) > 5.0f
 			
 			
-			Debug.Log ("ball got Hit ontrigger");
+			//Debug.Log ("ball got Hit ontrigger");
 			//Destroy (this.gameObject);
 			
 		}

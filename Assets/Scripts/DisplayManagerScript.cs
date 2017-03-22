@@ -37,20 +37,14 @@ public class DisplayManagerScript : MonoBehaviour {
 		listNumImage.Add (num7);
 		listNumImage.Add (num8);
 		listNumImage.Add (num9);
-		
 
 	//	DisplayImageNum (GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(0).gameObject, GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(1).gameObject, 99);
 
-		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-		
-		
-		
-		
+
 	}
 	
 
@@ -58,7 +52,7 @@ public class DisplayManagerScript : MonoBehaviour {
 
 		scoreString = tempChangeValue.ToString ();
 		
-		Debug.Log (scoreString.Length);
+		//Debug.Log (scoreString.Length);
 
 		if(scoreString.Length>2){
 			scoreString = "99";
@@ -80,14 +74,9 @@ public class DisplayManagerScript : MonoBehaviour {
 			tempChar = scoreString[0];
 			tempNum = (int)char.GetNumericValue(tempChar);
 			num2.GetComponent<SpriteRenderer> ().sprite = listNumImage[tempNum];
-			
-			
+
 		}
-		
-		
-		
-		
+
 	}
-	
 
 }

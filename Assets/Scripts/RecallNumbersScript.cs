@@ -17,8 +17,7 @@ public class RecallNumbersScript : MonoBehaviour {
 	public Vector3 menuPos;
 
 	public float speedMoving;
-	
-	
+
 	public bool moving;
 	public bool movingToGame;
 
@@ -107,17 +106,20 @@ public class RecallNumbersScript : MonoBehaviour {
 		}
 		
 	}
+
 	void OnTriggerEnter(Collider other){
-		if(other.CompareTag ("Ball3D")){
+		if (other.CompareTag ("Ball3D")) {
 			
 			//Vector3.Distance(transform.eulerAngles, new Vector3(90,270,0)) > 5.0f
 
-			SM_Script.Play_SFX(other.gameObject.GetComponent<Ball3D>().value);
-			GM_Script.DisplayRecallNumbers(other.gameObject.GetComponent<Ball3D>().value);
-			BM_Script.DisplayGameNumbers(other.gameObject);
+			SM_Script.Play_SFX (other.gameObject.GetComponent<Ball3D> ().value);
+			GM_Script.DisplayRecallNumbers (other.gameObject.GetComponent<Ball3D> ().value);
+			BM_Script.DisplayGameNumbers (other.gameObject);
+			BM_Script.BallStoppedMoving();
 
-			GM_Script.menuLock =false;
-			
+			if (BM_Script.NoBallsMoving()) {
+				GM_Script.menuLock = false;
+			}
 		}
 	}
 
@@ -141,10 +143,6 @@ public class RecallNumbersScript : MonoBehaviour {
 			//menuButtonBGSpriteRenderer.sprite = spriteBG;
 		}
 
-	
-	
-		
-		
 	}
 
 	void OnMouseExit(){
