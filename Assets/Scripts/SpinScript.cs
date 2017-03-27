@@ -216,6 +216,11 @@ public class SpinScript : MonoBehaviour {
 					//AnimationLength = TumblerAnimator.GetCurrentAnimatorStateInfo(0).length;
 					//Debug.Log (AnimationLength);
 				}
+
+				else {
+					AutoTumblerRunning = false;
+					SwitchImage();
+				}
 			}
 			yield return new WaitForSeconds(1.0f);
 		}
