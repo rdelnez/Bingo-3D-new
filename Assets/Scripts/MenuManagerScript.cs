@@ -35,21 +35,6 @@ public class MenuManagerScript : MonoBehaviour {
 	}
 
 	void Start () {
-		//gameCanvas = new GameObject ("Canvas");
-		 
-		//Instantiate (volumeText);
-		//volumeText.AddComponent <GUIText>();
-		//VolumeText.SetActive(false);
-		//Canvas = new GameObject ("Canvas");
-		//Canvas gameCanvas = Canvas.AddComponent<Canvas>();
-		//gameCanvas.renderMode = RenderMode.WorldSpace;
-		//Instantiate (gameCanvas);
-		// volumeText.transform.localPosition 
-
-		//volumeText.transform.SetParent(
-		//volumeText.
-		//Canvas.AddComponent<Text> ();
-
 		patternTest = "01";
 
 		SM_Script = GameObject.FindGameObjectWithTag ("SoundManager").GetComponent<SoundManagerScript>();
@@ -89,10 +74,8 @@ public class MenuManagerScript : MonoBehaviour {
 		ValidateMenuButtons (tempAutoTumbler, 1);
 		tempButtonName = "autotumbler2";
 		SpinScript.AutoTumblerEnabled = false;
-		//DM_Script.DisplayImageNum (GameObject.FindGameObjectWithTag("AutoTumblerDisplay").transform.GetChild(0).gameObject, GameObject.FindGameObjectWithTag("AutoTumblerDisplay").transform.GetChild(1).gameObject, (int)(SpinScript.AnimationLength / 0.025f));
 		//END for whether auto tumbler is enabled when starting the game
-
-		//tempButtonName = "volume1";
+		
 	}
 	
 	// Update is called once per frame
@@ -138,9 +121,7 @@ public class MenuManagerScript : MonoBehaviour {
 
 	//START Change Active Voices
 	public void Voices(){
-		//Debug.Log (tempButtonName [tempButtonName.Length - 1]-1);
 		int tempNum = (int)char.GetNumericValue(tempButtonName [tempButtonName.Length - 1]);
-		//Debug.Log (tempNum);
 		SM_Script.setNum = tempNum;	//This is a parameter for Resource.Load on the sound file
 		SM_Script.fileName = voicesString [tempNum-1]; //This is to change the soundfile to be played in SoundManager
 		ValidateMenuButtons(tempVoices, tempNum-1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
@@ -224,10 +205,8 @@ public class MenuManagerScript : MonoBehaviour {
 	//END Change Pattern
 
 	public void Tumbler(){
-		//GameObject tumblerReference = GameObject.FindGameObjectWithTag ("SpinButton");
 		int tempNum = (int)char.GetNumericValue (tempButtonName [tempButtonName.Length - 1]); //This is the last number on the pattern string i.e. Pattern1: where 1 is tempNum.
 		ValidateMenuButtons (tempTumbler, tempNum - 1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
-		//GameObject.FindGameObjectWithTag ("SpinButton").GetComponent<BallManager>();
 
 		if (GM_Script.TumblerIsEnabled == true) {
 			GM_Script.TumblerIsEnabled = false;
@@ -240,7 +219,6 @@ public class MenuManagerScript : MonoBehaviour {
 
 	public void AutoTumbler(){
 		int tempNum = (int)char.GetNumericValue (tempButtonName [tempButtonName.Length - 1]); //This is the last number on the pattern string i.e. Pattern1: where 1 is tempNum.
-		//ValidateMenuButtons (tempAutoTumbler, tempNum - 1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
 		if (tempButtonName == "AutoTumbler1" || tempButtonName == "AutoTumbler2") {
 			ValidateMenuButtons (tempAutoTumblerSpeed, tempNum - 1);	//This is needed on all functions - this is to validate what is pressed, keep it pressed and unpress the others
 			if (tempButtonName == "AutoTumbler1") {
@@ -261,7 +239,6 @@ public class MenuManagerScript : MonoBehaviour {
 
 		AutoTumblerSpeed();
 	}
-		//AutoTumblerSubTask ();
 		
 
 	public void AutoTumblerOnOff(){
@@ -286,16 +263,6 @@ public class MenuManagerScript : MonoBehaviour {
 		} else {
 			SM_Script.DecreaseVolume ();
 		}
-
-		//VolumeBigHexPos = GM_Script.hexListBig[4].GetComponent<HexBig> ().menuPosBig;
-		//volumeText.transform.position = VolumeBigHexPos;
-
-		//Debug.Log (tempVolume [tempNum].GetComponent<MenuButton>().buttonName);
-		//ValidateMenuButtons (tempVolume, tempNum);
-		//tempVolume [tempNum].GetComponent<MenuButton> ().PressButton ();
-
-		//ValidateMenuButtons (tempVolume, tempNum);
-		//tempVolume;
 
 		VolumeSubTask ();
 	}

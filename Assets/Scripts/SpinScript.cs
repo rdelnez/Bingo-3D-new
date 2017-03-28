@@ -63,54 +63,7 @@ public class SpinScript : MonoBehaviour {
 
 		TumblerAnimator = GM_script.BingoTumbler.GetComponent<Animator> ();
 		AnimationSpeed = TumblerAnimator.GetComponent<Animator> ().speed;
-		//AnimationLength = TumblerAnimator.GetComponent<Animator> ().GetCurrentAnimatorClipInfo (0).Length;
-
-		//Debug.Log (AnimationSpeed);
-		//TumblerAnimator.runtimeAnimatorController;
-		//GM_script.SpinTumbler();
-
-		/* for(int i = 0; i < TumblerAnimator.runtimeAnimatorController.animationClips.Length; i++)                 //For all animations
-		{
-			if(TumblerAnimator.runtimeAnimatorController.name == "Tumbling")        //If it has the same name as your clip
-			{
-				AnimationLength = TumblerAnimator.runtimeAnimatorController.animationClips[i].length;
-			}
-		} */
-
-
-		/* if(TumblerAnimator != null) {
-			UnityEditor.Animations.AnimatorController AnimatorController = TumblerAnimator.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
-			UnityEditor.Animations.AnimatorStateMachine StateMachine = AnimatorController.GetStateEffectiveBehaviours;
-			
-			for(int i = 0; i < StateMachine.states; i++) {
-				UnityEditor.Animations.AnimatorState state = StateMachine.states[i];
-				if(state.uniqueName == "Tumbling") {
-					AnimationClip clip = state.GetMotion() as AnimationClip;
-					if(clip != null) {
-						AnimationLength = clip.length;
-					}
-				}
-			}
-			Debug.Log("Animation:"+AnimationLength); 
-		} */
-		/*
-		Animator anim = obj.GetComponent<Animator>();
-		 if(anim != null) {
-		     UnityEditorInternal.AnimatorController ac = anim.runtimeAnimatorController as UnityEditorInternal.AnimatorController;
-		     UnityEditorInternal.StateMachine sm = ac.GetLayer(0).stateMachine;
-		     
-		     for(int i = 0; i < sm.stateCount; i++) {
-		         UnityEditorInternal.State state = sm.GetState(i);
-		         if(state.uniqueName == track) {
-		             AnimationClip clip = state.GetMotion() as AnimationClip;
-		             if(clip != null) {
-		                 length = clip.length;
-		             }
-		         }
-		     }
-		     Debug.Log("Animation:"+track+":"+length);
-		 }
-		 */
+		
 	}
 
 	public void IncreaseSpeed() {
@@ -210,11 +163,7 @@ public class SpinScript : MonoBehaviour {
 		while (AutoTumblerRunning) {
 			if (!TumblerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Tumbling") && !isTumbling) {
 				if (!BM_script.NoMoreNumbers ()) {
-
 					StartCoroutine(InstantiateBall());
-					//AnimationLength = TumblerAnimator.GetCurrentAnimatorClipInfo(0).Length;
-					//AnimationLength = TumblerAnimator.GetCurrentAnimatorStateInfo(0).length;
-					//Debug.Log (AnimationLength);
 				}
 
 				else {
