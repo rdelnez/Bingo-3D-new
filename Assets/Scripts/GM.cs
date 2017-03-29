@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -134,6 +135,7 @@ public class GM : MonoBehaviour {
 	public float xValue;
 	public int reverseLoop;
 	public bool isMenuMoving;
+	public bool isMenuActive;
 
 	public bool toggleGameMenu;
 	public Hex tempHex;
@@ -229,6 +231,7 @@ public class GM : MonoBehaviour {
 	void InitialisedVariables(){
 
 		menuLock = false;
+		isMenuActive = false;
 		isSpinning = false;
 
 		// Tumbler is On
@@ -852,6 +855,8 @@ public class GM : MonoBehaviour {
 
 	void MoveToMenu(){
 		isMenuMoving = true;
+		//isMenuActive = true;
+
 
 		LittleMenu.SetActive (false); // set BingoCard Active
 
@@ -862,7 +867,7 @@ public class GM : MonoBehaviour {
 
 
 		StartCoroutine(DisableStaticGameItem ());
-
+		//MM_Script.MainMenuButton.
 
 	}
 
@@ -893,6 +898,7 @@ public class GM : MonoBehaviour {
 	void MoveToGame(){
 		
 		isMenuMoving = true;
+		isMenuActive = false;
 		
 		StartCoroutine(MoveMenuButtonToGame ());
 		
@@ -902,7 +908,7 @@ public class GM : MonoBehaviour {
 		StartCoroutine(MoveRecallNumbersToGame());
 
 		StartCoroutine(DisableStaticMenuItem ());
-
+		//MM_Script.MainMenuButton.gameObject.SetActive (false);
 
 
 	}

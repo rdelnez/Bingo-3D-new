@@ -118,9 +118,7 @@ public class SpinScript : MonoBehaviour {
 				}
 				// Debug.Log ("Spin");
 			}
-
 		}
-		
 	}
 	
 	void OnMouseExit(){
@@ -128,6 +126,7 @@ public class SpinScript : MonoBehaviour {
 			ButtonSpriteRenderer.sprite = sprite;
 		}
 	}
+
 	public void SwitchImage() { // Used only when AutoTumbler is running, sprite1 is not used
 		if (AutoTumblerEnabled) {
 			if (!AutoTumblerRunning) {

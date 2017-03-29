@@ -77,7 +77,7 @@ public class BallManager : MonoBehaviour {
 		poolActiveNumberList.Add (poolNumberList[tempRandNum]);
 		poolNumberList.RemoveAt (tempRandNum);
 
-		Debug.Log ("Balls Moving when button is pressed: " + ballsMoving);
+		// Debug.Log ("Balls Moving when button is pressed: " + ballsMoving);
 	}
 
 	public void DisplayGameNumbers(GameObject tempBall){
@@ -131,7 +131,7 @@ public class BallManager : MonoBehaviour {
 		if (poolNumberList.Count <= 0) {
 			result = true;
 		}
-		Debug.Log ("Balls Moving after collision: " + ballsMoving);
+		// Debug.Log ("Balls Moving after collision: " + ballsMoving);
 		return result;
 	}
 

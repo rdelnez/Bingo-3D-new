@@ -1,0 +1,31 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GM.cs">
+    <Files>
+      <File FileName="Assets\Scripts\MenuManagerScript.cs" Line="26" Column="15" />
+      <File FileName="Assets\Scripts\SpinScript.cs" Line="124" Column="2" />
+      <File FileName="Assets\Scripts\BallManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MenuTitle.cs" Line="7" Column="23" />
+      <File FileName="Assets\Scripts\RecallNumbersScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ResetButtonScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HexBig.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CameraManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DisplayManagerScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BingoClose.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Hex.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BingoCardMini.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BingoCardBig.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MenuLetterScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MenuButton.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GM.cs" Line="870" Column="5" />
+      <File FileName="Assets\Scripts\BingoBlueButton.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SoundManagerScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MainMenuManagerScript.cs" Line="20" Column="3" />
+      <File FileName="Assets\Scripts\GoToMainMenu.cs" Line="6" Column="22" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

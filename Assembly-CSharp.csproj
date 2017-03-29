@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{9C529860-5D20-8E96-79B7-F75EE267BB96}</ProjectGuid>
+	<ProjectGuid>{21900D82-1DB6-C4D5-83A6-1C6224655317}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -53,10 +53,13 @@
      <Compile Include="Assets\Scripts\BingoCardMini.cs" />
      <Compile Include="Assets\Scripts\BingoClose.cs" />
      <Compile Include="Assets\Scripts\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\Credits.cs" />
      <Compile Include="Assets\Scripts\DisplayManagerScript.cs" />
      <Compile Include="Assets\Scripts\GM.cs" />
+     <Compile Include="Assets\Scripts\GoToMainMenu.cs" />
      <Compile Include="Assets\Scripts\Hex.cs" />
      <Compile Include="Assets\Scripts\HexBig.cs" />
+     <Compile Include="Assets\Scripts\MainMenuManagerScript.cs" />
      <Compile Include="Assets\Scripts\MenuButton.cs" />
      <Compile Include="Assets\Scripts\MenuLetterScript.cs" />
      <Compile Include="Assets\Scripts\MenuManagerScript.cs" />
