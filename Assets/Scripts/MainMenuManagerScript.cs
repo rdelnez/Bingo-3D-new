@@ -12,7 +12,7 @@ public class MainMenuManagerScript : MonoBehaviour {
 	}
 
 	public void HostGame () {
-		Application.LoadLevel ("Main Game");
+		Application.LoadLevel (1);
 	}
 
 	public void Singleplayer () {

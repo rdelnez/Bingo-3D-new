@@ -1,20 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\WinScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MainMenuButtonScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\GM.cs" Line="473" Column="28" />
-      <File FileName="Assets\Scripts\SoundManagerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WinScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuButton.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DisplayManagerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SpinScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuManagerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ResetButtonScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\BallManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Ball3D.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\RecallNumbersScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuTitle.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MenuLetterScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CameraManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GM.cs" Line="728" Column="88" />
+      <File FileName="Assets\Scripts\NcccLogoScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MenuTitle.cs" Line="53" Column="3" />
+      <File FileName="Assets\Scripts\MainMenuButtonScript.cs" Line="26" Column="58" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

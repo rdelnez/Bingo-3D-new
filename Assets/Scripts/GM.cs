@@ -7,6 +7,8 @@ using System.Collections.Generic;
 public class GM : MonoBehaviour {
 
 	public MenuManagerScript MM_Script;
+	public GameObject MainMenuButton;
+
 
 	public GameObject hexPrefabs;
 	public GameObject hexPrefabsBig;
@@ -123,6 +125,8 @@ public class GM : MonoBehaviour {
 	public List<GameObject> MenuButtonListVolume = new List<GameObject>();
 	public List<string> MenuButtonVolumeSpriteName = new List<string>();
 	public List<string> MenuButtonVolume1SpriteName = new List<string>();
+
+
 	
 	//END for Menu Button
 	public Vector3 startingPos;
@@ -584,6 +588,7 @@ public class GM : MonoBehaviour {
 		}
 		--*/
 
+
 		//START Pattern Small Hex Menu Buttons
 		for(int x=0; x<MenuButtonListPatternPos.Count; x++){
 			menuButtonPrefabs = Instantiate(MenuButton, MenuButtonListMainPos[0], Quaternion.identity) as GameObject;
@@ -719,6 +724,11 @@ public class GM : MonoBehaviour {
 	}
 
 	void InitializeOtherMenuItems(){
+
+		MainMenuButton = Instantiate (Resources.Load("Prefabs/MainMenuButton"), new Vector3(9, -8.5f, -1.5f), Quaternion.identity) as GameObject;
+		MainMenuButton.GetComponent<MainMenuButtonScript>().LoadAssets();
+		MainMenuButton.SetActive (false);
+
 		BingoCard = Instantiate(Resources.Load("Prefabs/BingoCard"), new Vector3(19.52f, -5.3f, 0), Quaternion.identity) as GameObject;
 		BingoCard.SetActive (false);
 
@@ -860,6 +870,7 @@ public class GM : MonoBehaviour {
 
 		LittleMenu.SetActive (false); // set BingoCard Active
 
+
 		StartCoroutine(MoveSmallHexToMenu ());
 		StartCoroutine(MoveBigHexToMenu());
 		//StartCoroutine (MoveMenuButtonToMenu("Pattern"));
@@ -876,6 +887,8 @@ public class GM : MonoBehaviour {
 		winButtonPrefabs.SetActive (false);
 		bingoCardMiniPrefabs.SetActive (false);
 		recallTextPrefab.SetActive (false);
+
+		MainMenuButton.SetActive (true);
 
 		//Start This is for Recall Numbers
 		for(int x=0; x<4; x++){
@@ -915,7 +928,7 @@ public class GM : MonoBehaviour {
 
 	IEnumerator DisableStaticMenuItem(){
 
-
+		MainMenuButton.SetActive (false);
 
 		for(int x=0; x<MenuLettertList.Count; x++){
 			MenuLettertList [x].SetActive (false);
@@ -1296,6 +1309,10 @@ public class GM : MonoBehaviour {
 
 		BingoCardBigScript.ResetBingoCards ();
 
+	}
+
+	public void GotoMainMenu(){
+		Application.LoadLevel (0);
 	}
 
 }// END of Class

@@ -23,7 +23,7 @@ public class MenuManagerScript : MonoBehaviour {
 	public Vector3 VolumeBigHexPos;	
 	public GameObject volumeText;
 	public GameObject gameCanvas;
-	public Button MainMenuButton;
+	public GameObject MainMenuButton;
 
 	//public GameObject Canvas;
 	//public GUIText VolumeText;
@@ -55,7 +55,8 @@ public class MenuManagerScript : MonoBehaviour {
 		tempTumbler = GM_Script.MenuButtonListTumbler;
 		tempVolume = GM_Script.MenuButtonListVolume;
 
-		MainMenuButton = GameObject.FindGameObjectWithTag ("MainMenuButton");
+		MainMenuButton = GM_Script.MainMenuButton;
+
 		//START for initial pattern when starting the game
 		ValidateMenuButtons (tempPattern, 4);
 		tempButtonName = "pattern5";
