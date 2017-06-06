@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManagerScript : MonoBehaviour {
 
@@ -12,7 +13,8 @@ public class MainMenuManagerScript : MonoBehaviour {
 	}
 
 	public void HostGame () {
-		Application.LoadLevel (1);
+		//Application.LoadLevel (1);
+        SceneManager.LoadScene(1);
 	}
 
 	public void Singleplayer () {

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-
+using UnityEngine.SceneManagement;
 
 public class GM : MonoBehaviour {
 
@@ -1311,8 +1311,9 @@ public class GM : MonoBehaviour {
 
 	}
 
-	public void GotoMainMenu(){
-		Application.LoadLevel (0);
+	public void GotoMainMenu() {
+        //Application.LoadLevel (0); Obsolete
+        SceneManager.LoadScene(0);
 	}
 
 }// END of Class
