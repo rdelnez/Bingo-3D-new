@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class MenuManagerScript : MonoBehaviour {
 
+    public bool scannerRunning;
+
+    public GameObject QROverlay;
 	public string tempButtonName;
 	public string patternTest;
 	public SoundManagerScript SM_Script;
@@ -24,13 +27,14 @@ public class MenuManagerScript : MonoBehaviour {
 	public GameObject volumeText;
 	public GameObject gameCanvas;
 	public GameObject MainMenuButton;
+    public Button QRButton;
 
-	//public GameObject Canvas;
-	//public GUIText VolumeText;
+    //public GameObject Canvas;
+    //public GUIText VolumeText;
 
-	// Use this for initialization
+    // Use this for initialization
 
-	void Awake(){
+    void Awake(){
 
 		
 	}
@@ -77,9 +81,12 @@ public class MenuManagerScript : MonoBehaviour {
 		ValidateMenuButtons (tempAutoTumbler, 1);
 		tempButtonName = "autotumbler2";
 		SpinScript.AutoTumblerEnabled = false;
-		//END for whether auto tumbler is enabled when starting the game
-		
-	}
+        //END for whether auto tumbler is enabled when starting the game
+
+        QRButton.gameObject.SetActive(false);
+        scannerRunning = false;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -105,7 +112,9 @@ public class MenuManagerScript : MonoBehaviour {
 				}
 			}
 		}
-	}
+
+        QRButton.gameObject.SetActive(true);
+    }
 
 	/// Spare potential code, not used
 	/* private void RefreshMenuButtons(List<GameObject> tempList, int tempIndex) {
@@ -275,7 +284,22 @@ public class MenuManagerScript : MonoBehaviour {
 		DM_Script.DisplayImageNum (GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(0).gameObject, GameObject.FindGameObjectWithTag("VolumeDisplay").transform.GetChild(1).gameObject, (int)volumeLevel);
 
 	}
-	/* IEnumerator TumblerIsActive() {
+
+    public void ClickQRButton()
+    {
+        if (!scannerRunning)
+        {
+            scannerRunning = true;
+            QROverlay.SetActive(true);
+        }
+        else
+        {
+            scannerRunning = false;
+            QROverlay.SetActive(false);
+        }
+    }
+
+    /* IEnumerator TumblerIsActive() {
 		while(GM_Script.TumblerIsEnabled == false){
 			
 			yield return new WaitForSeconds(0.5f);
