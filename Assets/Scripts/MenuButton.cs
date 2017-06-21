@@ -98,12 +98,13 @@ public class MenuButton : MonoBehaviour {
 			if (Vector3.Distance(transform.localPosition, menuPos) > 0.1f)
 			{
 				transform.localPosition = Vector3.MoveTowards(transform.localPosition, menuPos, Time.deltaTime*speedMoving);
-				//transform.localEulerAngles += new Vector3(1,0,0);
-			}
+                //transform.localEulerAngles += new Vector3(1,0,0);
+                MM_Script.QRButton.gameObject.SetActive(true);
+            }
 			else {
 				transform.localPosition = menuPos;
 				moving = false;
-			}
+            }
 		}
 		
 	}
@@ -115,12 +116,14 @@ public class MenuButton : MonoBehaviour {
 			if (Vector3.Distance(transform.localPosition, origPos) > 0.1f)
 			{
 				transform.localPosition = Vector3.MoveTowards(transform.localPosition, origPos, Time.deltaTime*speedMoving);
-				//transform.localEulerAngles += new Vector3(1,0,0);
-			}
+                //transform.localEulerAngles += new Vector3(1,0,0);
+                
+            }
 			else {
 				transform.localPosition = origPos;
 				movingToGame = false;
 				this.gameObject.SetActive (false);
+                MM_Script.QRButton.gameObject.SetActive(false);
 			}
 		}
 		
