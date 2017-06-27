@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuManagerScript : MonoBehaviour {
 
@@ -287,6 +288,7 @@ public class MenuManagerScript : MonoBehaviour {
 
     public void ClickQRButton()
     {
+        /*
         if (!scannerRunning)
         {
             scannerRunning = true;
@@ -296,7 +298,9 @@ public class MenuManagerScript : MonoBehaviour {
         {
             scannerRunning = false;
             QROverlay.SetActive(false);
-        }
+        } 
+        */
+        SceneManager.LoadScene("QR Scene");
     }
 
     /* IEnumerator TumblerIsActive() {
