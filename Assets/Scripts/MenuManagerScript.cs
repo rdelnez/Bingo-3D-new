@@ -286,9 +286,9 @@ public class MenuManagerScript : MonoBehaviour {
 
 	}
 
-    public void ClickQRButton()
+    public void QRButtonTask()
     {
-        /*
+        
         if (!scannerRunning)
         {
             scannerRunning = true;
@@ -299,8 +299,8 @@ public class MenuManagerScript : MonoBehaviour {
             scannerRunning = false;
             QROverlay.SetActive(false);
         } 
-        */
-        SceneManager.LoadScene("QR Scene");
+        
+        // SceneManager.LoadScene("QR Scene");
     }
 
     /* IEnumerator TumblerIsActive() {
