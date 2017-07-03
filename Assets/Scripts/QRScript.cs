@@ -192,7 +192,7 @@ public class QRScript : MonoBehaviour {
         {
             //if (!BarcodeScanner.Camera.IsPlaying()) { initialiseCamera(); }
             isRunning = true;
-            ScanButton.GetComponentInChildren<Text>().text = "Stop Scan";
+            ScanButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("QRCode/Scanning");
 			initialiseCamera();
 			StartScanner();
             // Switch Text
@@ -208,7 +208,7 @@ public class QRScript : MonoBehaviour {
             Debug.Log("Stopped Scan");
             //Debug.Log("Camera Stopped");
             BarcodeScanner.Camera.Stop();
-            ScanButton.GetComponentInChildren<Text>().text = "Start Scan";
+            ScanButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("QRCode/Scan");
         }
 
         Debug.Log("isRunning " + isRunning);
@@ -222,81 +222,143 @@ public class QRScript : MonoBehaviour {
     {
         if (this.isQR)
         {
-			scannedCardName = "";
-			int x = 0;
-			while(true) {
+            scannedCardName = "";
+            int x = 0;
+            while (true) {
 
-				if (QRCode[x] != ':')
-				{
-					scannedCardName += QRCode[x];
-					x++;
-				}
-				else {
-					break;
-				}
-			}
+                if (QRCode[x] != ':')
+                {
+                    scannedCardName += QRCode[x];
+                    x++;
+                }
+                else {
+                    break;
+                }
+            }
 
 
-			scannedCardNumber.Clear();
-			x++;
-			string tempNum = "";
-			for (int y = x; y < QRCode.Length; y++) {
-				if (QRCode[y] != ',')
-				{
-					tempNum += QRCode[y];
-				}
-				else
-				{
-					scannedCardNumber.Add(int.Parse(tempNum));
-					Debug.Log(scannedCardNumber);
-					tempNum = "";
-				}
-			}
+            scannedCardNumber.Clear();
+            x++;
+            string tempNum = "";
+            for (int y = x; y < QRCode.Length; y++) {
+                if (QRCode[y] != ',')
+                {
+                    tempNum += QRCode[y];
+                }
+                else
+                {
+                    scannedCardNumber.Add(int.Parse(tempNum));
+                    Debug.Log(scannedCardNumber);
+                    tempNum = "";
+                }
+            }
 
-			for(int c=0; c<scannedCardPatternCheck.Count; c++)
-			{
-				scannedCardPatternCheck[c] = false;
-			}
+            for (int c = 0; c < scannedCardPatternCheck.Count; c++)
+            {
+                scannedCardPatternCheck[c] = false;
+            }
 
-			for(int z=0; z<BM_Script.poolActiveNumberList.Count; z++)
-			{
+            for (int z = 0; z < BM_Script.poolActiveNumberList.Count; z++)
+            {
 
-				//BM_Script.poolActiveNumberList[z];
-				for (int a=0; a<scannedCardPatternCheck.Count;a++)
-				{
-					if (BM_Script.poolActiveNumberList[z] == scannedCardNumber[a])
-					{
-						scannedCardPatternCheck[a] = true;
-					}
-		
-				}
-				
-			}
+                //BM_Script.poolActiveNumberList[z];
+                for (int a = 0; a < scannedCardPatternCheck.Count; a++)
+                {
+                    if (BM_Script.poolActiveNumberList[z] == scannedCardNumber[a])
+                    {
+                        scannedCardPatternCheck[a] = true;
+                    }
 
-			isMatch = true;
-			for (int b=0; b<scannedCardPatternCheck.Count; b++) {
-				if (GM_Script.blueIsActiveList[b])
-				{
-					if (scannedCardPatternCheck[b])
-					{
-					}
-					else {
-						
-						isMatch = false;
-						
-						break;
-					}
-				}
-							
-			}
-			if (isMatch) { TextHeader.text = scannedCardName + " is Bingo"; Debug.Log("Match"); }
-			else { TextHeader.text = scannedCardName + " is not Bingo"; Debug.Log("not a match"); }
-			//string array ends but does not finish with a comma
-			//scannedCardNumber.Add(int.Parse(tempNum));
-			//end of crazy code because somebody will always ask what it is doing
+                }
 
-			//QRcode
-			/*
+            }
+
+            isMatch = true;
+            int tempAnimatedPatternCheckNum = 0;
+
+            if (GM_Script.activePatternName == "Pattern1") {
+                if (scannedCardPatternCheck[0] && scannedCardPatternCheck[5] && scannedCardPatternCheck[10] && scannedCardPatternCheck[15] && scannedCardPatternCheck[20]) {
+                    tempAnimatedPatternCheckNum++;
+                }
+                if (scannedCardPatternCheck[1] && scannedCardPatternCheck[6] && scannedCardPatternCheck[11] && scannedCardPatternCheck[16] && scannedCardPatternCheck[21]) {
+                    tempAnimatedPatternCheckNum++;
+                }
+                if (scannedCardPatternCheck[2] && scannedCardPatternCheck[7] && scannedCardPatternCheck[12] && scannedCardPatternCheck[17] && scannedCardPatternCheck[22])
+                {
+                    tempAnimatedPatternCheckNum++;
+                }
+                if (scannedCardPatternCheck[3] && scannedCardPatternCheck[8] && scannedCardPatternCheck[13] && scannedCardPatternCheck[18] && scannedCardPatternCheck[23])
+                {
+                    tempAnimatedPatternCheckNum++;
+                }
+                if (scannedCardPatternCheck[4] && scannedCardPatternCheck[9] && scannedCardPatternCheck[14] && scannedCardPatternCheck[19] && scannedCardPatternCheck[24])
+                {
+                    tempAnimatedPatternCheckNum++;
+                }
+
+                if (tempAnimatedPatternCheckNum < 2) {
+                    isMatch = false;
+                }
+            }
+            else if (GM_Script.activePatternName == "Pattern2") {
+                if (scannedCardPatternCheck[0] && scannedCardPatternCheck[1] && scannedCardPatternCheck[2] && scannedCardPatternCheck[3] && scannedCardPatternCheck[4])
+                {
+                    tempAnimatedPatternCheckNum++;
+                }
+                if (scannedCardPatternCheck[5] && scannedCardPatternCheck[6] && scannedCardPatternCheck[7] && scannedCardPatternCheck[8] && scannedCardPatternCheck[9])
+                {
+                    tempAnimatedPatternCheckNum++;
+                }
+                if (scannedCardPatternCheck[10] && scannedCardPatternCheck[11] && scannedCardPatternCheck[12] && scannedCardPatternCheck[13] && scannedCardPatternCheck[14])
+                {
+                    tempAnimatedPatternCheckNum++;
+                }
+                if (scannedCardPatternCheck[15] && scannedCardPatternCheck[16] && scannedCardPatternCheck[17] && scannedCardPatternCheck[18] && scannedCardPatternCheck[19])
+                {
+                    tempAnimatedPatternCheckNum++;
+                }
+                if (scannedCardPatternCheck[20] && scannedCardPatternCheck[21] && scannedCardPatternCheck[22] && scannedCardPatternCheck[23] && scannedCardPatternCheck[24])
+                {
+                    tempAnimatedPatternCheckNum++;
+                }
+
+                if (tempAnimatedPatternCheckNum < 2)
+                {
+                    isMatch = false;
+                }
+            }
+            else {
+                for (int b = 0; b < scannedCardPatternCheck.Count; b++) {
+                    if (GM_Script.blueIsActiveList[b])
+                    {
+                        if (scannedCardPatternCheck[b])
+                        {
+                        }
+                        else {
+
+                            isMatch = false;
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+            if (isMatch) { { TextHeader.text = "Bingo!!!"; Debug.Log("Match"); } }
+            else { { TextHeader.text = "Not Bingo"; Debug.Log("not a match"); } }
+
+            /*
+             if (isMatch) { TextHeader.text = " "+scannedCardName + " is Bingo"; Debug.Log("Match"); }
+			else { TextHeader.text = " "+scannedCardName + " is not Bingo"; Debug.Log("not a match"); }
+             * */
+
+
+            //string array ends but does not finish with a comma
+            //scannedCardNumber.Add(int.Parse(tempNum));
+            //end of crazy code because somebody will always ask what it is doing
+
+            //QRcode
+            /*
             foreach (string card in Cards)
             {
 				
@@ -309,7 +371,7 @@ public class QRScript : MonoBehaviour {
 				
             }
 			*/
-			Debug.Log(TextHeader.text);
+            Debug.Log(TextHeader.text);
 		}
         else
         {

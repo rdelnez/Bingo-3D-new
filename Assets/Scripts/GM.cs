@@ -270,6 +270,8 @@ public class GM : MonoBehaviour {
 		blueIsActiveList.Add (false);
 		blueIsActiveList.Add (false);
 		blueIsActiveList.Add (true);
+
+        activePatternName = "Pattern5";
 		//}
 		//END this is for Bingo Card Blue Button Active List //END This is the default pattern to be displayed
 
@@ -870,9 +872,11 @@ public class GM : MonoBehaviour {
 
 
 		LittleMenu.SetActive (false); // set BingoCard Active
+        MM_Script.QRButton.gameObject.SetActive(false);
+        MM_Script.QRButtonDisable();
 
 
-		StartCoroutine(MoveSmallHexToMenu ());
+        StartCoroutine(MoveSmallHexToMenu ());
 		StartCoroutine(MoveBigHexToMenu());
 		//StartCoroutine (MoveMenuButtonToMenu("Pattern"));
 		StartCoroutine(MoveRecallNumbersToMenu());
@@ -944,9 +948,10 @@ public class GM : MonoBehaviour {
 		bingoCardMiniPrefabs.SetActive (true);
 		bingoCardMiniPrefabs.SetActive (true);
 		recallTextPrefab.SetActive (true);
+        MM_Script.QRButton.gameObject.SetActive(true);
 
-		//Start This is for Recall Numbers
-		for(int x=0; x<4; x++){
+        //Start This is for Recall Numbers
+        for (int x=0; x<4; x++){
 			RecallNumberObjectList[x].transform.GetChild(0).gameObject.SetActive(true);	
 			
 		}

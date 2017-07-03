@@ -84,7 +84,7 @@ public class MenuManagerScript : MonoBehaviour {
 		SpinScript.AutoTumblerEnabled = false;
         //END for whether auto tumbler is enabled when starting the game
 
-        QRButton.gameObject.SetActive(false);
+        QRButton.gameObject.SetActive(true);
         scannerRunning = false;
 
     }
@@ -114,7 +114,7 @@ public class MenuManagerScript : MonoBehaviour {
 			}
 		}
 
-        QRButton.gameObject.SetActive(true);
+       // QRButton.gameObject.SetActive(false);
     }
 
 	/// Spare potential code, not used
@@ -166,8 +166,9 @@ public class MenuManagerScript : MonoBehaviour {
 			BingoCardBigScript.patternIsAnimatingDown=false;
 			GM_Script.patternIsAnimatingAcross=false;
 			GM_Script.patternIsAnimatingDown=false;
+            GM_Script.activePatternName = tempButtonName;
 
-			BingoCardBigScript.ResetBingoCards();
+            BingoCardBigScript.ResetBingoCards();
 
 		}else if (tempButtonName != "Pattern1" && tempButtonName != "Pattern2") {	//This if is to check whether the pattern will animate or not. Pattern1 and Pattern2 needs to be animated
 
@@ -185,8 +186,10 @@ public class MenuManagerScript : MonoBehaviour {
 			BingoCardBigScript.patternIsAnimatingDown=false;
 			GM_Script.patternIsAnimatingAcross=false;
 			GM_Script.patternIsAnimatingDown=false;
+            GM_Script.activePatternName = tempButtonName;
 
-		}else {
+        }
+        else {
 			BingoCardBigScript.isCustomPattern =false;
 
 			//Debug.Log ("This is Pattern1 or Pattern2");
@@ -301,6 +304,11 @@ public class MenuManagerScript : MonoBehaviour {
         } 
         
         // SceneManager.LoadScene("QR Scene");
+    }
+
+    public void QRButtonDisable() {
+        scannerRunning = false;
+        QROverlay.SetActive(false);
     }
 
     /* IEnumerator TumblerIsActive() {
