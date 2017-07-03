@@ -12,7 +12,8 @@ public class QRScript : MonoBehaviour {
     private float RestartTime;
 
     public GM GM_Script;
-    public Text TextHeader;
+	public BallManager BM_Script;
+	public Text TextHeader;
     public Button ScanButton, CompareButton;
 
     //public AudioSource Audio;
@@ -24,7 +25,15 @@ public class QRScript : MonoBehaviour {
 
     private bool isRunning;
 
-    void Awake()
+	//Start Compare Variables
+	public string scannedCardName;
+	public List<int> scannedCardNumber;
+	public List<bool> scannedCardPatternCheck;
+	public bool isMatch;
+
+	//End Compare Variables
+
+	void Awake()
     {
         //Screen.autorotateToPortrait = false;
         //Screen.autorotateToPortraitUpsideDown = false;
@@ -34,10 +43,40 @@ public class QRScript : MonoBehaviour {
         Card3 = "Card2-B:13,22,13,14,24-I:33,14,4,6,3-N:13,22,34,46,45-G:53,25,4,6,3-0:2,4,4,6,3";
         Cards.Add(Card1);
         Cards.Add(Card2);
-        
 
-        GM_Script = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GM>();
-        BarcodeScanner = new Scanner();
+		isMatch = false;
+		scannedCardPatternCheck = new List<bool>();
+		//for(int x=0; x<25; x++){
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false); //this is the middle free on the card
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		scannedCardPatternCheck.Add(false);
+		//}
+
+		GM_Script = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GM>();
+		BM_Script = GameObject.FindGameObjectWithTag("BallManager").GetComponent<BallManager>();
+		BarcodeScanner = new Scanner();
         isRunning = false;
         // BarcodeScanner = new Scanner();
     }
@@ -183,11 +222,93 @@ public class QRScript : MonoBehaviour {
     {
         if (this.isQR)
         {
-            TextHeader.text = "Does not match";
+			scannedCardName = "";
+			int x = 0;
+			while(true) {
+
+				if (QRCode[x] != ':')
+				{
+					scannedCardName += QRCode[x];
+					x++;
+				}
+				else {
+					break;
+				}
+			}
+
+
+			scannedCardNumber.Clear();
+			x++;
+			string tempNum = "";
+			for (int y = x; y < QRCode.Length; y++) {
+				if (QRCode[y] != ',')
+				{
+					tempNum += QRCode[y];
+				}
+				else
+				{
+					scannedCardNumber.Add(int.Parse(tempNum));
+					Debug.Log(scannedCardNumber);
+					tempNum = "";
+				}
+			}
+
+			for(int c=0; c<scannedCardPatternCheck.Count; c++)
+			{
+				scannedCardPatternCheck[c] = false;
+			}
+
+			for(int z=0; z<BM_Script.poolActiveNumberList.Count; z++)
+			{
+
+				//BM_Script.poolActiveNumberList[z];
+				for (int a=0; a<scannedCardPatternCheck.Count;a++)
+				{
+					if (BM_Script.poolActiveNumberList[z] == scannedCardNumber[a])
+					{
+						scannedCardPatternCheck[a] = true;
+					}
+		
+				}
+				
+			}
+
+			isMatch = true;
+			for (int b=0; b<scannedCardPatternCheck.Count; b++) {
+				if (GM_Script.blueIsActiveList[b])
+				{
+					if (scannedCardPatternCheck[b])
+					{
+					}
+					else {
+						
+						isMatch = false;
+						
+						break;
+					}
+				}
+							
+			}
+			if (isMatch) { TextHeader.text = scannedCardName + " is Bingo"; Debug.Log("Match"); }
+			else { TextHeader.text = scannedCardName + " is not Bingo"; Debug.Log("not a match"); }
+			//string array ends but does not finish with a comma
+			//scannedCardNumber.Add(int.Parse(tempNum));
+			//end of crazy code because somebody will always ask what it is doing
+
+			//QRcode
+			/*
             foreach (string card in Cards)
             {
-                if (QRCode == card) { TextHeader.text = "Matches";  }
+				
+				if (QRCode == card) {
+					TextHeader.text = "Matches";
+				}
+				else {
+					TextHeader.text = "Does not match";
+				}
+				
             }
+			*/
 			Debug.Log(TextHeader.text);
 		}
         else

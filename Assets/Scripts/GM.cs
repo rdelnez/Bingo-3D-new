@@ -36,7 +36,7 @@ public class GM : MonoBehaviour {
 
 	public BingoCardMini BingoCardMiniScript;
 	public BingoCardBig BingoCardBigScript;
-
+	
 	//END This if for BingoCardMini
 
 
@@ -241,6 +241,7 @@ public class GM : MonoBehaviour {
 		// Tumbler is On
 		TumblerIsEnabled = true;
 
+		
 		//Start this is for Bingo Card Blue Button Active List //START This is the default pattern to be displayed
 		blueIsActiveList = new List<bool> ();
 		//for(int x=0; x<25; x++){
@@ -256,7 +257,7 @@ public class GM : MonoBehaviour {
 		blueIsActiveList.Add (false);
 		blueIsActiveList.Add (false);
 		blueIsActiveList.Add (false);
-		blueIsActiveList.Add (false);
+		blueIsActiveList.Add (false); //this is the middle free on the card
 		blueIsActiveList.Add (false);
 		blueIsActiveList.Add (false);
 		blueIsActiveList.Add (false);
