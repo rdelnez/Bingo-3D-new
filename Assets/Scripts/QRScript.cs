@@ -17,8 +17,8 @@ public class QRScript : MonoBehaviour {
 
     //public AudioSource Audio;
     public RawImage CameraDisplay;
-    private string QRCode;
-    private bool isQR;
+    public string QRCode;
+    public bool isQR;
     public string Card1, Card2, Card3;
     public List<string> Cards;
 
@@ -62,7 +62,7 @@ public class QRScript : MonoBehaviour {
         // Check if the Scanner need to be started or restarted
         //Debug.Log("Scanning " + isRunning);
        // if ((RestartTime != 0 && RestartTime < Time.realtimeSinceStartup) && isRunning)
-       if (RestartTime != 0 && RestartTime < Time.realtimeSinceStartup)
+       if (RestartTime != 0 && RestartTime < Time.realtimeSinceStartup && isRunning)
         {
             StartScanner();
             RestartTime = 0;
@@ -154,7 +154,8 @@ public class QRScript : MonoBehaviour {
             //if (!BarcodeScanner.Camera.IsPlaying()) { initialiseCamera(); }
             isRunning = true;
             ScanButton.GetComponentInChildren<Text>().text = "Stop Scan";
-            StartScanner();
+			initialiseCamera();
+			StartScanner();
             // Switch Text
             
             //Scan.GetComponent<Text>().text = "Stop Scan";
@@ -180,14 +181,15 @@ public class QRScript : MonoBehaviour {
 
     public void ClickCompare()
     {
-        if (isQR)
+        if (this.isQR)
         {
-            TextHeader.text = "Does not match"; Debug.Log(TextHeader.text);
+            TextHeader.text = "Does not match";
             foreach (string card in Cards)
             {
-                if (QRCode == card) { TextHeader.text = "Matches"; Debug.Log(TextHeader.text); }
+                if (QRCode == card) { TextHeader.text = "Matches";  }
             }
-        }
+			Debug.Log(TextHeader.text);
+		}
         else
         {
             TextHeader.text = "Not a QR Code"; Debug.Log(TextHeader.text);
