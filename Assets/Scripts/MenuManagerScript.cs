@@ -17,6 +17,7 @@ public class MenuManagerScript : MonoBehaviour {
 	public SpinScript SpinScript;
 	public GM GM_Script;
 	public DisplayManagerScript DM_Script;
+    public QRScript QRScript;
 	public List<string> voicesString;
 	public List<GameObject> tempPattern;
 	public List<GameObject> tempVoices;
@@ -47,8 +48,9 @@ public class MenuManagerScript : MonoBehaviour {
 		GM_Script = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GM>();
 		DM_Script = GameObject.FindGameObjectWithTag ("DisplayManager").GetComponent<DisplayManagerScript>();
 		SpinScript = GameObject.FindGameObjectWithTag ("SpinButton").GetComponent<SpinScript> ();
+        //QRScript = GameObject.FindGameObjectWithTag("").GetComponent<DisplayManagerScript>();
 
-		voicesString = new List<string> ();
+        voicesString = new List<string> ();
 		voicesString.Add ("jo");
 		voicesString.Add ("pam");
 		voicesString.Add ("ad");
@@ -301,6 +303,7 @@ public class MenuManagerScript : MonoBehaviour {
         {
             scannerRunning = false;
             QROverlay.SetActive(false);
+            QRScript.stopScanning();
         } 
         
         // SceneManager.LoadScene("QR Scene");
@@ -309,6 +312,7 @@ public class MenuManagerScript : MonoBehaviour {
     public void QRButtonDisable() {
         scannerRunning = false;
         QROverlay.SetActive(false);
+        QRScript.stopScanning();
     }
 
     /* IEnumerator TumblerIsActive() {
