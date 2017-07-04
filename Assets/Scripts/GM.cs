@@ -280,34 +280,34 @@ public class GM : MonoBehaviour {
 		patternStringList.Add ("2linesacross");
 		patternStringList.Add ("2linesdown");
 		patternStringList.Add ("1111110001100011000111111"); // Square
-		patternStringList.Add ("0010000100111110010000100"); // + 
+		patternStringList.Add ("0010000100110110010000100"); // + 
 		patternStringList.Add ("1000100000000000000010001"); // 4 Corners
-		patternStringList.Add ("1000101010001000101010001"); // X Cross
-		patternStringList.Add ("1000110011101011100110001"); // Z
-		patternStringList.Add ("1111111111111111111111111"); // All Filled
+		patternStringList.Add ("1000101010000000101010001"); // X Cross
+		patternStringList.Add ("1000110011100011100110001"); // Z
+		patternStringList.Add ("1111111111110111111111111"); // All Filled
 
 		pattern2LinesDownList = new List<string>();
 		pattern2LinesDownList.Add ("1111111111000000000000000");
-		pattern2LinesDownList.Add ("1111100000111110000000000");
+		pattern2LinesDownList.Add ("1111100000110110000000000");
 		pattern2LinesDownList.Add ("1111100000000001111100000");
 		pattern2LinesDownList.Add ("1111100000000000000011111");
-		pattern2LinesDownList.Add ("0000011111111110000000000");
+		pattern2LinesDownList.Add ("0000011111110110000000000");
 		pattern2LinesDownList.Add ("0000011111000001111100000");
 		pattern2LinesDownList.Add ("0000011111000000000011111");
-		pattern2LinesDownList.Add ("0000000000111111111100000");
-		pattern2LinesDownList.Add ("0000000000111110000011111");
+		pattern2LinesDownList.Add ("0000000000110111111100000");
+		pattern2LinesDownList.Add ("0000000000110110000011111");
 		pattern2LinesDownList.Add ("0000000000000001111111111");
 
 		pattern2LinesAcrossList = new List<string>();
 		pattern2LinesAcrossList.Add ("1100011000110001100011000");
-		pattern2LinesAcrossList.Add ("1010010100101001010010100");
+		pattern2LinesAcrossList.Add ("1010010100100001010010100");
 		pattern2LinesAcrossList.Add ("1001010010100101001010010");
 		pattern2LinesAcrossList.Add ("1000110001100011000110001");
-		pattern2LinesAcrossList.Add ("0110001100011000110001100");
+		pattern2LinesAcrossList.Add ("0110001100010000110001100");
 		pattern2LinesAcrossList.Add ("0101001010010100101001010");
 		pattern2LinesAcrossList.Add ("0100101001010010100101001");
-		pattern2LinesAcrossList.Add ("0011000110001100011000110");
-		pattern2LinesAcrossList.Add ("0010100101001010010100101");
+		pattern2LinesAcrossList.Add ("0011000110000100011000110");
+		pattern2LinesAcrossList.Add ("0010100101000010010100101");
 		pattern2LinesAcrossList.Add ("0001100011000110001100011");
 		//END Pattern List String
 

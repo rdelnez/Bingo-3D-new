@@ -31,6 +31,9 @@ public class QRScript : MonoBehaviour {
 	public List<bool> scannedCardPatternCheck;
 	public bool isMatch;
 
+	public GameObject BingoWin;
+	public GameObject BingoLose;
+
 	//End Compare Variables
 
 	void Awake()
@@ -111,12 +114,18 @@ public class QRScript : MonoBehaviour {
     private bool checkQR(string type)
     {
         bool result = false;
-        if (type == "QR_CODE") { result = true; }
+        if (type == "QR_CODE") {
+			result = true;
+		}
         return result;
     }
 
-    private void saveType(string type) { isQR = checkQR(type); }
-    private void saveValue(string value) { QRCode = value; }
+    private void saveType(string type) {
+		isQR = checkQR(type);
+	}
+    private void saveValue(string value) {
+		QRCode = value;
+	}
     
 
     private void StartScanner()
@@ -144,6 +153,8 @@ public class QRScript : MonoBehaviour {
             Debug.Log("Saved Check in Scanner(): " + isQR);
             Debug.Log("Saved Value in Scanner(): " + QRCode);
 
+
+			ClickCompare();
         #if UNITY_ANDROID || UNITY_IOS
 		    Handheld.Vibrate();
         #endif
@@ -218,6 +229,10 @@ public class QRScript : MonoBehaviour {
         //else { BarcodeScanner = new Scanner(); }
     }
 
+	public void DisplayWrongQR() {
+		TextHeader.text = "Invalid Bingo QRCode";
+	}
+
     public void ClickCompare()
     {
         if (this.isQR)
@@ -229,6 +244,10 @@ public class QRScript : MonoBehaviour {
                 if (QRCode[x] != ':')
                 {
                     scannedCardName += QRCode[x];
+					if (x>9) {
+						DisplayWrongQR();
+						return;
+					}
                     x++;
                 }
                 else {
@@ -344,8 +363,23 @@ public class QRScript : MonoBehaviour {
                 }
             }
 
-            if (isMatch) { { TextHeader.text = "Bingo!!!"; Debug.Log("Match"); } }
-            else { { TextHeader.text = "Not Bingo"; Debug.Log("not a match"); } }
+           // if (isMatch) { { TextHeader.text = "Bingo!!!"; Debug.Log("Match"); } }
+           // else { { TextHeader.text = "Not Bingo"; Debug.Log("not a match"); } }
+
+
+			if (isMatch)
+			{
+
+				BingoWin.gameObject.SetActive(true);
+				Invoke("RemoveDisplayBingoWin", 3.5f);
+
+				
+			}
+			else {
+				
+				BingoLose.gameObject.SetActive(true);
+				Invoke("RemoveDisplayBingoLose", 3.5f);
+			}
 
             /*
              if (isMatch) { TextHeader.text = " "+scannedCardName + " is Bingo"; Debug.Log("Match"); }
@@ -379,7 +413,18 @@ public class QRScript : MonoBehaviour {
         }
     }
 
-    public IEnumerator StopCamera(Action callback)
+	public void RemoveDisplayBingoWin() {
+
+		BingoWin.gameObject.SetActive(false);
+	}
+
+	public void RemoveDisplayBingoLose()
+	{
+
+		BingoLose.gameObject.SetActive(false);
+	}
+
+	public IEnumerator StopCamera(Action callback)
     {
         // Stop Scanning
         CameraDisplay = null;
