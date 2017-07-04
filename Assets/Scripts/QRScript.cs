@@ -13,6 +13,7 @@ public class QRScript : MonoBehaviour {
 
     public GM GM_Script;
 	public BallManager BM_Script;
+    public SoundManagerScript SM_Script;
 	public Text TextHeader;
     public Button ScanButton, CompareButton;
 
@@ -79,7 +80,8 @@ public class QRScript : MonoBehaviour {
 
 		GM_Script = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GM>();
 		BM_Script = GameObject.FindGameObjectWithTag("BallManager").GetComponent<BallManager>();
-		BarcodeScanner = new Scanner();
+        SM_Script = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManagerScript>();
+        BarcodeScanner = new Scanner();
         isRunning = false;
         // BarcodeScanner = new Scanner();
     }
@@ -185,6 +187,29 @@ public class QRScript : MonoBehaviour {
         };
     }
 
+    //Stops Scanning and Stops Camera
+    public void stopScanning()
+    {
+        //isRunning = false;
+        //if (isRunning)
+        // {
+        // ClickQRScan();
+        //}
+        isRunning = false;
+        TextHeader.text = "Status: " + BarcodeScanner.Status;
+        ScanButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("QRCode/Scan");
+        BarcodeScanner.Stop();
+        BarcodeScanner.Camera.Stop();
+    }
+
+    private void startScanning()
+    {
+        isRunning = true;
+        ScanButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("QRCode/Scanning");
+        initialiseCamera();
+        StartScanner();
+    }
+
     #region UI Buttons
     public void ClickQRScan()
     {
@@ -193,33 +218,29 @@ public class QRScript : MonoBehaviour {
             TextHeader.text = "No valid camera";
             return;
         }
-
         //if (BarcodeScanner != null)
         //{
         //if (BarcodeScanner.Status)
+
         // Track status of the scanner
         //if (!(BarcodeScanner.Status == ScannerStatus.Running))
         if (!isRunning)
         {
             //if (!BarcodeScanner.Camera.IsPlaying()) { initialiseCamera(); }
-            isRunning = true;
-            ScanButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("QRCode/Scanning");
-			initialiseCamera();
-			StartScanner();
+            startScanning();
             // Switch Text
-            
             //Scan.GetComponent<Text>().text = "Stop Scan";
         }
         else
         {
             /* StartCoroutine(StopCamera(() => {
             })); */
-            BarcodeScanner.Stop();
-            isRunning = false;
+            stopScanning();
+
             Debug.Log("Stopped Scan");
             //Debug.Log("Camera Stopped");
-            BarcodeScanner.Camera.Stop();
-            ScanButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("QRCode/Scan");
+            //ScanButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("QRCode/Scan");
+            //isRunning = false;
         }
 
         Debug.Log("isRunning " + isRunning);
@@ -231,7 +252,8 @@ public class QRScript : MonoBehaviour {
 
 	public void DisplayWrongQR() {
 		TextHeader.text = "Invalid Bingo QRCode";
-	}
+        SM_Script.PlayOther_SFX("wrong");
+    }
 
     public void ClickCompare()
     {
@@ -372,14 +394,16 @@ public class QRScript : MonoBehaviour {
 
 				BingoWin.gameObject.SetActive(true);
 				Invoke("RemoveDisplayBingoWin", 3.5f);
+                SM_Script.PlayOther_SFX("beep");
 
-				
-			}
+
+            }
 			else {
 				
 				BingoLose.gameObject.SetActive(true);
 				Invoke("RemoveDisplayBingoLose", 3.5f);
-			}
+                SM_Script.PlayOther_SFX("wrong");
+            }
 
             /*
              if (isMatch) { TextHeader.text = " "+scannedCardName + " is Bingo"; Debug.Log("Match"); }
@@ -410,6 +434,7 @@ public class QRScript : MonoBehaviour {
         else
         {
             TextHeader.text = "Not a QR Code"; Debug.Log(TextHeader.text);
+            SM_Script.PlayOther_SFX("wrong");
         }
     }
 
