@@ -1,0 +1,89 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SingleplayerManager : MonoBehaviour {
+
+	public GM GM_Script;
+	public BallManager BM_Script;
+
+	public int numPlayers;
+	public List<string> Cards;
+
+	// Use this for initialization
+	void Awake () {
+		GM_Script = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GM>();
+		BM_Script = GameObject.FindGameObjectWithTag("BallManager").GetComponent<BallManager>();
+
+		// Cards from actual bingo to test
+		//Card 1:12,4,8,6,7,27,25,24,26,17,35,34,0,43,32,56,52,59,54,53,61,63,65,74,62,
+		//Card 2:6,15,7,13,8,20,25,16,17,26,45,36,0,35,33,56,51,58,52,49,63,71,69,74,68,
+		//Card 3:11,5,2,3,12,16,21,26,30,18,34,35,0,32,43,57,54,56,55,46,73,64,66,72,63,
+		//Card 4:10,15,7,13,8,20,25,16,17,26,45,36,0,35,33,56,51,58,52,49,63,71,69,74,68
+		//Card 5:14,5,3,11,1,29,18,19,23,21,36,39,0,37,41,48,58,50,55,57,69,72,64,68,70,
+
+		numPlayers = 3;
+	}
+	/*
+	// Update is called once per frame
+	void Update () {
+		
+	}
+	*/
+	public void initialiseGame()
+	{
+		Cards.Clear();
+		for (int i = 1; i < numPlayers + 1; i++)
+		{
+			Cards.Add(generateCard(i));
+		}
+
+		/// Display cards under here?
+		/// Could duplicate bingo cards, use ballsprite numbers to represent card numbers for now
+		/// Just need to zoom out camera if possible
+		/// 
+		/// bingoCardMiniPrefabs = Instantiate(Resources.Load("Prefabs/BingoCardMini"), new Vector3(8.8f, -6.77f, 0), Quaternion.identity) as GameObject;
+		/// BingoCardBigScript = GameObject.FindGameObjectWithTag ("BingoCardBig").GetComponent<BingoCardBig> ();
+		/// public BingoCardBig BingoCardBigScript;
+	}
+
+	private string generateCard(int player)
+	{
+		string tempCard = "";
+		int numberAmount = 25; // No more than 25 numbers on the board
+		Dictionary<int,  int> generatedNumbers = new Dictionary<int, int>();
+		int tempNumber = 0;
+
+		/* for (int i = 1; i < 76; i++)
+		{
+			numberPool.Add(i);
+		}*/
+
+		tempCard += "Card " + player + ":";
+
+		for (int j = 0; j < numberAmount;) // Chose to keep this as a for loop instead of using a do while loop
+		{
+			tempNumber = (int)Random.Range(1, 76);
+			if (!numberExists(generatedNumbers, tempNumber)) {
+				if (j == 12) // Element 13 (the middle of the card) should be 0 as a freebie
+				{
+					tempCard += 0 + ",";
+				}
+				else
+				{
+					generatedNumbers.Add(tempNumber, tempNumber);
+					tempCard += tempNumber + ",";
+				}
+				j++;
+			}
+		}
+
+		Debug.Log(tempCard);
+		return tempCard;
+	}
+
+	private bool numberExists(Dictionary<int,int> dictionary, int number)
+	{
+		return dictionary.ContainsKey(number);
+	}
+}
