@@ -54,6 +54,7 @@ public class SingleplayerManager : MonoBehaviour {
 		Dictionary<int,  int> generatedNumbers = new Dictionary<int, int>();
 		int tempNumber = 0;
 
+
 		/* for (int i = 1; i < 76; i++)
 		{
 			numberPool.Add(i);
@@ -61,11 +62,17 @@ public class SingleplayerManager : MonoBehaviour {
 
 		tempCard += "Card " + player + ":";
 
-		for (int j = 0; j < numberAmount;) // Chose to keep this as a for loop instead of using a do while loop
+		for (int i = 0; i < numberAmount;) // Chose to keep this as a for loop instead of using a do while loop
 		{
-			tempNumber = (int)Random.Range(1, 76);
-			if (!numberExists(generatedNumbers, tempNumber)) {
-				if (j == 12) // Element 13 (the middle of the card) should be 0 as a freebie
+            if (i >= 0 && i < 5) { tempNumber = (int)Random.Range(1, 16); } // letter B
+            if (i >= 5 && i < 10) { tempNumber = (int)Random.Range(16, 31); } // letter I
+            if (i >= 10 && i < 15) { tempNumber = (int)Random.Range(31, 46); } // letter N
+            if (i >= 15 && i < 20) { tempNumber = (int)Random.Range(46, 61); } // letter G
+            if (i >= 20 && i < 25) { tempNumber = (int)Random.Range(61, 76); } // letter O 
+
+            //tempNumber = (int)Random.Range(1, 76);
+            if (!numberExists(generatedNumbers, tempNumber)) {
+				if (i == 12) // Element 13 (the middle of the card) should be 0 as a freebie
 				{
 					tempCard += 0 + ",";
 				}
@@ -74,7 +81,7 @@ public class SingleplayerManager : MonoBehaviour {
 					generatedNumbers.Add(tempNumber, tempNumber);
 					tempCard += tempNumber + ",";
 				}
-				j++;
+				i++;
 			}
 		}
 
