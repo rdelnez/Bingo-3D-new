@@ -324,7 +324,7 @@ public class QRScript : MonoBehaviour {
                 if (scannedCardPatternCheck[1] && scannedCardPatternCheck[6] && scannedCardPatternCheck[11] && scannedCardPatternCheck[16] && scannedCardPatternCheck[21]) {
                     tempAnimatedPatternCheckNum++;
                 }
-                if (scannedCardPatternCheck[2] && scannedCardPatternCheck[7] && scannedCardPatternCheck[12] && scannedCardPatternCheck[17] && scannedCardPatternCheck[22])
+                if (scannedCardPatternCheck[2] && scannedCardPatternCheck[7] && scannedCardPatternCheck[17] && scannedCardPatternCheck[22])
                 {
                     tempAnimatedPatternCheckNum++;
                 }
@@ -350,7 +350,7 @@ public class QRScript : MonoBehaviour {
                 {
                     tempAnimatedPatternCheckNum++;
                 }
-                if (scannedCardPatternCheck[10] && scannedCardPatternCheck[11] && scannedCardPatternCheck[12] && scannedCardPatternCheck[13] && scannedCardPatternCheck[14])
+                if (scannedCardPatternCheck[10] && scannedCardPatternCheck[11] && scannedCardPatternCheck[13] && scannedCardPatternCheck[14])
                 {
                     tempAnimatedPatternCheckNum++;
                 }
