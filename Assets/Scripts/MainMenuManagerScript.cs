@@ -17,6 +17,12 @@ public class MainMenuManagerScript : MonoBehaviour {
         SceneManager.LoadScene(1);
 	}
 
+	public void CardsScene()
+	{
+		//This is for the Cards
+		SceneManager.LoadScene(2);
+	}
+
 	public void Singleplayer () {
 		//Application.LoadLevel ("Main Game");
 	}
