@@ -33,6 +33,14 @@ public class QRCardScript : MonoBehaviour {
 	public List<int> scannedCardNumber;
 	public List<bool> scannedCardPatternCheck;
 	public bool isMatch;
+	public bool cardExist;
+
+	public bool iteratingCards;
+	public string tempCardName;
+
+	public List<string> tempCardArray;
+	public List<string> cardNameArray;
+	public List<string> cardNumberArray;
 
 	public GameObject CardScanner;
 
@@ -45,7 +53,15 @@ public class QRCardScript : MonoBehaviour {
 	{
 		BarcodeScanner = new Scanner();
 		isRunning = false;
-		
+
+		iteratingCards = false;
+		tempCardName = "TempCard";
+		cardExist = false;
+
+		tempCardArray = new List<string>();
+		cardNameArray = new List<string>();
+		cardNumberArray = new List<string>();
+		GetSavedCards();
 	}
 
 	// Use this for initialization
@@ -308,9 +324,69 @@ public class QRCardScript : MonoBehaviour {
 		}
 
 
+		
+
+
+		//Start saving Cards
+		iteratingCards = true;
+		cardExist = false;
+		int z = 1;
+		while (iteratingCards) {
+			tempCardName ="TempCard"+z;
+			if (PlayerPrefs.HasKey(tempCardName))
+			{
+				//TempCard+z exist. Iterate again for another check;
+				Debug.Log(tempCardName + " Exists. Checking again for an Empty Storage..");
+			}
+			else {
+
+
+				for (int c=0; c<cardNameArray.Count;c++) {
+					if (cardNameArray[c] == scannedCardName) {
+						Debug.Log(scannedCardName + " already saved in " + tempCardArray[c] + ". Scan Another.");
+						iteratingCards = false;
+						cardExist = true;
+						break;
+					}
+				}
+
+
+				if (!cardExist) {
+					PlayerPrefs.SetString(tempCardName, scannedCardName);
+					PlayerPrefs.SetString(scannedCardName, scannedCardNumberString);
+					Debug.Log(scannedCardName + " does not exist and was saved in " + tempCardName);
+					iteratingCards = false;
+					
+				}
+
+				/*--
+				if (PlayerPrefs.HasKey(scannedCardName))
+				{
+					Debug.Log(scannedCardName + " already saved in " + tempCardName + ". Scan Another.");
+
+				}
+				else {
+					PlayerPrefs.SetString(tempCardName, scannedCardName);
+					PlayerPrefs.SetString(scannedCardName, scannedCardNumberString);
+					Debug.Log(scannedCardName + " does not exist and was saved in " + tempCardName);
+					
+				}
+				--*/
+
+				
+			}
+
+			z++;
+		}
+
+
+		GetSavedCards();
+
+		//PlayerPrefs.DeleteAll(); // Delete All Plyerprefs
 
 		
-		//Start saving Cards
+		
+		/*--
 			if (PlayerPrefs.HasKey(scannedCardName))
 			{
 				Debug.Log(scannedCardName + " already saved. Scan Another.");
@@ -322,11 +398,42 @@ public class QRCardScript : MonoBehaviour {
 				Debug.Log(scannedCardName + " does not exist and was saved");
 		
 			}
-
+		--*/
 		//End saving Cards
 
 
 	}
+
+
+
+	public void GetSavedCards()
+	{
+		tempCardArray.Clear();
+		cardNameArray.Clear();
+		cardNumberArray.Clear();
+
+		iteratingCards = true;
+		int tempIndex = 1;
+		while (iteratingCards)
+		{
+			tempCardName = "TempCard" + tempIndex;
+			if (PlayerPrefs.HasKey(tempCardName))
+			{
+				tempCardArray.Add(tempCardName);
+				cardNameArray.Add(PlayerPrefs.GetString(tempCardName));
+				cardNumberArray.Add(PlayerPrefs.GetString(PlayerPrefs.GetString(tempCardName)));
+
+				tempIndex++;
+			}
+			else
+			{
+				iteratingCards = false;
+			}
+		}
+		
+	}
+
+
 
 }
 

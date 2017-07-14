@@ -32,6 +32,12 @@ public class QRScript : MonoBehaviour {
 	public List<bool> scannedCardPatternCheck;
 	public bool isMatch;
 
+	public string tempCardName;
+	public bool iteratingCards;
+	public List<string> tempCardArray;
+	public List<string> cardNameArray;
+	public List<string> cardNumberArray;
+
 	public GameObject BingoWin;
 	public GameObject BingoLose;
 
@@ -39,10 +45,15 @@ public class QRScript : MonoBehaviour {
 
 	void Awake()
     {
-        //Screen.autorotateToPortrait = false;
-        //Screen.autorotateToPortraitUpsideDown = false;
-        //Board = "1:B,1,12,13,14,14-I:,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-";
-        Card1 = "1:B,1,12,13,14,14-I:,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-";
+
+		tempCardArray = new List<string>();
+		cardNameArray = new List<string>();
+		cardNumberArray = new List<string>();
+		GetSavedCards();
+		//Screen.autorotateToPortrait = false;
+		//Screen.autorotateToPortraitUpsideDown = false;
+		//Board = "1:B,1,12,13,14,14-I:,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-";
+		Card1 = "1:B,1,12,13,14,14-I:,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-";
         Card2 = "Card2-B:1,2,3,4,4-I:23,24,34,56,43-N:23,24,34,56,43-G:23,24,34,56,43-0:23,24,34,56,43";
         Card3 = "Card2-B:13,22,13,14,24-I:33,14,4,6,3-N:13,22,34,46,45-G:53,25,4,6,3-0:2,4,4,6,3";
         Cards.Add(Card1);
@@ -405,6 +416,8 @@ public class QRScript : MonoBehaviour {
                 SM_Script.PlayOther_SFX("wrong");
             }
 
+			
+
             /*
              if (isMatch) { TextHeader.text = " "+scannedCardName + " is Bingo"; Debug.Log("Match"); }
 			else { TextHeader.text = " "+scannedCardName + " is not Bingo"; Debug.Log("not a match"); }
@@ -462,7 +475,34 @@ public class QRScript : MonoBehaviour {
         callback.Invoke();
     }
 
-    #endregion
+	#endregion
+
+	public void GetSavedCards()
+	{
+		tempCardArray.Clear();
+		cardNameArray.Clear();
+		cardNumberArray.Clear();
+
+		iteratingCards = true;
+		int tempIndex = 1;
+		while (iteratingCards)
+		{
+			tempCardName = "TempCard" + tempIndex;
+			if (PlayerPrefs.HasKey(tempCardName))
+			{
+				tempCardArray.Add(tempCardName);
+				cardNameArray.Add(PlayerPrefs.GetString(tempCardName));
+				cardNumberArray.Add(PlayerPrefs.GetString(PlayerPrefs.GetString(tempCardName)));
+
+				tempIndex++;
+			}
+			else
+			{
+				iteratingCards = false;
+			}
+		}
+
+	}
 
 }
 
