@@ -124,7 +124,9 @@ public class QRScript : MonoBehaviour {
         }
     }
 
-    private bool checkQR(string type)
+	
+
+	private bool checkQR(string type)
     {
         bool result = false;
         if (type == "QR_CODE") {
@@ -265,6 +267,10 @@ public class QRScript : MonoBehaviour {
 		TextHeader.text = "Invalid Bingo QRCode";
         SM_Script.PlayOther_SFX("wrong");
     }
+
+
+	
+
 
     public void ClickCompare()
     {
@@ -501,6 +507,12 @@ public class QRScript : MonoBehaviour {
 				iteratingCards = false;
 			}
 		}
+
+	}
+
+	public void CompareStoredCards() {
+
+
 
 	}
 

@@ -423,6 +423,8 @@ public class QRCardScript : MonoBehaviour {
 				cardNameArray.Add(PlayerPrefs.GetString(tempCardName));
 				cardNumberArray.Add(PlayerPrefs.GetString(PlayerPrefs.GetString(tempCardName)));
 
+				
+
 				tempIndex++;
 			}
 			else
@@ -433,7 +435,11 @@ public class QRCardScript : MonoBehaviour {
 		
 	}
 
+	public void DeleteUserPrefs() {
 
+		PlayerPrefs.DeleteAll();
+		Debug.Log("Userprefs Delted");
+	}
 
 }
 
