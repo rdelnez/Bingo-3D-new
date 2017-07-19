@@ -11,6 +11,10 @@ public class QRScript : MonoBehaviour {
     private IScanner BarcodeScanner;
     private float RestartTime;
 
+	public Text cardWinner;
+	public int placeWinner;
+	public bool alreadyHasWinner;
+
     public GM GM_Script;
 	public BallManager BM_Script;
     public SoundManagerScript SM_Script;
@@ -50,6 +54,10 @@ public class QRScript : MonoBehaviour {
 		cardNameArray = new List<string>();
 		cardNumberArray = new List<string>();
 		GetSavedCards();
+
+		placeWinner = 0;
+		alreadyHasWinner = false;
+
 		//Screen.autorotateToPortrait = false;
 		//Screen.autorotateToPortraitUpsideDown = false;
 		//Board = "1:B,1,12,13,14,14-I:,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-";
@@ -510,13 +518,164 @@ public class QRScript : MonoBehaviour {
 
 	}
 
-	public void CompareStoredCards() {
+	public void CompareStoredCardsMain() {
+
+		StartCoroutine(CompareStoredCards());
+	}
+
+	IEnumerator CompareStoredCards() {
+
+		
+
+		for (int xy=0; xy < cardNumberArray.Count; xy++) {
+			scannedCardNumber.Clear();
+
+			string tempNum = "";
+			for (int y = 0; y < cardNumberArray[xy].Length; y++)
+			{
+				if (cardNumberArray[xy][y] != ',')
+				{
+					tempNum += cardNumberArray[xy][y];
+				}
+				else
+				{
+					scannedCardNumber.Add(int.Parse(tempNum));
+					Debug.Log(scannedCardNumber);
+					tempNum = "";
+				}
+			}
 
 
 
+			for (int c = 0; c < scannedCardPatternCheck.Count; c++)
+			{
+				scannedCardPatternCheck[c] = false;
+			}
+
+			for (int z = 0; z < BM_Script.poolActiveNumberList.Count; z++)
+			{
+
+				//BM_Script.poolActiveNumberList[z];
+				for (int a = 0; a < scannedCardPatternCheck.Count; a++)
+				{
+					if (BM_Script.poolActiveNumberList[z] == scannedCardNumber[a])
+					{
+						scannedCardPatternCheck[a] = true;
+					}
+
+				}
+
+			}
+
+
+			//--------------------Start Comparing Cards----------------------------//
+			isMatch = true;
+			int tempAnimatedPatternCheckNum = 0;
+
+			if (GM_Script.activePatternName == "Pattern1")
+			{
+				if (scannedCardPatternCheck[0] && scannedCardPatternCheck[5] && scannedCardPatternCheck[10] && scannedCardPatternCheck[15] && scannedCardPatternCheck[20])
+				{
+					tempAnimatedPatternCheckNum++;
+				}
+				if (scannedCardPatternCheck[1] && scannedCardPatternCheck[6] && scannedCardPatternCheck[11] && scannedCardPatternCheck[16] && scannedCardPatternCheck[21])
+				{
+					tempAnimatedPatternCheckNum++;
+				}
+				if (scannedCardPatternCheck[2] && scannedCardPatternCheck[7] && scannedCardPatternCheck[17] && scannedCardPatternCheck[22])
+				{
+					tempAnimatedPatternCheckNum++;
+				}
+				if (scannedCardPatternCheck[3] && scannedCardPatternCheck[8] && scannedCardPatternCheck[13] && scannedCardPatternCheck[18] && scannedCardPatternCheck[23])
+				{
+					tempAnimatedPatternCheckNum++;
+				}
+				if (scannedCardPatternCheck[4] && scannedCardPatternCheck[9] && scannedCardPatternCheck[14] && scannedCardPatternCheck[19] && scannedCardPatternCheck[24])
+				{
+					tempAnimatedPatternCheckNum++;
+				}
+
+				if (tempAnimatedPatternCheckNum < 2)
+				{
+					isMatch = false;
+				}
+			}
+			else if (GM_Script.activePatternName == "Pattern2")
+			{
+				if (scannedCardPatternCheck[0] && scannedCardPatternCheck[1] && scannedCardPatternCheck[2] && scannedCardPatternCheck[3] && scannedCardPatternCheck[4])
+				{
+					tempAnimatedPatternCheckNum++;
+				}
+				if (scannedCardPatternCheck[5] && scannedCardPatternCheck[6] && scannedCardPatternCheck[7] && scannedCardPatternCheck[8] && scannedCardPatternCheck[9])
+				{
+					tempAnimatedPatternCheckNum++;
+				}
+				if (scannedCardPatternCheck[10] && scannedCardPatternCheck[11] && scannedCardPatternCheck[13] && scannedCardPatternCheck[14])
+				{
+					tempAnimatedPatternCheckNum++;
+				}
+				if (scannedCardPatternCheck[15] && scannedCardPatternCheck[16] && scannedCardPatternCheck[17] && scannedCardPatternCheck[18] && scannedCardPatternCheck[19])
+				{
+					tempAnimatedPatternCheckNum++;
+				}
+				if (scannedCardPatternCheck[20] && scannedCardPatternCheck[21] && scannedCardPatternCheck[22] && scannedCardPatternCheck[23] && scannedCardPatternCheck[24])
+				{
+					tempAnimatedPatternCheckNum++;
+				}
+
+				if (tempAnimatedPatternCheckNum < 2)
+				{
+					isMatch = false;
+				}
+			}
+			else
+			{
+				for (int b = 0; b < scannedCardPatternCheck.Count; b++)
+				{
+					if (GM_Script.blueIsActiveList[b])
+					{
+						if (scannedCardPatternCheck[b])
+						{
+						}
+						else
+						{
+							
+							isMatch = false;
+							break;
+						}
+					}
+
+				}
+			}
+
+			if (isMatch) {
+
+				if (!alreadyHasWinner) {
+					placeWinner++;
+					alreadyHasWinner = true;
+				}
+				Debug.Log(cardNameArray[xy] + "is a match and has been removed from the card array");
+				cardWinner.text += cardNameArray[xy] + " is Bingo " + placeWinner + ":";
+				cardNameArray.RemoveAt(xy);
+				cardNumberArray.RemoveAt(xy);
+				tempCardArray.RemoveAt(xy);
+				
+			}
+
+
+
+			//--------------------End Comparing Cards----------------------------//
+			yield return new WaitForSeconds(0.03f);
+		
+		}
+
+		alreadyHasWinner = false;
 	}
 
 }
+
+
+//poolNumberList.RemoveAt (tempRandNum);
 
 /*
 // Create a basic scanner

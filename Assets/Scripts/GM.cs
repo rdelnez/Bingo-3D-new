@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GM : MonoBehaviour {
 
 	public MenuManagerScript MM_Script;
+	public QRScript QR_Script;
 	public GameObject MainMenuButton;
 
 
@@ -1290,6 +1291,10 @@ public class GM : MonoBehaviour {
 
 	public void ResetGame(){
 		Debug.Log("Reset");
+
+		QR_Script.placeWinner = 0;
+
+		
 
 		BallManager tempBM = GameObject.FindGameObjectWithTag ("BallManager").GetComponent<BallManager>();
 		BingoCardBigScript = GameObject.FindGameObjectWithTag ("BingoCardBig").GetComponent<BingoCardBig> ();

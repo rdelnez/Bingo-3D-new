@@ -15,7 +15,8 @@ public class BallManager : MonoBehaviour {
 	public Texture testTexture;
 	public GameObject GM_Object;
 	public GM GM_Script;
-	
+	public QRScript QR_Script;
+
 	public List<int> poolNumberList;
 	public List<int> poolActiveNumberList;
 	public List<GameObject> activeBallList;
@@ -77,6 +78,7 @@ public class BallManager : MonoBehaviour {
 		poolActiveNumberList.Add (poolNumberList[tempRandNum]);
 		poolNumberList.RemoveAt (tempRandNum);
 
+		QR_Script.CompareStoredCardsMain();
 		// Debug.Log ("Balls Moving when button is pressed: " + ballsMoving);
 	}
 
