@@ -348,6 +348,14 @@ public class QRCardScript : MonoBehaviour {
 						cardExist = true;
 						break;
 					}
+					else if (cardNumberArray[c] == scannedCardNumberString)
+					{
+						Debug.Log("This exact card pattern already exists, please change the card name.");
+						iteratingCards = false;
+						cardExist = true;
+						break;
+					}
+					else { }
 				}
 
 
@@ -474,6 +482,7 @@ public class QRCardScript : MonoBehaviour {
 			PlayerPrefs.SetInt("EE_Top2_Score_Expert", 000);
 			PlayerPrefs.SetInt("EE_Top3_Score_Expert", 000);
 		}
+		
   
  --*/
 
