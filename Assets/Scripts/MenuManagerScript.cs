@@ -298,6 +298,7 @@ public class MenuManagerScript : MonoBehaviour {
         {
             scannerRunning = true;
             QROverlay.SetActive(true);
+			QRScript.startScanning();
         }
         else
         {

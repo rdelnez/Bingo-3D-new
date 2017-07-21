@@ -223,7 +223,7 @@ public class QRScript : MonoBehaviour {
         BarcodeScanner.Camera.Stop();
     }
 
-    private void startScanning()
+    public void startScanning()
     {
         isRunning = true;
         ScanButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("QRCode/Scanning");
