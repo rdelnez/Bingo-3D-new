@@ -355,7 +355,6 @@ public class QRCardScript : MonoBehaviour {
 						cardExist = true;
 						break;
 					}
-					else { }
 				}
 
 

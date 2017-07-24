@@ -18,6 +18,7 @@ public class QRScript : MonoBehaviour {
     public GM GM_Script;
 	public BallManager BM_Script;
     public SoundManagerScript SM_Script;
+	public WinnerCardScript WIN_Script;
 	public Text TextHeader;
     public Button ScanButton, CompareButton;
 
@@ -46,6 +47,12 @@ public class QRScript : MonoBehaviour {
 	public GameObject BingoLose;
 
 	//End Compare Variables
+
+	//Start Winner Couting
+	public int firstWinnerNum = 0;
+	public int secondWinnerNum = 0;
+
+	//End Winner Counting
 
 	void Awake()
     {
@@ -100,7 +107,8 @@ public class QRScript : MonoBehaviour {
 		GM_Script = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GM>();
 		BM_Script = GameObject.FindGameObjectWithTag("BallManager").GetComponent<BallManager>();
         SM_Script = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManagerScript>();
-        BarcodeScanner = new Scanner();
+		WIN_Script = GameObject.FindGameObjectWithTag("WinnerDisplay").GetComponent<WinnerCardScript>();
+		BarcodeScanner = new Scanner();
         isRunning = false;
         // BarcodeScanner = new Scanner();
     }
@@ -109,6 +117,8 @@ public class QRScript : MonoBehaviour {
     void Start () {
         //BarcodeScanner.Camera.Play();
         initialiseCamera();
+		firstWinnerNum = 0;
+		secondWinnerNum = 0;
         
         //RestartTime = Time.realtimeSinceStartup;
     }
@@ -650,12 +660,24 @@ public class QRScript : MonoBehaviour {
 
 			if (isMatch) {
 
-				if (!alreadyHasWinner) {
+				if (!alreadyHasWinner)
+				{
 					placeWinner++;
 					alreadyHasWinner = true;
+					if (secondWinnerNum > 9)
+					{
+						firstWinnerNum++;
+						secondWinnerNum = 0;
+					}
+					else { 
+						secondWinnerNum++;
+					}
 				}
 				Debug.Log(cardNameArray[xy] + "is a match and has been removed from the card array");
 				cardWinner.text += cardNameArray[xy] + " is Bingo " + placeWinner + ":";
+				string[] cardNameSplit = cardNameArray[xy].Split(' ');
+				WIN_Script.SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
+
 				cardNameArray.RemoveAt(xy);
 				cardNumberArray.RemoveAt(xy);
 				tempCardArray.RemoveAt(xy);
