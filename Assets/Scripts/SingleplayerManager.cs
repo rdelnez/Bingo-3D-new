@@ -12,6 +12,7 @@ public class SingleplayerManager : MonoBehaviour {
     public GameObject cardPrefab;
     public List<GameObject> playerCards;
     public float cardWidth;
+    public bool gameStarted;
 
 	// Use this for initialization
 	void Awake () {
@@ -27,6 +28,7 @@ public class SingleplayerManager : MonoBehaviour {
         //cardWidth = 1572;
         cardWidth = cardPrefab.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
         numPlayers = 5;
+        gameStarted = false;
 
         //cardPrefab.GetComponentInChildren<BingoBlueButton>().enabled = false;
         /* Component[] scripts = cardPrefab.GetComponentsInChildren<BingoBlueButton>();
@@ -51,13 +53,17 @@ public class SingleplayerManager : MonoBehaviour {
 
 	public void initialiseGame()
 	{
-        cards.Clear();
-		for (int i = 1; i < numPlayers + 1; i++)
-		{
-            cards.Add(generateCard(i));
-		}
+        if (!gameStarted)
+        {
+            cards.Clear();
+            for (int i = 1; i < numPlayers + 1; i++)
+            {
+                cards.Add(generateCard(i));
+            }
 
-        displayCards();
+            displayCards();
+            gameStarted = true;
+        }
 
         /// Display cards under here?
         /// Could duplicate bingo cards, use ballsprite numbers to represent card numbers for now
@@ -68,25 +74,20 @@ public class SingleplayerManager : MonoBehaviour {
         /// public BingoCardBig BingoCardBigScript;
     }
 
-    public void showPlayerCards()
-    {
-
-    }
-
 	private string generateCard(int player)
 	{
-		string tempCard = "";
+		string tempString = "";
 		int numberAmount = 25; // No more than 25 numbers on the board
 		Dictionary<int,  int> generatedNumbers = new Dictionary<int, int>();
 		int tempNumber = 0;
 
 
-		/* for (int i = 1; i < 76; i++)
+        /* for (int i = 1; i < 76; i++)
 		{
 			numberPool.Add(i);
 		}*/
 
-		tempCard += "Card " + player + ":";
+        tempString += "Card " + player + ":";
 
 		for (int i = 0; i < numberAmount;) // Chose to keep this as a for loop instead of using a do while loop
 		{
@@ -100,34 +101,37 @@ public class SingleplayerManager : MonoBehaviour {
             if (!numberExists(generatedNumbers, tempNumber)) {
 				if (i == 12) // Element 13 (the middle of the card) should be 0 as a freebie
 				{
-					tempCard += 0 + ",";
+                    tempString += 0 + ",";
 				}
 				else
 				{
 					generatedNumbers.Add(tempNumber, tempNumber);
-					tempCard += tempNumber + ",";
+                    tempString += tempNumber + ",";
 				}
 				i++;
 			}
 		}
 
-		Debug.Log(tempCard);
-		return tempCard;
+		Debug.Log(tempString);
+		return tempString;
 	}
 
     public void displayCards()
     {
-        //GameObject tempCard;
+        GameObject tempCard;
         
         //tempCard.transform.parent = this;
         for (int i = 0; i < numPlayers+0; i++)
         {
-            //tempCard = Instantiate(cardPrefab, new Vector3(-20f + 1f + ((cardWidth * 0.4f) * i), this.transform.position.y, this.transform.position.z), Quaternion.identity);
+            tempCard = Instantiate(cardPrefab, new Vector3(-15f + (cardSpace(i)), -7.0f, -2.0f), Quaternion.identity) as GameObject;
+            tempCard.GetComponent<AIManager>().initialiseCard(cards[i]);
+            playerCards.Add(tempCard);
             //tempCard.transform.parent = GameObject.Find("Singleplayer").transform;
             //cardPrefab.GetComponent<GameObject>().transform.position.x
             // tempCard = Instantiate(cardPrefab, new Vector3(cardPrefab.GetComponent<GameObject>().transform.position.x + 1f + ((cardWidth * 0.4f) * i), cardPrefab.GetComponent<GameObject>().transform.position.y, cardPrefab.GetComponent<GameObject>().transform.position.z), Quaternion.identity);
             //cardPrefab.GetComponent<GameObject>().transform.position.x
-            playerCards.Add(Instantiate(cardPrefab, new Vector3(-20f + ((cardWidth * 0.4f) * i), this.transform.position.y, this.transform.position.z), Quaternion.identity) as GameObject);
+
+            //playerCards.Add(Instantiate(cardPrefab, new Vector3(-15f + (cardSpace(i)), -7.0f, -2.0f), Quaternion.identity) as GameObject);
 
             //cardPrefab.GetComponent<>
         }
@@ -138,4 +142,10 @@ public class SingleplayerManager : MonoBehaviour {
 	{
 		return dictionary.ContainsKey(number);
 	}
+
+    private float cardSpace (float cardCount)
+    {
+        return (((cardWidth * 0.4f) * cardCount) * 1.5f);
+
+    }
 }
