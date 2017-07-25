@@ -10,28 +10,26 @@ public class WinnerCardScript : MonoBehaviour {
 	public SpriteRenderer srCardFirstNum;
 	public SpriteRenderer srCardSecondNum;
 	public Vector3 endPos;
+	public Vector3 nextPos;
 	public int moveSpeed;
+	public QRScript QR_Script;
+	public bool hasMultipleWinners;
+	public bool destroyMultipleWinner;
 
 	private void Awake()
 	{
-		endPos = this.transform.localPosition + new Vector3(0, 10, 0);
+		QR_Script = GameObject.FindGameObjectWithTag("QR").GetComponent<QRScript>();
+		endPos = this.transform.localPosition + new Vector3(0, 5, 0);
+		nextPos = this.transform.localPosition + new Vector3(0, 2, 0);
 		moveSpeed = 1;
-	}
-
-	private void Update()
-	{
-
-		transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, Time.deltaTime * moveSpeed);
-		if(this.transform.localPosition == endPos) {
-
-			Destroy(this.gameObject);
-
-		}
+		QR_Script.winnerAlive = true;
+		destroyMultipleWinner = false;
 
 	}
 
 
-	public void SetWinnerNumber(int xy, int firstWinnerNum, int secondWinnerNum)
+
+	public void SetWinnerNumber(int xy, int firstWinnerNum, int secondWinnerNum, bool multipleWinner)
 	{
 		string inputNumString;
 		if (xy > 9)
@@ -47,6 +45,51 @@ public class WinnerCardScript : MonoBehaviour {
 		srWinnerSecondNum.sprite = Resources.Load<Sprite>("QRCode/" + secondWinnerNum);
 		srCardFirstNum.sprite = Resources.Load<Sprite>("QRCode/" + inputNumString[0]);
 		srCardSecondNum.sprite = Resources.Load<Sprite>("QRCode/" + inputNumString[1]);
+		if (multipleWinner) {
+
+			hasMultipleWinners = true;
+			
+
+		}
+
+
+	}
+
+	private void Update()
+	{
+
+		transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, Time.deltaTime * moveSpeed);
+
+		if (hasMultipleWinners)
+		{
+			
+			if (this.transform.localPosition.y >= nextPos.y)
+			{
+				if (!destroyMultipleWinner)
+				{
+					QR_Script.winnerAlive = false;
+					destroyMultipleWinner = true;
+				}
+
+			}
+
+		}
+
+			if (this.transform.localPosition == endPos)
+			{
+				if (!destroyMultipleWinner)
+				{
+					QR_Script.winnerAlive = false;
+				}
+				
+				Destroy(this.gameObject);
+
+
+			}
+
+
+		}
+
 
 
 	}
@@ -54,4 +97,4 @@ public class WinnerCardScript : MonoBehaviour {
 
 
 
-}
+
