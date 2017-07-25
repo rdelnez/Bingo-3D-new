@@ -19,6 +19,12 @@ public class QRScript : MonoBehaviour {
 	public BallManager BM_Script;
     public SoundManagerScript SM_Script;
 	public WinnerCardScript WIN_Script;
+
+	public UnityEngine.Object winCardPrefab;
+	public GameObject winCardGameObject;
+	public Transform winCardPos;
+
+
 	public Text TextHeader;
     public Button ScanButton, CompareButton;
 
@@ -107,7 +113,7 @@ public class QRScript : MonoBehaviour {
 		GM_Script = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GM>();
 		BM_Script = GameObject.FindGameObjectWithTag("BallManager").GetComponent<BallManager>();
         SM_Script = GameObject.FindGameObjectWithTag("SoundManager").GetComponent<SoundManagerScript>();
-		WIN_Script = GameObject.FindGameObjectWithTag("WinnerDisplay").GetComponent<WinnerCardScript>();
+		//WIN_Script = GameObject.FindGameObjectWithTag("WinnerDisplay").GetComponent<WinnerCardScript>();
 		BarcodeScanner = new Scanner();
         isRunning = false;
         // BarcodeScanner = new Scanner();
@@ -664,19 +670,24 @@ public class QRScript : MonoBehaviour {
 				{
 					placeWinner++;
 					alreadyHasWinner = true;
-					if (secondWinnerNum > 9)
+					if (secondWinnerNum >= 9)
 					{
 						firstWinnerNum++;
 						secondWinnerNum = 0;
 					}
-					else { 
+					else
+					{
 						secondWinnerNum++;
 					}
 				}
+				
 				Debug.Log(cardNameArray[xy] + "is a match and has been removed from the card array");
 				cardWinner.text += cardNameArray[xy] + " is Bingo " + placeWinner + ":";
 				string[] cardNameSplit = cardNameArray[xy].Split(' ');
-				WIN_Script.SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
+
+				winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
+				winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
+				//WIN_Script.SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
 
 				cardNameArray.RemoveAt(xy);
 				cardNumberArray.RemoveAt(xy);
