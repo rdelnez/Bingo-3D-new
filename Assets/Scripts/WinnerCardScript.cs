@@ -5,31 +5,28 @@ using UnityEngine;
 public class WinnerCardScript : MonoBehaviour {
 
 
-	public SpriteRenderer srWinnerFirstNum;
-	public SpriteRenderer srWinnerSecondNum;
-	public SpriteRenderer srCardFirstNum;
-	public SpriteRenderer srCardSecondNum;
-	public Vector3 endPos;
-	public Vector3 nextPos;
+	public SpriteRenderer srWinnerFirstNum; // left 
+	public SpriteRenderer srWinnerSecondNum; // right
+	public SpriteRenderer srCardFirstNum; // left
+	public SpriteRenderer srCardSecondNum; // right
+	public Vector3 endPos; // destroy here
+	public Vector3 nextPos; // pass this to spawn next
 	public int moveSpeed;
 	public QRScript QR_Script;
-	public bool hasMultipleWinners;
-	public bool destroyMultipleWinner;
+	public bool pastSpawnPoint; // So it sets true only once.	
 
 	private void Awake()
 	{
 		QR_Script = GameObject.FindGameObjectWithTag("QR").GetComponent<QRScript>();
 		endPos = this.transform.localPosition + new Vector3(0, 5, 0);
 		nextPos = this.transform.localPosition + new Vector3(0, 2, 0);
-		moveSpeed = 1;
+		moveSpeed = 2;
 		QR_Script.winnerAlive = true;
-		destroyMultipleWinner = false;
-
 	}
 
 
 
-	public void SetWinnerNumber(int xy, int firstWinnerNum, int secondWinnerNum, bool multipleWinner)
+	public void SetWinnerNumber(int xy, int firstWinnerNum, int secondWinnerNum)
 	{
 		string inputNumString;
 		if (xy > 9)
@@ -45,52 +42,29 @@ public class WinnerCardScript : MonoBehaviour {
 		srWinnerSecondNum.sprite = Resources.Load<Sprite>("QRCode/" + secondWinnerNum);
 		srCardFirstNum.sprite = Resources.Load<Sprite>("QRCode/" + inputNumString[0]);
 		srCardSecondNum.sprite = Resources.Load<Sprite>("QRCode/" + inputNumString[1]);
-		if (multipleWinner) {
-
-			hasMultipleWinners = true;
-			
-
-		}
 
 
 	}
 
 	private void Update()
 	{
-
 		transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, Time.deltaTime * moveSpeed);
 
-		if (hasMultipleWinners)
+		if (pastSpawnPoint == false)
 		{
-			
 			if (this.transform.localPosition.y >= nextPos.y)
 			{
-				if (!destroyMultipleWinner)
-				{
-					QR_Script.winnerAlive = false;
-					destroyMultipleWinner = true;
-				}
-
+				pastSpawnPoint = true;
+				QR_Script.winnerAlive = false;
 			}
 
 		}
-
-			if (this.transform.localPosition == endPos)
-			{
-				if (!destroyMultipleWinner)
-				{
-					QR_Script.winnerAlive = false;
-				}
-				
-				Destroy(this.gameObject);
-
-
-			}
-
-
+		if (this.transform.localPosition == endPos)
+		{	
+			Destroy(this.gameObject);
 		}
 
-
+	}
 
 	}
 

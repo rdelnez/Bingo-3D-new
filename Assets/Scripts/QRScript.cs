@@ -73,6 +73,9 @@ public class QRScript : MonoBehaviour {
 		placeWinner = 0;
 		alreadyHasWinner = false;
 
+		firstWinnerNum = 0;
+		secondWinnerNum = 0;
+
 		//Screen.autorotateToPortrait = false;
 		//Screen.autorotateToPortraitUpsideDown = false;
 		//Board = "1:B,1,12,13,14,14-I:,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-N: ,21,12,12,34,21-";
@@ -688,17 +691,17 @@ public class QRScript : MonoBehaviour {
 
 
 				}
-				yield return new WaitUntil(() => winnerAlive == false);
-				Debug.Log(cardNameArray[xy] + "is a match and has been removed from the card array");
+
+				Debug.Log(cardNameArray[xy] + "is a match and has been removed from the card array. Winner Number " + placeWinner);
 				cardWinner.text += cardNameArray[xy] + " is Bingo " + placeWinner + ":";
 				string[] cardNameSplit = cardNameArray[xy].Split(' ');
 
 
-				
-				
+				yield return new WaitUntil(() => winnerAlive == false);
+
 				winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
 
-				winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum, alreadyHasWinner);
+				winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
 				//WIN_Script.SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
 
 				cardNameArray.RemoveAt(xy);
@@ -715,9 +718,9 @@ public class QRScript : MonoBehaviour {
 
 			}
 
-			alreadyHasWinner = false;
-			
-		}
+		alreadyHasWinner = false;
+
+	}
 
 }
 
