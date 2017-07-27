@@ -25,6 +25,11 @@ public class WinnerCardScript : MonoBehaviour {
 	}
 
 
+	void Start()
+	{
+		StartCoroutine(MoveGraphics());
+	}
+
 
 	public void SetWinnerNumber(int xy, int firstWinnerNum, int secondWinnerNum)
 	{
@@ -46,27 +51,34 @@ public class WinnerCardScript : MonoBehaviour {
 
 	}
 
-	private void Update()
-	{
-		transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, Time.deltaTime * moveSpeed);
 
-		if (pastSpawnPoint == false)
+
+	IEnumerator MoveGraphics() {
+
+		while (true)
 		{
-			if (this.transform.localPosition.y >= nextPos.y)
+			transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, Time.deltaTime * moveSpeed);
+
+			if (pastSpawnPoint == false)
 			{
-				pastSpawnPoint = true;
-				QR_Script.winnerAlive = false;
+				if (this.transform.localPosition.y >= nextPos.y)
+				{
+					pastSpawnPoint = true;
+					QR_Script.winnerAlive = false;
+				}
+
+			}
+			if (this.transform.localPosition == endPos)
+			{
+				Destroy(this.gameObject);
 			}
 
-		}
-		if (this.transform.localPosition == endPos)
-		{	
-			Destroy(this.gameObject);
-		}
 
+			yield return new WaitForSeconds(0.03f);
+		}
 	}
 
-	}
+}
 
 
 

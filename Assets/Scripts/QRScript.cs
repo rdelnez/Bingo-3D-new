@@ -714,7 +714,7 @@ public class QRScript : MonoBehaviour {
 
 
 				//--------------------End Comparing Cards----------------------------//
-				yield return new WaitForSeconds(0.03f);
+				yield return new WaitForSeconds(0.001f);
 
 			}
 
