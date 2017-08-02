@@ -60,6 +60,8 @@ public class QRScript : MonoBehaviour {
 	public int firstWinnerNum = 0;
 	public int secondWinnerNum = 0;
 
+	public List<List<int>> tempActiveNumberList;
+
 	//End Winner Counting
 
 	void Awake()
@@ -130,9 +132,12 @@ public class QRScript : MonoBehaviour {
         initialiseCamera();
 		firstWinnerNum = 0;
 		secondWinnerNum = 0;
-        
-        //RestartTime = Time.realtimeSinceStartup;
-    }
+
+		//RestartTime = Time.realtimeSinceStartup;
+
+		tempActiveNumberList = new List<List<int>>();
+		StartCoroutine(CompareStoredCards());
+	}
 
     // Update is called once per frame
     void Update()
@@ -539,15 +544,24 @@ public class QRScript : MonoBehaviour {
 
 	}
 
-	public void CompareStoredCardsMain() {
 
-		StartCoroutine(CompareStoredCards());
+
+	public void CompareStoredCardsMain(List<int> tempActNum) {
+
+	
+			tempActiveNumberList.Add(tempActNum);
+		Debug.Log(tempActiveNumberList[0]);
+		Debug.Log(tempActiveNumberList[0][0]);
+
+		//StartCoroutine(CompareStoredCards());
 	}
 
 	IEnumerator CompareStoredCards()
 	{
 
-		for (int xy = 0; xy < cardNumberArray.Count; xy++)
+		while (tempActiveNumberList.Count > 0) {
+
+			for (int xy = 0; xy < cardNumberArray.Count; xy++)
 			{
 				scannedCardNumber.Clear();
 
@@ -573,13 +587,13 @@ public class QRScript : MonoBehaviour {
 					scannedCardPatternCheck[c] = false;
 				}
 
-				for (int z = 0; z < BM_Script.poolActiveNumberList.Count; z++)
+				for (int z = 0; z < tempActiveNumberList.Count; z++)
 				{
 
 					//BM_Script.poolActiveNumberList[z];
 					for (int a = 0; a < scannedCardPatternCheck.Count; a++)
 					{
-						if (BM_Script.poolActiveNumberList[z] == scannedCardNumber[a])
+						if (tempActiveNumberList[0][z] == scannedCardNumber[a])
 						{
 							scannedCardPatternCheck[a] = true;
 						}
@@ -669,47 +683,47 @@ public class QRScript : MonoBehaviour {
 					}
 				}
 
-			if (isMatch)
-			{
-
-				if (!alreadyHasWinner)
+				if (isMatch)
 				{
-					placeWinner++;
-					alreadyHasWinner = true;
-					if (secondWinnerNum >= 9)
+
+					if (!alreadyHasWinner)
 					{
-						firstWinnerNum++;
-						secondWinnerNum = 0;
+						placeWinner++;
+						alreadyHasWinner = true;
+						if (secondWinnerNum >= 9)
+						{
+							firstWinnerNum++;
+							secondWinnerNum = 0;
+						}
+						else
+						{
+							secondWinnerNum++;
+						}
 					}
-					else
-					{
-						secondWinnerNum++;
+					else {
+
+
+
 					}
+
+					Debug.Log(cardNameArray[xy] + "is a match and has been removed from the card array. Winner Number " + placeWinner);
+					cardWinner.text += cardNameArray[xy] + " is Bingo " + placeWinner + ":";
+					string[] cardNameSplit = cardNameArray[xy].Split(' ');
+
+					cardNameArray.RemoveAt(xy);
+					cardNumberArray.RemoveAt(xy);
+					tempCardArray.RemoveAt(xy);
+
+					xy--;
+
+					yield return new WaitUntil(() => winnerAlive == false);
+
+					winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
+
+					winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
+
+
 				}
-				else {
-
-
-
-				}
-
-				Debug.Log(cardNameArray[xy] + "is a match and has been removed from the card array. Winner Number " + placeWinner);
-				cardWinner.text += cardNameArray[xy] + " is Bingo " + placeWinner + ":";
-				string[] cardNameSplit = cardNameArray[xy].Split(' ');
-
-				cardNameArray.RemoveAt(xy);
-				cardNumberArray.RemoveAt(xy);
-				tempCardArray.RemoveAt(xy);
-
-				xy--;
-
-				yield return new WaitUntil(() => winnerAlive == false);
-
-				winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
-
-				winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
-			
-
-			}
 
 
 
@@ -718,10 +732,13 @@ public class QRScript : MonoBehaviour {
 
 			}
 
-		alreadyHasWinner = false;
+			tempActiveNumberList.RemoveAt(0);
+			alreadyHasWinner = false;
 
+		}//END of infinite while loop
+
+	
 	}
-
 }
 
 
