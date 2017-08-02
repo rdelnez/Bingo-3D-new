@@ -696,25 +696,25 @@ public class QRScript : MonoBehaviour {
 				cardWinner.text += cardNameArray[xy] + " is Bingo " + placeWinner + ":";
 				string[] cardNameSplit = cardNameArray[xy].Split(' ');
 
+				cardNameArray.RemoveAt(xy);
+				cardNumberArray.RemoveAt(xy);
+				tempCardArray.RemoveAt(xy);
+
+				xy--;
 
 				yield return new WaitUntil(() => winnerAlive == false);
 
 				winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
 
 				winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
-				//WIN_Script.SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
-
-				cardNameArray.RemoveAt(xy);
-				cardNumberArray.RemoveAt(xy);
-				tempCardArray.RemoveAt(xy);
-
+			
 
 			}
 
 
 
 				//--------------------End Comparing Cards----------------------------//
-				yield return new WaitForSeconds(0.001f);
+				yield return new WaitForSeconds(0.03f);
 
 			}
 
