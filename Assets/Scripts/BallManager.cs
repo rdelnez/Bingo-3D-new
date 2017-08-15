@@ -78,7 +78,7 @@ public class BallManager : MonoBehaviour {
 		poolActiveNumberList.Add (poolNumberList[tempRandNum]);
 		poolNumberList.RemoveAt (tempRandNum);
 
-	//	QR_Script.CompareStoredCardsMain(poolActiveNumberList);
+		QR_Script.CompareStoredCardsMain(poolActiveNumberList);
 		// Debug.Log ("Balls Moving when button is pressed: " + ballsMoving);
 	}
 
