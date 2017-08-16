@@ -7,12 +7,8 @@ using BarcodeScanner;
 using BarcodeScanner.Scanner;
 using UnityEngine.SceneManagement;
 
-<<<<<<< HEAD
-public class QRScript : MonoBehaviour {
-=======
 public class QRScript : MonoBehaviour
 {
->>>>>>> origin/master
 	private IScanner BarcodeScanner;
 	private float RestartTime;
 
@@ -55,9 +51,6 @@ public class QRScript : MonoBehaviour
 	public List<string> tempCardArray;
 	public List<string> cardNameArray;
 	public List<string> cardNumberArray;
-	public List<int> cardWinnerArray;
-	public int numberOfWinners;
-	public bool summoningWinners;
 
 	public GameObject BingoWin;
 	public GameObject BingoLose;
@@ -75,11 +68,7 @@ public class QRScript : MonoBehaviour
 
 	void Awake()
 	{
-<<<<<<< HEAD
-
-=======
 		isComparing = false;
->>>>>>> origin/master
 		tempCardArray = new List<string>();
 		cardNameArray = new List<string>();
 		cardNumberArray = new List<string>();
@@ -140,54 +129,28 @@ public class QRScript : MonoBehaviour
 	}
 
 	// Use this for initialization
-<<<<<<< HEAD
-	void Start() {
-=======
 	void Start()
 	{
->>>>>>> origin/master
 		//BarcodeScanner.Camera.Play();
 		initialiseCamera();
 		firstWinnerNum = 0;
 		secondWinnerNum = 0;
-<<<<<<< HEAD
-		numberOfWinners = 0;
-
-		//RestartTime = Time.realtimeSinceStartup;
-=======
 
 		//RestartTime = Time.realtimeSinceStartup;
 
 		tempActiveNumberList = new List<List<int>>();
 		StartCoroutine(CompareStoredCards());
-		
->>>>>>> origin/master
+
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-<<<<<<< HEAD
-		//instantiateWinner();
-=======
->>>>>>> origin/master
 		//Debug.Log("Barcode exists " + (BarcodeScanner != null));
 		if (BarcodeScanner != null)
 		{
 			BarcodeScanner.Update();
 		}
-<<<<<<< HEAD
-
-		// Check if the Scanner need to be started or restarted
-		//Debug.Log("Scanning " + isRunning);
-		// if ((RestartTime != 0 && RestartTime < Time.realtimeSinceStartup) && isRunning)
-		if (RestartTime != 0 && RestartTime < Time.realtimeSinceStartup && isRunning)
-		{
-			StartScanner();
-			RestartTime = 0;
-		}
-	}
-=======
 
 		// Check if the Scanner need to be started or restarted
 		//Debug.Log("Scanning " + isRunning);
@@ -200,71 +163,17 @@ public class QRScript : MonoBehaviour
 	}
 
 
->>>>>>> origin/master
 
 	private bool checkQR(string type)
 	{
 		bool result = false;
-<<<<<<< HEAD
-		if (type == "QR_CODE") {
-=======
 		if (type == "QR_CODE")
 		{
->>>>>>> origin/master
 			result = true;
 		}
 		return result;
 	}
 
-<<<<<<< HEAD
-	private void saveType(string type) {
-		isQR = checkQR(type);
-	}
-	private void saveValue(string value) {
-		QRCode = value;
-	}
-
-	private void instantiateWinner()
-	{
-		StartCoroutine(checkForWinners());
-	}
-
-	IEnumerator checkForWinners()
-	{
-
-		while (numberOfWinners > 0)
-		{
-			numberOfWinners--;
-			summoningWinners = true;
-			yield return new WaitUntil(() => winnerAlive == false);
-
-			winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
-
-			winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(cardWinnerArray[0], cardWinnerArray[1], cardWinnerArray[2]);
-
-			cardWinnerArray.RemoveAt(0);
-			cardWinnerArray.RemoveAt(0);
-			cardWinnerArray.RemoveAt(0);
-
-		}
-		if(numberOfWinners == 0){
-
-			summoningWinners = false;
-
-		}
-
-	}
-private void StartScanner()
-    {
-        //initialiseCamera();
-        BarcodeScanner.StatusChanged += (sender, arg) => {
-            TextHeader.text = "Status: " + BarcodeScanner.Status;
-        };
-
-        BarcodeScanner.Scan((barCodeType, barCodeValue) => {
-            BarcodeScanner.Stop();
-            /* if (TextHeader.text.Length > 250)
-=======
 	private void saveType(string type)
 	{
 		isQR = checkQR(type);
@@ -287,7 +196,6 @@ private void StartScanner()
 		{
 			BarcodeScanner.Stop();
 			/* if (TextHeader.text.Length > 250)
->>>>>>> origin/master
             {
                 TextHeader.text = "";
             } */
@@ -671,7 +579,7 @@ private void StartScanner()
 		tempActiveNumberList.Add(new List<int>(tempActNum));
 
 		//Debug.Log(tempActiveNumberList[0]);
-		for(int y = 0; y < tempActiveNumberList.Count; y++)
+		for (int y = 0; y < tempActiveNumberList.Count; y++)
 		{
 			Debug.Log("List No. " + y);
 			for (int x = 0; x < tempActiveNumberList[y].Count; x++)
@@ -679,131 +587,18 @@ private void StartScanner()
 				Debug.Log(tempActiveNumberList[y][x]);
 			}
 		}
-//		if(!isComparing)
-//		{
-//			isComparing = true;
-//			StartCoroutine(CompareStoredCards());
-//		}
+		//		if(!isComparing)
+		//		{
+		//			isComparing = true;
+		//			StartCoroutine(CompareStoredCards());
+		//		}
 	}
 
 	IEnumerator CompareStoredCards()
 	{
-<<<<<<< HEAD
-
-		for (int xy = 0; xy < cardNumberArray.Count; xy++)
-		{
-			scannedCardNumber.Clear();
-
-			string tempNum = "";
-			for (int y = 0; y < cardNumberArray[xy].Length; y++)
-			{
-				if (cardNumberArray[xy][y] != ',')
-				{
-					tempNum += cardNumberArray[xy][y];
-				}
-				else
-				{
-					scannedCardNumber.Add(int.Parse(tempNum));
-					Debug.Log(scannedCardNumber);
-					tempNum = "";
-				}
-			}
-
-
-
-			for (int c = 0; c < scannedCardPatternCheck.Count; c++)
-			{
-				scannedCardPatternCheck[c] = false;
-			}
-
-			for (int z = 0; z < BM_Script.poolActiveNumberList.Count; z++)
-			{
-
-				//BM_Script.poolActiveNumberList[z];
-				for (int a = 0; a < scannedCardPatternCheck.Count; a++)
-				{
-					if (BM_Script.poolActiveNumberList[z] == scannedCardNumber[a])
-					{
-						scannedCardPatternCheck[a] = true;
-					}
-
-				}
-
-			}
-
-
-			//--------------------Start Comparing Cards----------------------------//
-			isMatch = true;
-			int tempAnimatedPatternCheckNum = 0;
-
-			if (GM_Script.activePatternName == "Pattern1")
-			{
-				if (scannedCardPatternCheck[0] && scannedCardPatternCheck[5] && scannedCardPatternCheck[10] && scannedCardPatternCheck[15] && scannedCardPatternCheck[20])
-				{
-					tempAnimatedPatternCheckNum++;
-				}
-				if (scannedCardPatternCheck[1] && scannedCardPatternCheck[6] && scannedCardPatternCheck[11] && scannedCardPatternCheck[16] && scannedCardPatternCheck[21])
-				{
-					tempAnimatedPatternCheckNum++;
-				}
-				if (scannedCardPatternCheck[2] && scannedCardPatternCheck[7] && scannedCardPatternCheck[17] && scannedCardPatternCheck[22])
-				{
-					tempAnimatedPatternCheckNum++;
-				}
-				if (scannedCardPatternCheck[3] && scannedCardPatternCheck[8] && scannedCardPatternCheck[13] && scannedCardPatternCheck[18] && scannedCardPatternCheck[23])
-				{
-					tempAnimatedPatternCheckNum++;
-				}
-				if (scannedCardPatternCheck[4] && scannedCardPatternCheck[9] && scannedCardPatternCheck[14] && scannedCardPatternCheck[19] && scannedCardPatternCheck[24])
-				{
-					tempAnimatedPatternCheckNum++;
-				}
-
-				if (tempAnimatedPatternCheckNum < 2)
-				{
-					isMatch = false;
-				}
-			}
-			else if (GM_Script.activePatternName == "Pattern2")
-			{
-				if (scannedCardPatternCheck[0] && scannedCardPatternCheck[1] && scannedCardPatternCheck[2] && scannedCardPatternCheck[3] && scannedCardPatternCheck[4])
-				{
-					tempAnimatedPatternCheckNum++;
-				}
-				if (scannedCardPatternCheck[5] && scannedCardPatternCheck[6] && scannedCardPatternCheck[7] && scannedCardPatternCheck[8] && scannedCardPatternCheck[9])
-				{
-					tempAnimatedPatternCheckNum++;
-				}
-				if (scannedCardPatternCheck[10] && scannedCardPatternCheck[11] && scannedCardPatternCheck[13] && scannedCardPatternCheck[14])
-				{
-					tempAnimatedPatternCheckNum++;
-				}
-				if (scannedCardPatternCheck[15] && scannedCardPatternCheck[16] && scannedCardPatternCheck[17] && scannedCardPatternCheck[18] && scannedCardPatternCheck[19])
-				{
-					tempAnimatedPatternCheckNum++;
-				}
-				if (scannedCardPatternCheck[20] && scannedCardPatternCheck[21] && scannedCardPatternCheck[22] && scannedCardPatternCheck[23] && scannedCardPatternCheck[24])
-				{
-					tempAnimatedPatternCheckNum++;
-				}
-
-				if (tempAnimatedPatternCheckNum < 2)
-				{
-					isMatch = false;
-				}
-			}
-			else
-			{
-				for (int b = 0; b < scannedCardPatternCheck.Count; b++)
-				{
-					if (GM_Script.blueIsActiveList[b])
-					{
-						if (scannedCardPatternCheck[b])
-						{
-=======
 		while (true)
 		{
-			if(tempActiveNumberList.Count > 0)
+			if (tempActiveNumberList.Count > 0)
 			{
 
 				for (int xy = 0; xy < cardNumberArray.Count; xy++)
@@ -944,42 +739,11 @@ private void StartScanner()
 							{
 								secondWinnerNum++;
 							}
->>>>>>> origin/master
 						}
 						else
 						{
 
-<<<<<<< HEAD
-							isMatch = false;
-							break;
-						}
-					}
 
-				}
-			}
-
-			if (isMatch)
-			{
-				numberOfWinners++;
-
-				if (!alreadyHasWinner)
-				{
-					placeWinner++;
-					alreadyHasWinner = true;
-					if (secondWinnerNum >= 9)
-					{
-						firstWinnerNum++;
-						secondWinnerNum = 0;
-					}
-					else
-					{
-						secondWinnerNum++;
-					}
-				}
-				else {
-=======
-
->>>>>>> origin/master
 
 						}
 
@@ -997,46 +761,22 @@ private void StartScanner()
 
 						winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
 
-<<<<<<< HEAD
-				cardWinnerArray.Add(int.Parse(cardNameSplit[1]));
-				cardWinnerArray.Add(firstWinnerNum);
-				cardWinnerArray.Add(secondWinnerNum);
-
-
-				// Add to list ^^ int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum ^^
-=======
 						winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
 
 
 					}
->>>>>>> origin/master
 
 
 
 					//--------------------End Comparing Cards----------------------------//
 					yield return new WaitForSeconds(0.03f);
 
-<<<<<<< HEAD
-			//--------------------End Comparing Cards----------------------------//
-			yield return new WaitForSeconds(0.03f);
-
-		}
-
-		alreadyHasWinner = false;
-		if (numberOfWinners > 0)
-		{
-			yield return new WaitUntil(() => summoningWinners == false);
-			instantiateWinner();
-		}
-
-=======
 				}
 
 				tempActiveNumberList.RemoveAt(0);
 				alreadyHasWinner = false;
 
 			}//END of if loop
->>>>>>> origin/master
 
 			yield return null;
 		}//E.N.D.
