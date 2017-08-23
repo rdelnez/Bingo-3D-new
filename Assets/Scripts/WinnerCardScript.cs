@@ -15,18 +15,24 @@ public class WinnerCardScript : MonoBehaviour {
 	public QRScript QR_Script;
 	public bool pastSpawnPoint; // So it sets true only once.	
 
+	//public List<List<List<int>>> winnerList_Stack;
+
+
 	private void Awake()
 	{
 		QR_Script = GameObject.FindGameObjectWithTag("QR").GetComponent<QRScript>();
-		endPos = this.transform.localPosition + new Vector3(0, 5, 0);
-		nextPos = this.transform.localPosition + new Vector3(0, 2, 0);
+		endPos = this.transform.localPosition + new Vector3(0, -5, 0);
+	//	nextPos = this.transform.localPosition + new Vector3(0, 2, 0);
 		moveSpeed = 2;
-		QR_Script.winnerAlive = true;
+		//QR_Script.winnerAlive = true;
 	}
 
 
 	void Start()
 	{
+
+		//winnerList_Stack = new List<List<List<int>>>();
+
 		StartCoroutine(MoveGraphics());
 	}
 
@@ -59,15 +65,15 @@ public class WinnerCardScript : MonoBehaviour {
 		{
 			transform.localPosition = Vector3.MoveTowards(transform.localPosition, endPos, Time.deltaTime * moveSpeed);
 
-			if (pastSpawnPoint == false)
-			{
-				if (this.transform.localPosition.y >= nextPos.y)
-				{
-					pastSpawnPoint = true;
-					QR_Script.winnerAlive = false;
-				}
+			//if (pastSpawnPoint == false)
+			//{
+				//if (this.transform.localPosition.y >= nextPos.y)
+				//{
+				//	pastSpawnPoint = true;
+				//	QR_Script.winnerAlive = false;
+				//}
 
-			}
+			//}
 			if (this.transform.localPosition == endPos)
 			{
 				Destroy(this.gameObject);

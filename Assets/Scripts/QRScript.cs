@@ -61,6 +61,10 @@ public class QRScript : MonoBehaviour
 	public int firstWinnerNum = 0;
 	public int secondWinnerNum = 0;
 
+	public List<int> CardNum_Stack;
+	public List<int> FirstNum_Stack;
+	public List<int> SecondNum_Stack;
+
 	public List<List<int>> tempActiveNumberList;
 	[SerializeField]
 	private bool isComparing;
@@ -126,6 +130,10 @@ public class QRScript : MonoBehaviour
 		BarcodeScanner = new Scanner();
 		isRunning = false;
 		// BarcodeScanner = new Scanner();
+
+		CardNum_Stack = new List<int>();
+		FirstNum_Stack = new List<int>();
+		SecondNum_Stack = new List<int>();
 	}
 
 	// Use this for initialization
@@ -140,6 +148,7 @@ public class QRScript : MonoBehaviour
 
 		tempActiveNumberList = new List<List<int>>();
 		StartCoroutine(CompareStoredCards());
+		StartCoroutine(SpawningWinners());
 
 	}
 
@@ -757,11 +766,15 @@ public class QRScript : MonoBehaviour
 
 						xy--;
 
-						yield return new WaitUntil(() => winnerAlive == false);
+						//yield return new WaitUntil(() => winnerAlive == false);
+						//winnerAlive = true;
 
-						winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
+						//winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
+						//winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
 
-						winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(int.Parse(cardNameSplit[1]), firstWinnerNum, secondWinnerNum);
+						CardNum_Stack.Add(int.Parse(cardNameSplit[1]));
+						FirstNum_Stack.Add(firstWinnerNum);
+						SecondNum_Stack.Add(secondWinnerNum);
 
 
 					}
@@ -781,6 +794,36 @@ public class QRScript : MonoBehaviour
 			yield return null;
 		}//E.N.D.
 	}
+
+
+
+
+
+
+	IEnumerator SpawningWinners() {		//this is for Displaying the winner on the Bingo Board
+		while (true) {
+
+			if (CardNum_Stack.Count > 0) {
+
+				yield return new WaitForSeconds(2.0f);
+				winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
+				winCardGameObject.GetComponent<WinnerCardScript>().SetWinnerNumber(CardNum_Stack[0], FirstNum_Stack[0], SecondNum_Stack[0]);
+
+				CardNum_Stack.RemoveAt(0);
+				FirstNum_Stack.RemoveAt(0);
+				SecondNum_Stack.RemoveAt(0);
+
+
+			}
+			
+
+			yield return null;
+		}
+
+		
+	}
+
+
 }
 
 

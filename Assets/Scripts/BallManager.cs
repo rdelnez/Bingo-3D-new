@@ -65,7 +65,7 @@ public class BallManager : MonoBehaviour
 
 	public int GetRandomNum()
 	{
-		return (int)Random.Range(0, poolNumberList.Count);
+		return (int)Random.Range(0, poolNumberList.Count-60);
 	}
 
 	public void InstantiateBallFromTumbler()
