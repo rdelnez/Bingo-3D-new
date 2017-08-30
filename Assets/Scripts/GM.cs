@@ -50,6 +50,9 @@ public class GM : MonoBehaviour {
 	public int tempIndexOfMenuButton;
 	public MenuButton tempMenuButtonScript;
 
+	public GameObject WinnersButton;
+	public GameObject WinnersDisplay;
+
 	public GameObject BingoCard;		//for other menu buttons
 	public GameObject BingoClose;		//for other menu buttons
 	public GameObject BingoReset;		//for other menu buttons
@@ -893,6 +896,8 @@ public class GM : MonoBehaviour {
 		winButtonPrefabs.SetActive (false);
 		bingoCardMiniPrefabs.SetActive (false);
 		recallTextPrefab.SetActive (false);
+		WinnersButton.SetActive(false);
+		WinnersDisplay.SetActive(false);
 
 		MainMenuButton.SetActive (true);
 
@@ -950,9 +955,10 @@ public class GM : MonoBehaviour {
 		bingoCardMiniPrefabs.SetActive (true);
 		recallTextPrefab.SetActive (true);
         MM_Script.QRButton.gameObject.SetActive(true);
+		WinnersButton.SetActive(true);
 
-        //Start This is for Recall Numbers
-        for (int x=0; x<4; x++){
+		//Start This is for Recall Numbers
+		for (int x=0; x<4; x++){
 			RecallNumberObjectList[x].transform.GetChild(0).gameObject.SetActive(true);	
 			
 		}

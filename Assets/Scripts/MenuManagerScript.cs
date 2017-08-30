@@ -9,6 +9,8 @@ public class MenuManagerScript : MonoBehaviour {
     public bool scannerRunning;
 
     public GameObject QROverlay;
+	public GameObject WinnerDisplay;
+	bool WinnerDisplaying;
 	public string tempButtonName;
 	public string patternTest;
 	public SoundManagerScript SM_Script;
@@ -42,6 +44,9 @@ public class MenuManagerScript : MonoBehaviour {
 	}
 
 	void Start () {
+
+		WinnerDisplaying = false;
+
 		patternTest = "01";
 
 		SM_Script = GameObject.FindGameObjectWithTag ("SoundManager").GetComponent<SoundManagerScript>();
@@ -315,6 +320,19 @@ public class MenuManagerScript : MonoBehaviour {
         QROverlay.SetActive(false);
         QRScript.stopScanning();
     }
+
+	public void WinnerDisplayButton() {
+		if (WinnerDisplaying == false)
+		{
+			WinnerDisplaying = true;
+			WinnerDisplay.SetActive(true);
+		}
+		else {
+			WinnerDisplaying = false;
+			WinnerDisplay.SetActive(false);
+		}
+
+	}
 
     /* IEnumerator TumblerIsActive() {
 		while(GM_Script.TumblerIsEnabled == false){

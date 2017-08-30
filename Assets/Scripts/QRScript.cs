@@ -22,6 +22,7 @@ public class QRScript : MonoBehaviour
 	public SoundManagerScript SM_Script;
 	public WinnerCardScript WIN_Script;
 	public bool winnerAlive;
+	public GameObject winnerText;
 
 	public UnityEngine.Object winCardPrefab;
 	public GameObject winCardGameObject;
@@ -757,7 +758,7 @@ public class QRScript : MonoBehaviour
 						}
 
 						Debug.Log(cardNameArray[xy] + "is a match and has been removed from the card array. Winner Number " + placeWinner);
-						cardWinner.text += cardNameArray[xy] + " is Bingo " + placeWinner + ":";
+						cardWinner.text += cardNameArray[xy] + " is Winner " + placeWinner + "\n";
 						string[] cardNameSplit = cardNameArray[xy].Split(' ');
 
 						cardNameArray.RemoveAt(xy);
