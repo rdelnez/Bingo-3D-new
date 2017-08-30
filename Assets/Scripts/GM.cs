@@ -149,6 +149,8 @@ public class GM : MonoBehaviour {
 	public Hex tempHex;
 	public HexBig tempHexBig;
 
+	public Canvas canvas;
+
 
 	//public List<List<GameObject>> hexList= new List<List<GameObject>>();
 
@@ -167,9 +169,15 @@ public class GM : MonoBehaviour {
 	void Awake(){
 		Time.timeScale = 1.5f;
 
+		
+
 		InitialisedVariables();
 		InitialisedObjects ();
+
+		Canvas.ForceUpdateCanvases();
 	}
+
+	
 
 	void Start () {
 
