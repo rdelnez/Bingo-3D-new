@@ -1306,8 +1306,6 @@ public class GM : MonoBehaviour {
 	public void ResetGame(){
 		Debug.Log("Reset");
 
-		QR_Script.placeWinner = 0;
-
 		
 
 		BallManager tempBM = GameObject.FindGameObjectWithTag ("BallManager").GetComponent<BallManager>();

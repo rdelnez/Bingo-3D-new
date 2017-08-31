@@ -13,7 +13,6 @@ public class QRScript : MonoBehaviour
 	private float RestartTime;
 
 	public Text cardWinner;
-	public int placeWinner;
 	public bool alreadyHasWinner;
 	public bool multipleWinner;
 
@@ -71,15 +70,19 @@ public class QRScript : MonoBehaviour
 	private bool isComparing;
 	//End Winner Counting
 
+	//Start Toggle Winner Spawner
+	public Text toggleWinnerText;
+	public bool spawnWinners;
+
 	void Awake()
 	{
+		spawnWinners = false;
 		isComparing = false;
 		tempCardArray = new List<string>();
 		cardNameArray = new List<string>();
 		cardNumberArray = new List<string>();
 		GetSavedCards();
 
-		placeWinner = 0;
 		alreadyHasWinner = false;
 
 		firstWinnerNum = 0;
@@ -603,6 +606,19 @@ public class QRScript : MonoBehaviour
 		//			StartCoroutine(CompareStoredCards());
 		//		}
 	}
+	public void toggleSpawnWinners() {
+
+		if (spawnWinners == true)
+		{
+			spawnWinners = false;
+			toggleWinnerText.text = "Start Spawning Winners";
+		}
+		else {
+			spawnWinners = true;
+			toggleWinnerText.text = "Stop Spawning Winners";
+		}
+
+	}
 
 	IEnumerator CompareStoredCards()
 	{
@@ -738,7 +754,6 @@ public class QRScript : MonoBehaviour
 
 						if (!alreadyHasWinner)
 						{
-							placeWinner++;
 							alreadyHasWinner = true;
 							if (secondWinnerNum >= 9)
 							{
@@ -756,10 +771,18 @@ public class QRScript : MonoBehaviour
 
 
 						}
-
-						Debug.Log(cardNameArray[xy] + "is a match and has been removed from the card array. Winner Number " + placeWinner);
-						cardWinner.text += cardNameArray[xy] + " is Winner " + placeWinner + "\n";
 						string[] cardNameSplit = cardNameArray[xy].Split(' ');
+
+						Debug.Log(cardNameArray[xy] + "is a match and has been removed from the card array. Winner Number " + firstWinnerNum + secondWinnerNum);
+						if (int.Parse(cardNameSplit[1]) > 9)
+						{
+							cardWinner.text += cardNameArray[xy] + " is Winner " + firstWinnerNum + secondWinnerNum + "\n";
+						}
+						else {
+							
+							cardWinner.text += cardNameSplit[0] + " 0" + cardNameSplit[1] + " is Winner " + firstWinnerNum + secondWinnerNum + "\n";
+						}
+						
 
 						cardNameArray.RemoveAt(xy);
 						cardNumberArray.RemoveAt(xy);
@@ -804,7 +827,7 @@ public class QRScript : MonoBehaviour
 	IEnumerator SpawningWinners() {		//this is for Displaying the winner on the Bingo Board
 		while (true) {
 
-			if (CardNum_Stack.Count > 0) {
+			if (CardNum_Stack.Count > 0 && spawnWinners == true) {
 
 				yield return new WaitForSeconds(2.0f);
 				winCardGameObject = Instantiate(winCardPrefab, winCardPos.localPosition, Quaternion.identity) as GameObject;
