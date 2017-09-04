@@ -73,10 +73,11 @@ public class QRScript : MonoBehaviour
 	//Start Toggle Winner Spawner
 	public Text toggleWinnerText;
 	public bool spawnWinners;
+    public GameObject winnerButton;
 
 	void Awake()
 	{
-		spawnWinners = false;
+        spawnWinners = false;
 		isComparing = false;
 		tempCardArray = new List<string>();
 		cardNameArray = new List<string>();
@@ -610,13 +611,18 @@ public class QRScript : MonoBehaviour
 
 		if (spawnWinners == true)
 		{
+
 			spawnWinners = false;
-			toggleWinnerText.text = "Start Spawning Winners";
-		}
+            winnerButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameButtons/hide_winners_NOTpressed");
+
+        }
 		else {
+
 			spawnWinners = true;
-			toggleWinnerText.text = "Stop Spawning Winners";
-		}
+            winnerButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameButtons/show_winners_NOTpressed");
+            //winnerButton.GetComponent<Button>().spriteState.pressedSprite = Resources.Load<Sprite>("GameButtons/show_winners_NOTpressed");
+
+        }
 
 	}
 
