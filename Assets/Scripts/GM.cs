@@ -53,6 +53,8 @@ public class GM : MonoBehaviour {
 	public GameObject WinnersButton;
 	public GameObject WinnersDisplay;
 
+	public GameObject ShowWinnerToggle;
+
 	public GameObject BingoCard;		//for other menu buttons
 	public GameObject BingoClose;		//for other menu buttons
 	public GameObject BingoReset;		//for other menu buttons
@@ -884,7 +886,8 @@ public class GM : MonoBehaviour {
 
 
 		LittleMenu.SetActive (false); // set BingoCard Active
-        MM_Script.QRButton.gameObject.SetActive(false);
+		ShowWinnerToggle.SetActive(false); // Set SHowwinnerToggle to NOT shown
+		MM_Script.QRButton.gameObject.SetActive(false);
         MM_Script.QRButtonDisable();
 
 
@@ -964,6 +967,7 @@ public class GM : MonoBehaviour {
 		recallTextPrefab.SetActive (true);
         MM_Script.QRButton.gameObject.SetActive(true);
 		WinnersButton.SetActive(true);
+		ShowWinnerToggle.SetActive(true);
 
 		//Start This is for Recall Numbers
 		for (int x=0; x<4; x++){

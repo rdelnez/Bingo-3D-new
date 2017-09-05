@@ -609,17 +609,17 @@ public class QRScript : MonoBehaviour
 	}
 	public void toggleSpawnWinners() {
 
-		if (spawnWinners == true)
+		if (spawnWinners == false)
 		{
 
-			spawnWinners = false;
-            winnerButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameButtons/hide_winners_NOTpressed");
+			spawnWinners = true;
+            winnerButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameButtons/hide_winnersv2");
 
         }
 		else {
 
-			spawnWinners = true;
-            winnerButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameButtons/show_winners_NOTpressed");
+			spawnWinners = false;
+            winnerButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameButtons/show_winnersv2");
             //winnerButton.GetComponent<Button>().spriteState.pressedSprite = Resources.Load<Sprite>("GameButtons/show_winners_NOTpressed");
 
         }

@@ -17,6 +17,8 @@ public class ShowHideWinners : MonoBehaviour
 
     void OnMouseOver()
     {
+
+		Debug.Log("Button Clicked");
         isTrue = true;
         if (Input.GetButtonDown("Fire1") && isTrue)
         {
