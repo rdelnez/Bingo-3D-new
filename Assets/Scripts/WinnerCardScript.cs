@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WinnerCardScript : MonoBehaviour {
 
@@ -14,6 +15,7 @@ public class WinnerCardScript : MonoBehaviour {
 	public int moveSpeed;
 	public QRScript QR_Script;
 	public bool pastSpawnPoint; // So it sets true only once.	
+	public GM GM_Script;
 
 	//public List<List<List<int>>> winnerList_Stack;
 
@@ -21,6 +23,7 @@ public class WinnerCardScript : MonoBehaviour {
 	private void Awake()
 	{
 		QR_Script = GameObject.FindGameObjectWithTag("QR").GetComponent<QRScript>();
+		//GM_Script = GameObject.FindGameObjectWithTag("GM").GetComponent<GM>();
 		endPos = this.transform.localPosition + new Vector3(0, -5, 0);
 	//	nextPos = this.transform.localPosition + new Vector3(0, 2, 0);
 		moveSpeed = 2;
@@ -30,10 +33,11 @@ public class WinnerCardScript : MonoBehaviour {
 
 	void Start()
 	{
-
+		//GM_Script = GameObject.FindGameObjectWithTag("GM").GetComponent<GM>();
 		//winnerList_Stack = new List<List<List<int>>>();
 
 		StartCoroutine(MoveGraphics());
+		//GM_Script.winnerObjects.Add(this.gameObject);
 	}
 
 
@@ -76,12 +80,19 @@ public class WinnerCardScript : MonoBehaviour {
 			//}
 			if (this.transform.localPosition == endPos)
 			{
-				Destroy(this.gameObject);
+				//GM_Script.destroyWinners();
+				DestroyWinner();
 			}
 
 
 			yield return new WaitForSeconds(0.03f);
 		}
+	}
+
+
+	public void DestroyWinner()
+	{
+		Destroy(this.gameObject);
 	}
 
 }

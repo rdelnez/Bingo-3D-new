@@ -8,7 +8,10 @@ public class GM : MonoBehaviour {
 
 	public MenuManagerScript MM_Script;
 	public QRScript QR_Script;
+	public Text winnersText;
 	public GameObject MainMenuButton;
+	//public GameObject[] winnerObjects;
+	public List<GameObject> winnerObjects;
 
 
 	public GameObject hexPrefabs;
@@ -182,6 +185,8 @@ public class GM : MonoBehaviour {
 	
 
 	void Start () {
+
+		winnerObjects = new List<GameObject>();
 
 	}
 	
@@ -912,10 +917,11 @@ public class GM : MonoBehaviour {
 
 		MainMenuButton.SetActive (true);
 
+		QR_Script.turnOffWinners();
+
 		//Start This is for Recall Numbers
 		for(int x=0; x<4; x++){
 			RecallNumberObjectList[x].transform.GetChild(0).gameObject.SetActive(false);	
-			
 		}
 		//END This is for Recall Numbers
 
@@ -1335,6 +1341,25 @@ public class GM : MonoBehaviour {
 		}
 
 		BingoCardBigScript.ResetBingoCards ();
+		QR_Script.ResetCardAndWinnerList();
+		DestroyWinners();
+		winnersText.text = "";
+
+
+	}
+
+	public void DestroyWinners() {
+
+		
+
+		for (int x = 0; x < winnerObjects.Count; x++) {
+
+			//Destroy(winnerObjects[x]);
+
+			
+				winnerObjects[x].GetComponent<WinnerCardScript>().DestroyWinner();
+			 
+		}
 
 	}
 

@@ -612,17 +612,29 @@ public class QRScript : MonoBehaviour
 		if (spawnWinners == false)
 		{
 
-			spawnWinners = true;
-            winnerButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameButtons/hide_winnersv2");
+			turnOnWinners();
 
         }
 		else {
 
-			spawnWinners = false;
-            winnerButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameButtons/show_winnersv2");
-            //winnerButton.GetComponent<Button>().spriteState.pressedSprite = Resources.Load<Sprite>("GameButtons/show_winners_NOTpressed");
+			turnOffWinners();
 
         }
+
+	}
+
+	public void turnOnWinners()
+	{
+
+		spawnWinners = true;
+		winnerButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameButtons/hide_winnersv2");
+
+	}
+
+	public void turnOffWinners() {
+
+		spawnWinners = false;
+		winnerButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("GameButtons/show_winnersv2");
 
 	}
 
@@ -827,7 +839,29 @@ public class QRScript : MonoBehaviour
 
 
 
+	public void ResetCardAndWinnerList() {
 
+		GetSavedCards();
+
+		if (spawnWinners == true)
+		{
+
+			toggleSpawnWinners();
+
+		}
+
+		if (CardNum_Stack.Count > 0)
+		{
+			CardNum_Stack.Clear();
+			FirstNum_Stack.Clear();
+			SecondNum_Stack.Clear();
+		}
+
+		firstWinnerNum = 0;
+		secondWinnerNum = 0;
+
+
+	}
 
 
 	IEnumerator SpawningWinners() {		//this is for Displaying the winner on the Bingo Board
